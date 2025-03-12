@@ -20,57 +20,60 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			//Define the category.
 			category :  
 			{
-				name : 'Black People', //Category name to be used for feedback and logging.
+				name : 'Nome Paziente', //Category name to be used for feedback and logging.
 				title : {
 					media : {word : 'Black People'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Tyron'},
-					{word: 'Malik'},
-					{word: 'Terrell'},
-					{word: 'Jazmin'},
-					{word: 'Tiara'},
-					{word: 'Shanice'}
+					{word: 'Faisal'},
+					{word: 'Otuwa'},
+					{word: 'Otuwa Faisal'},
+					{word: 'O.F.'},
+					{word: 'Faisal Otuwa'},
+					{word: 'Otuwa Faisal'},
+                                        {word: 'Faisal Otuwa'}
 				],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},	
 			attribute1 : 
 			{
-				name : 'Unpleasant', //Attribute name to be used for feedback and logging
+				name : 'Evitamento', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Unpleasant'}, //Name of the category presented in the task.
+					media : {word : 'Evitamento'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Bomb'},
-					{word: 'Abuse'},
-					{word: 'Sadness'},
-					{word: 'Pain'},
-					{word: 'Poison'},
-					{word: 'Grief'}
+					{word: 'evito'},
+					{word: 'sfuggo'},
+					{word: 'mi allontano'},
+					{word: 'mi discosto'},
+					{word: 'evitare'},
+					{word: 'mi allontano'},
+                                        {word: 'evito'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},
 			attribute2 : 
 			{
-				name : 'Pleasant', //Attribute name to be used for feedback and logging
+				name : 'Approccio', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Pleasant'}, //Name of the category presented in the task.
+					media : {word : 'Approccio'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Paradise'},
-					{word: 'Pleasure'},
-					{word: 'Cheer'},
-					{word: 'Wonderful'},
-					{word: 'Splendid'},
-					{word: 'Love'}
+					{word: 'mi avvicino'},
+					{word: 'mi accosto'},
+					{word: 'approccio'},
+					{word: 'approcciare'},
+					{word: 'toccare'},
+					{word: 'approccio'},
+                                        {word: 'mi avvicino'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -90,7 +93,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 2, 
-					miniBlocks : 2, 
+					miniBlocks : 1, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
 					categoryTrials : 7
