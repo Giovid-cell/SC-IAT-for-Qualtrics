@@ -13,11 +13,11 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 		    }, 
 		    media : [ //Stimuli content as PIP's media objects
     		    	{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_jVgGsZtstyLfNob'}, 
-    			{image : 'black2.jpg'}, 
-    			{image : 'black3.jpg'}, 
-    			{image : 'black4.jpg'}, 
-    			{image : 'black5.jpg'}, 
-    			{image : 'black6.jpg'}
+    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_oFZ6ga6giojzpSY'}, 
+    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_xWqqq5qfBGw4mZ2'}, 
+    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_o8GP31GJsSLQazg}, 
+    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_i094YxZwLtm118v}, 
+    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_1SDN5wXAlxwaXKl'}
 		    ], 
 		    //Stimulus css (style)
 		    css : {color:'#31b404','font-size':'3em'}
