@@ -41,9 +41,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			},	
 			attribute1 : 
 			{
-				name : 'Unpleasant', //Attribute name to be used for feedback and logging
+				name : 'Avoidance', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Unpleasant'}, //Name of the category presented in the task.
+					media : {word : 'Avoidance'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
@@ -60,9 +60,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			},
 			attribute2 : 
 			{
-				name : 'Pleasant', //Attribute name to be used for feedback and logging
+				name : 'Approach', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Pleasant'}, //Name of the category presented in the task.
+					media : {word : 'Approach'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
