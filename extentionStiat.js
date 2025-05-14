@@ -1,3 +1,5 @@
+// https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/extentionStiat.js 
+
 define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) {
 
 	function stiatExtension(options)
