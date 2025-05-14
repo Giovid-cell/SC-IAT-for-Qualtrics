@@ -12,7 +12,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 		      height : 7 //Used to position the "Or" in the combined block.
 		    }, 
 		    media : [ //Stimuli content as PIP's media objects
-    		    	{image : 'black1.jpg'}, 
+    		    	{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_jVgGsZtstyLfNob'}, 
     			{image : 'black2.jpg'}, 
     			{image : 'black3.jpg'}, 
     			{image : 'black4.jpg'}, 
