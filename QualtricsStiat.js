@@ -12,12 +12,12 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 		      height : 7 //Used to position the "Or" in the combined block.
 		    }, 
 		    media : [ //Stimuli content as PIP's media objects
-    		    	{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_jVgGsZtstyLfNob'}, 
-    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_oFZ6ga6giojzpSY'}, 
-    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_xWqqq5qfBGw4mZ2'}, 
-    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_o8GP31GJsSLQazg}, 
-    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_i094YxZwLtm118v}, 
-    			{image : 'https://unipadova.qualtrics.com/ControlPanel/Graphic.php?IM=IM_1SDN5wXAlxwaXKl'}
+    		       {image : 'b1.jpg'}, 
+        {image : 'b2.jpg'}, 
+        {image : 'b3.jpg'}, 
+        {image : 'b4.jpg'}, 
+        {image : 'b5.jpg'}, 
+        {image : 'b6.jpg'}
 		    ], 
 		    //Stimulus css (style)
 		    css : {color:'#31b404','font-size':'3em'}
@@ -63,7 +63,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 			},
 
   base_url : {//Where are your images at?
-    image : 'https://baranan.github.io/minno-tasks/images/'
+    image :  'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/images/' 
   }}
   );
   });
