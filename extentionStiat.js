@@ -143,8 +143,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Press "E" for', 
-			rightKeyText : 'Press "I" for', 
+			leftKeyText : 'Premi "E" for', 
+			rightKeyText : 'Premi "I" for', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
 			orText : 'or', 
@@ -153,7 +153,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
 			'If you make a mistake, a red <font color="#ff0000"><b>X</b></font> will appear. ' +
-			'Press the other key to continue.<p/>',
+			'BOCCADAMO.<p/>',
 			
 			finalText: 'You have completed this task<br/><br/>Press SPACE to continue.', 
 
