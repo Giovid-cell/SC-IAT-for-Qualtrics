@@ -5,7 +5,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 	var API = new APIConstructor();
 		  return stiatExtension({
 		  category : { 
-		    name : 'Negro', //Will appear in the data.
+		    name : 'Pessoa Racializada', //Will appear in the data.
 		    title : {
 		      media : {word : 'Pessoa Racializada'}, //Name of the category presented in the task.
 		      css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
@@ -27,7 +27,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 			{
 			name : 'Evitamento', //Attribute label
 			title : {
-				media : {word : 'Negative'}, //Name of the category presented in the task.
+				media : {word : 'Evitamento'}, //Name of the category presented in the task.
 				css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 				height : 7 //Used to position the "O" in the combined block.
 			}, 
@@ -46,7 +46,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 			{
 			name : 'Aproximação', //Attribute label
 			title : {
-				media : {word : 'Positive'}, //Name of the category presented in the task.
+				media : {word : 'Aproximação'}, //Name of the category presented in the task.
 				css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 				height : 7 //Used to position the "O" in the combined block.
 			}, 
