@@ -164,7 +164,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
 			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>Part blockNum of nBlocks</u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
@@ -175,7 +175,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'Carregue na outra tecla para continuar.<br/><br/>' + 
 				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>Part blockNum of nBlocks </u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
@@ -187,7 +187,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'Carregue na outra tecla para continuar.<br/><br/>' + 
 				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
 			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>Part blockNum of nBlocks </u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font> ' +
