@@ -7,7 +7,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 		  category : { 
 		    name : 'Negro', //Will appear in the data.
 		    title : {
-		      media : {word : 'Negro'}, //Name of the category presented in the task.
+		      media : {word : 'Pessoa Racializada'}, //Name of the category presented in the task.
 		      css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 		      height : 7 //Used to position the "Or" in the combined block.
 		    }, 
@@ -25,38 +25,38 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/
 
   		attribute1 : 
 			{
-			name : 'Approach', //Attribute label
+			name : 'Evitamento', //Attribute label
 			title : {
 				media : {word : 'Negative'}, //Name of the category presented in the task.
 				css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
-				height : 7 //Used to position the "Or" in the combined block.
+				height : 7 //Used to position the "O" in the combined block.
 			}, 
 			media : [ //Stimuli
-				{word: 'Bomb'},
-				{word: 'Abuse'},
-				{word: 'Sadness'},
-				{word: 'Pain'},
-				{word: 'Poison'},
-				{word: 'Grief'}
+				{word: 'Evito'},
+				{word: 'Fujo'},
+				{word: 'Afasto-me'},
+				{word: 'Desvio-me'},
+				{word: 'Rejeito'},
+				{word: 'Recuo'}
 			], 
 			//Can change color and size of the targets here.
 			css : {color:'#31b404','font-size':'3em'}
 			},
 		attribute2 : 
 			{
-			name : 'Avoidance', //Attribute label
+			name : 'Aproximação', //Attribute label
 			title : {
 				media : {word : 'Positive'}, //Name of the category presented in the task.
 				css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
-				height : 7 //Used to position the "Or" in the combined block.
+				height : 7 //Used to position the "O" in the combined block.
 			}, 
 			media : [ //Stimuli
-				{word: 'Paradise'},
-				{word: 'Pleasure'},
-				{word: 'Cheer'},
-				{word: 'Wonderful'},
-				{word: 'Splendid'},
-				{word: 'Love'}
+				{word: 'Aproximo-me '},
+				{word: 'Chego-me'},
+				{word: 'Aproximação'},
+				{word: 'Aproximar-se'},
+				{word: 'Tocar'},
+				{word: 'Aconchegar'}
 			], 
 			//Can change color and size of the targets here.
 			css : {color:'#31b404','font-size':'3em'}
