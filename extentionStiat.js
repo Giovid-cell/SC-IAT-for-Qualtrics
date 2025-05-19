@@ -22,7 +22,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			//Define the category.
 			category :  
 			{
-				name : 'Negro', //Category name to be used for feedback and logging.
+				name : 'Pessoa Racializada', //Category name to be used for feedback and logging.
 				title : {
 					media : {word : 'Negro'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
@@ -41,7 +41,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			},	
 			attribute1 : 
 			{
-				name : 'Avoidance', //Attribute name to be used for feedback and logging
+				name : 'Evitamento', //Attribute name to be used for feedback and logging
 				title : {
 					media : {word : 'Avoidance'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
@@ -60,7 +60,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			},
 			attribute2 : 
 			{
-				name : 'Approach', //Attribute name to be used for feedback and logging
+				name : 'Aproximação', //Attribute name to be used for feedback and logging
 				title : {
 					media : {word : 'Approach'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
@@ -143,19 +143,19 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Premi "E" for', 
-			rightKeyText : 'Premi "I" for', 
+			leftKeyText : 'Pressione a tecla "E" para', 
+			rightKeyText : 'Pressione a tecla "I" para', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
-			orText : 'or', 
+			orText : 'o', 
 			orCss : {'font-size':'1.8em', color:'#000000'},
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
-			'If you make a mistake, a red <font color="#ff0000"><b>X</b></font> will appear. ' +
-			'BOCCADAMO.<p/>',
+			'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' +
+			'Carregue na outra tecla para continuar.<p/>',
 			
-			finalText: 'You have completed this task<br/><br/>Press SPACE to continue.', 
+			finalText: 'Concluiu esta tarefa<br/><br/>Pressione a BARRA DE ESPAÇO para continuar.', 
 
 			//These are templates for the instructions in the task. 
 			//If you want more specific instructions for different blocks, 
@@ -166,38 +166,38 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>Part blockNum of nBlocks</u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Put a left finger on the <b>E</b> key for items that belong to the category ' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Put a right finger on the <b>I</b> key for items that belong to the category ' + 
+				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Items will appear one at a time.<br/><br/>' + 
-				'If you make a mistake, a red <font color="#ff0000"><b>X</b></font> will appear. ' + 
-				'Press the other key to continue.<br/><br/>' + 
-				'<p align="center">Press the <b>space bar</b> when you are ready to start.</font></p></div>', 
+				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
+				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
+				'Carregue na outra tecla para continuar.<br/><br/>' + 
+				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>Part blockNum of nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Put a left finger on the <b>E</b> key for items that belong to the category ' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Put a right finger on the <b>I</b> key for items that belong to the category ' + 
+				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute2</font> ' +
-				'and for items that belong to the category <font color="#31b404">thecategory</font>.<br/>' + 
-				'Items will appear one at a time.<br/><br/>' + 
-				'If you make a mistake, a red <font color="#ff0000"><b>X</b></font> will appear. ' + 
-				'Press the other key to continue.<br/><br/>' + 
-				'<p align="center">Press the <b>space bar</b> when you are ready to start.</font></p></div>', 
+				'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
+				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
+				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
+				'Carregue na outra tecla para continuar.<br/><br/>' + 
+				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
 			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>Part blockNum of nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Put a left finger on the <b>E</b> key for items that belong to the category ' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
 				'<font color="#31b404">attribute1</font> ' +
-				'and for items that belong to the category <font color="#31b404">thecategory</font>.<br/>' + 
-				'Put a right finger on the <b>I</b> key for items that belong to the category ' + 
+				'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
+				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Items will appear one at a time.<br/><br/>' + 
-				'If you make a mistake, a red <font color="#ff0000"><b>X</b></font> will appear. ' + 
-				'Press the other key to continue.<br/><br/>' + 
-				'<p align="center">Press the <b>space bar</b> when you are ready to start.</font></p></div>', 
+				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
+				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
+				'Carregue na outra tecla para continuar.<br/><br/>' + 
+				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
 			
 			//The default feedback messages for each cutoff. 
 			//If you put attribute1, attribute2 and category here, 
