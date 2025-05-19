@@ -48,12 +48,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Bomb'},
-					{word: 'Abuse'},
-					{word: 'Sadness'},
-					{word: 'Pain'},
-					{word: 'Poison'},
-					{word: 'Grief'}
+					{word: 'Evito'},
+				{word: 'Fujo'},
+				{word: 'Afasto-me'},
+				{word: 'Desvio-me'},
+				{word: 'Rejeito'},
+				{word: 'Recuo'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -67,12 +67,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Paradise'},
-					{word: 'Pleasure'},
-					{word: 'Cheer'},
-					{word: 'Wonderful'},
-					{word: 'Splendid'},
-					{word: 'Love'}
+					{word: 'Aproximo-me '},
+				{word: 'Chego-me'},
+				{word: 'Aproximação'},
+				{word: 'Aproximar-se'},
+				{word: 'Tocar'},
+				{word: 'Aconchegar'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
