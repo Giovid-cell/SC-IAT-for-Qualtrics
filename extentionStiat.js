@@ -166,7 +166,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
 				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
@@ -177,7 +177,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
 				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute2</font> ' +
@@ -189,7 +189,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria' + 
+				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
 				'<font color="#31b404">attribute1</font> ' +
 				'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
 				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
