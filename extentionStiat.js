@@ -24,18 +24,18 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			{
 				name : 'Pessoa Racializada', //Category name to be used for feedback and logging.
 				title : {
-					media : {word : 'Pessoa Racializada''}, //Name of the category presented in the task.
+					media : {word : 'Pessoa Racializada'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [ //Stimuli
-					{word: 'Tyron'},
-					{word: 'Malik'},
-					{word: 'Terrell'},
-					{word: 'Jazmin'},
-					{word: 'Tiara'},
-					{word: 'Shanice'}
-				],
+				media : [
+    					{image : 'b1.jpg'}, 
+        				{image : 'b2.jpg'},
+        				{image : 'b3.jpg'},
+        				{image : 'b4.jpg'},
+       					{image : 'b5.jpg'},
+        				{image : 'b6.jpg'}
+      					],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},	
