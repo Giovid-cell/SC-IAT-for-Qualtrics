@@ -368,71 +368,81 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		 * Create default Trial
 		 */
 		API.addTrialSets('sort',{
-			// by default each trial is correct, this is modified in case of an error
-			data: {score:0, parcel:'first'},
-			// set the interface for trials
-			input: [
-				{handle:'skip1',on:'keypressed', key:27}, //Esc + Enter will skip blocks
-				{handle:'left',on:'keypressed',key:'e'},
-				{handle:'right',on:'keypressed',key:'i'}
-			],
+    // by default each trial is correct, this is modified in case of an error
+    data: {score:0, parcel:'first'},
+    // set the interface for trials
+    input: [
+        {handle:'skip1', on:'keypressed', key:27}, // Esc + Enter will skip blocks
+        {handle:'left', on:'keypressed', key:'e'},
+        {handle:'right', on:'keypressed', key:'i'},
+        {handle:'timeout', on:'timeout', duration:1500} // ⏱ Timeout after 1500ms
+    ],
 
-			// user interactions
-			interactions: [
-				// begin trial : display stimulus immediately
-				{
-					conditions: [{type:'begin'}],
-					actions: [{type:'showStim',handle:'targetStim'}]
-				},
+    interactions: [
+        // begin trial : display stimulus immediately
+        {
+            conditions: [{type:'begin'}],
+            actions: [{type:'showStim', handle:'targetStim'}]
+        },
 
-				// error
-				{
-					conditions: [
-						{type:'inputEqualsTrial', property:'corResp',negate:true}, //Not the correct response.
-						{type:'inputEquals',value:['right','left']}	// responded with one of the two responses
-					],
-					actions: [
-						{type:'showStim',handle:'error'},	// show error stimulus
-						{type:'setTrialAttr', setter:{score:1}}	// set the score to 1
-					]
-				},
+        // error: incorrect response
+        {
+            conditions: [
+                {type:'inputEqualsTrial', property:'corResp', negate:true},
+                {type:'inputEquals', value:['right','left']}
+            ],
+            actions: [
+                {type:'showStim', handle:'error'},
+                {type:'setTrialAttr', setter:{score:1}}
+            ]
+        },
 
-				// correct
-				{
-					conditions: [{type:'inputEqualsTrial', property:'corResp'}],	// check if the input handle is equal to correct response (in the trial's data object)
-					actions: [
-						{type:'removeInput',handle:['left','right']}, //Cannot respond anymore
-						{type:'hideStim', handle: 'All'},											// hide everything
-						{type:'log'},																// log this trial
-						{type:'setInput',input:{handle:'end', on:'timeout',duration:piCurrent.ITIDuration}} // trigger the "end action after ITI"
-					]
-				},
+        // correct response
+        {
+            conditions: [{type:'inputEqualsTrial', property:'corResp'}],
+            actions: [
+                {type:'removeInput', handle:['left','right']},
+                {type:'hideStim', handle:'All'},
+                {type:'log'},
+                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+            ]
+        },
 
-				// end after ITI
-				{
-					conditions: [{type:'inputEquals',value:'end'}],
-					actions: [
-						{type:'endTrial'}
-					]
-				},
+        // ⏱ timeout without response = mistake
+        {
+            conditions: [{type:'inputEquals', value:'timeout'}],
+            actions: [
+                {type:'showStim', handle:'error'},
+                {type:'setTrialAttr', setter:{score:1}},
+                {type:'log'},
+                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+            ]
+        },
 
-				// skip block
-				{
-					conditions: [{type:'inputEquals',value:'skip1'}],
-					actions: [
-						{type:'setInput',input:{handle:'skip2', on:'enter'}} // allow skipping if next key is enter.
-					]
-				},
-				// skip block
-				{
-					conditions: [{type:'inputEquals',value:'skip2'}],
-					actions: [
-						{type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
-						{type:'endTrial'}
-					]
-				}
-			]
-		});
+        // end trial
+        {
+            conditions: [{type:'inputEquals', value:'end'}],
+            actions: [{type:'endTrial'}]
+        },
+
+        // skip block 1
+        {
+            conditions: [{type:'inputEquals', value:'skip1'}],
+            actions: [
+                {type:'setInput', input:{handle:'skip2', on:'enter'}}
+            ]
+        },
+
+        // skip block 2
+        {
+            conditions: [{type:'inputEquals', value:'skip2'}],
+            actions: [
+                {type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
+                {type:'endTrial'}
+            ]
+        }
+    ]
+});
 
 		/**
 		 * Create default instructions trials
