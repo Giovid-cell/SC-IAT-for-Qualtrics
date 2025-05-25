@@ -291,8 +291,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             correctFeedback: [{
                 data: {handle: 'correctFeedback'},
                 css: {color: '#00FF00', 'font-size': '4em', 'z-index': 9999},
-                media: {word: piCurrent.correctFeedback},
-                location: {top: 60},
+                media: {word: "O"},
+                location: {top: 70},
                 nolog: true
             }],
             
@@ -843,8 +843,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
        // Correct feedback stimulus (green "O")
             correctFeedback: [{
                 data: {handle: 'correctFeedback'},
-                css: {color: '#00FF00', 'font-size': '4em'},
-                media: {word: piCurrent.correctFeedback},
+                css: {color: '#00FF00', 'font-size': '4em','z-index': 9999},
+                media: {word: 'O'},
                 location: {top: 70},
                 nolog: true
             }],
