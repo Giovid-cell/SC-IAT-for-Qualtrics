@@ -596,7 +596,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
                 media: {word: piCurrent.correctFeedback},
                 location: {top: 70},
                 nolog: true
-            }]
+            }],
+			dummyForLog : [{
+				data:{name:'dummyForLog', alias:'dummyForLog'}, 
+				location:{left:99}, media:{word:' '}
+				}]
 		});
 
 		/**
