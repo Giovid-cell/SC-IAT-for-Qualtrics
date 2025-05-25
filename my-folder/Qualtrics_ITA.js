@@ -1,4 +1,4 @@
-// https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@efd5294f9efda38464d2ceea3e9a40d208fa7815/QualtricsStiat.js
+// https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@810fbb30d7770346a87be08b06f7d2418a1b663b/QualtricsStiat.js
 
 define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@main/my-folder/extensionITA.js'], function(APIConstructor, stiatExtension){
   var API = new APIConstructor();
