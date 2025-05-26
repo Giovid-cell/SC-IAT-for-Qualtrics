@@ -379,23 +379,89 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
     ],
 
     interactions: [
-        // begin trial : display stimulus immediately
-        {
-            conditions: [{type:'begin'}],
-            actions: [{type:'showStim', handle:'targetStim'}]
-        },
 
-        // error: incorrect response
-        {
-            conditions: [
-                {type:'inputEqualsTrial', property:'corResp', negate:true},
-                {type:'inputEquals', value:['right','left']}
-            ],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:1}}
-            ]
-        },
+	// 1. Avvio del trial: mostra lo stimolo target
+	{
+		conditions: [{type:'begin'}],
+		actions: [{type:'showStim', handle:'targetStim'}]
+	},
+
+	// 2. Risposta errata (tasto sbagliato)
+	{
+		conditions: [
+			{type:'inputEqualsTrial', property:'corResp', negate:true},
+			{type:'inputEquals', value:['right','left']}
+		],
+		actions: [
+			{type:'showStim', handle:'error'}, // Mostra "X"
+			{type:'setTrialAttr', setter:{score:1}},
+			{type:'setInput', input:{handle:'afterError', on:'timeout', duration:150}} // Mostra "X" per 150ms
+		]
+	},
+
+	// 3. Dopo 150ms di "X", pausa ITI (250ms)
+	{
+		conditions: [{type:'inputEquals', value:'afterError'}],
+		actions: [
+			{type:'hideStim', handle:'error'},
+			{type:'log'},
+			{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+		]
+	},
+
+	// 4. Risposta corretta
+	{
+		conditions: [{type:'inputEqualsTrial', property:'corResp'}],
+		actions: [
+			{type:'showStim', handle:'correct'}, // Mostra "O"
+			{type:'removeInput', handle:['left','right']},
+			{type:'log'},
+			{type:'setInput', input:{handle:'afterCorrect', on:'timeout', duration:150}} // Mostra "O" per 150ms
+		]
+	},
+
+	// 5. Dopo 150ms di "O", pausa ITI (250ms)
+	{
+		conditions: [{type:'inputEquals', value:'afterCorrect'}],
+		actions: [
+			{type:'hideStim', handle:'correct'},
+			{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+		]
+	},
+
+	// 6. Nessuna risposta → errore
+	{
+		conditions: [{type:'inputEquals', value:'timeout'}],
+		actions: [
+			{type:'showStim', handle:'error'},
+			{type:'setTrialAttr', setter:{score:1}},
+			{type:'log'},
+			{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+		]
+	},
+
+	// 7. Fine del trial
+	{
+		conditions: [{type:'inputEquals', value:'end'}],
+		actions: [{type:'endTrial'}]
+	},
+
+	// 8. Skip (facoltativo)
+	{
+		conditions: [{type:'inputEquals', value:'skip1'}],
+		actions: [
+			{type:'setInput', input:{handle:'skip2', on:'enter'}}
+		]
+	},
+	{
+		conditions: [{type:'inputEquals', value:'skip2'}],
+		actions: [
+			{type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
+			{type:'endTrial'}
+		]
+	}
+]
+
 
         // correct response
       // correct response
