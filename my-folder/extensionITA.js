@@ -398,15 +398,24 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
         },
 
         // correct response
-       {
+      // correct response
+{
 	conditions: [{type:'inputEqualsTrial', property:'corResp'}],
 	actions: [
-		{type:'showStim', handle:'correct'}, // Show green "O"
-		{type:'removeInput', handle:['left','right']},
-		{type:'log'},
-		{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+		{type:'showStim', handle:'correct'},               // Mostra la "O"
+		{type:'removeInput', handle:['left','right']},     // Disattiva input
+		{type:'log'},                                      // Logga la risposta
+		{type:'setInput', input:{handle:'afterCorrect', on:'timeout', duration:150}} // Pausa di 150ms
 	]
 },
+{
+	conditions: [{type:'inputEquals', value:'afterCorrect'}],
+	actions: [
+		{type:'hideStim', handle:'correct'}, // Nascondi SOLO la "O", non tutto
+		{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}} // Pausa ITI
+	]
+},
+
 
         // ⏱ timeout without response = mistake
         {
