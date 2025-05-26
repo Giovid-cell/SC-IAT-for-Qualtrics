@@ -1,403 +1,153 @@
-//
+// https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/extentionStiat.js 
 
 define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) {
 
-    function stiatExtension(options) {
-        var API = new APIConstructor();
-        var scorer = new Scorer();
-        var piCurrent = API.getCurrent();
+	function stiatExtension(options)
+	{
+		var API = new APIConstructor();
+		var scorer = new Scorer();
+		var piCurrent = API.getCurrent();
 
-        var stiatObj = {
-            // Canvas settings
-            canvas: {
-                maxWidth: 725,
-                proportions: 0.7,
-                background: '#ffffff',
-                borderWidth: 5,
-                canvasBackground: '#ffffff',
-                borderColor: 'lightblue'
-            },
-            
-            // Category settings
-            category: {
-                name: 'Pessoa Racializada',
-                title: {
-                    media: {word: 'Pessoa Racializada'},
-                    css: {color:'#31b404','font-size':'2em'},
-                    height: 4
-                },
-                media: [
-                    {image: 'b1.jpg'}, 
-                    {image: 'b2.jpg'},
-                    {image: 'b3.jpg'},
-                    {image: 'b4.jpg'},
-                    {image: 'b5.jpg'},
-                    {image: 'b6.jpg'}
-                ],
-                css: {color:'#31b404','font-size':'2em'}
-            },
-            
-            // Attribute 1
-            attribute1: {
-                name: 'Evitamento',
-                title: {
-                    media: {word: 'Avoidance'},
-                    css: {color:'#31b404','font-size':'2em'},
-                    height: 4
-                },
-                media: [
-                    {word: 'Evito'},
-                    {word: 'Fujo'},
-                    {word: 'Afasto-me'},
-                    {word: 'Desvio-me'},
-                    {word: 'Rejeito'},
-                    {word: 'Recuo'}
-                ],
-                css: {color:'#31b404','font-size':'2em'}
-            },
-            
-            // Attribute 2
-            attribute2: {
-                name: 'Aproximação',
-                title: {
-                    media: {word: 'Approach'},
-                    css: {color:'#31b404','font-size':'2em'},
-                    height: 4
-                },
-                media: [
-                    {word: 'Aproximo-me'},
-                    {word: 'Chego-me'},
-                    {word: 'Aproximação'},
-                    {word: 'Aproximar-se'},
-                    {word: 'Tocar'},
-                    {word: 'Aconchegar'}
-                ],
-                css: {color:'#31b404','font-size':'2em'}
-            },
-            
-            // Trials configuration
-            trialsByBlock: [
-                { 
-                    instHTML: '', 
-                    block: 2, 
-                    miniBlocks: 2, 
-                    singleAttTrials: 10, 
-                    sharedAttTrials: 7, 
-                    categoryTrials: 7
-                },
-                { 
-                    instHTML: '', 
-                    block: 3, 
-                    miniBlocks: 2, 
-                    singleAttTrials: 10, 
-                    sharedAttTrials: 7, 
-                    categoryTrials: 7
-                },
-                { 
-                    instHTML: '', 
-                    block: 4, 
-                    miniBlocks: 2, 
-                    singleAttTrials: 10, 
-                    sharedAttTrials: 7, 
-                    categoryTrials: 7
-                },
-                { 
-                    instHTML: '', 
-                    block: 5, 
-                    miniBlocks: 2, 
-                    singleAttTrials: 10, 
-                    sharedAttTrials: 7, 
-                    categoryTrials: 7
-                }
-            ],
-            
-            // Block settings
-            blockOrder: 'random',
-            switchSideBlock: 4,
-            
-            // Base URL
-            base_url: {
-                image: '/implicit/user/yba/pipexample/stiat/images/'
-            },
-            
-            // Timing settings
-            ITIDuration: 250,
-            
-            // Text and styling
-            fontColor: '#000000',
-            leftKeyText: 'Pressione a tecla "E" para',
-            rightKeyText: 'Pressione a tecla "I" para',
-            keysCss: {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
-            orText: 'Ou',
-            orCss: {'font-size':'1.8em', color:'#000000'},
-            
-            // Feedback messages
-            remindErrorText: '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
-                'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' +
-                'Carregue na outra tecla para continuar.<p/>',
-            
-            finalText: 'Concluiu esta tarefa<br/><br/>Pressione a BARRA DE ESPAÇO para continuar.',
-            
-            // Feedback configuration
-            timeoutMessage: 'Por favor responda mais rápido!',
-            timeoutMessageDuration: 500,
-            correctFeedback: 'O',
-            correctFeedbackDuration: 500,
-            
-            // Instruction templates
-            instTemplatePractice: '<div><p align="center" style="font-size:20px; font-family:arial">' +
-                '<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
-                '<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-                'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute1</font>.<br/>' + 
-                'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute2</font>.<br/>' + 
-                'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-                'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-                'Carregue na outra tecla para continuar.<br/><br/>' + 
-                '<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>',
-            
-            instTemplateCategoryRight: '<div><p align="center" style="font-size:20px; font-family:arial">' +
-                '<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
-                '<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-                'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute1</font>.<br/>' + 
-                'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute2</font> ' +
-                'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
-                'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-                'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-                'Carregue na outra tecla para continuar.<br/><br/>' + 
-                '<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>',
-            
-            instTemplateCategoryLeft: '<div><p align="center" style="font-size:20px; font-family:arial">' +
-                '<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
-                '<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-                'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute1</font> ' +
-                'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
-                'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
-                '<font color="#31b404">attribute2</font>.<br/>' + 
-                'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-                'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-                'Carregue na outra tecla para continuar.<br/><br/>' + 
-                '<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>',
-            
-            // Feedback messages
-            fb_strongAssociationWithAttribute2: 'Your data suggest a strong positive automatic attitude toward thecategory.',
-            fb_moderateAssociationWithAttribute2: 'Your data suggest a moderate positive automatic attitude toward thecategory.',
-            fb_weakAssociationWithAttribute2: 'Your data suggest a weak positive automatic attitude toward thecategory.',
-            fb_neutralAssociation: 'Your data suggest a neutral automatic attitude toward thecategory.',
-            fb_weakAssociationWithAttribute1: 'Your data suggest a weak negative automatic attitude toward thecategory.',
-            fb_moderateAssociationWithAttribute1: 'Your data suggest a moderate negative automatic attitude toward thecategory.',
-            fb_strongAssociationWithAttribute1: 'Your data suggest a strong negative automatic attitude toward thecategory.',
-            
-            // Error messages
-            manyErrors: '',
-            tooFast: '',
-            notEnough: ''
-        };
+		var stiatObj = 
+		{
+			//Set the canvas of the task
+			canvas : {
+				maxWidth: 725,
+				proportions : 0.7,
+				background: '#ffffff',
+				borderWidth: 5,
+				canvasBackground: '#ffffff',
+				borderColor: 'lightblue'
+			}, 
+			//Define the category.
+			category :  
+			{
+				name : 'Pessoa Racializada', //Category name to be used for feedback and logging.
+				title : {
+					media : {word : 'Pessoa Racializada'}, //Name of the category presented in the task.
+					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
+					height : 4 //Used to position the "Or" in the combined block.
+				}, 
+				media : [
+    					{image : 'b1.jpg'}, 
+        				{image : 'b2.jpg'},
+        				{image : 'b3.jpg'},
+        				{image : 'b4.jpg'},
+       					{image : 'b5.jpg'},
+        				{image : 'b6.jpg'}
+      					],
+				//Can change color and size of the targets here.
+				css : {color:'#31b404','font-size':'2em'}
+			},	
+			attribute1 : 
+			{
+				name : 'Evitamento', //Attribute name to be used for feedback and logging
+				title : {
+					media : {word : 'Avoidance'}, //Name of the category presented in the task.
+					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
+					height : 4 //Used to position the "Or" in the combined block.
+				}, 
+				media : [ //Stimuli
+					{word: 'Evito'},
+				{word: 'Fujo'},
+				{word: 'Afasto-me'},
+				{word: 'Desvio-me'},
+				{word: 'Rejeito'},
+				{word: 'Recuo'}
+				], 
+				//Can change color and size of the targets here.
+				css : {color:'#31b404','font-size':'2em'}
+			},
+			attribute2 : 
+			{
+				name : 'Aproximação', //Attribute name to be used for feedback and logging
+				title : {
+					media : {word : 'Approach'}, //Name of the category presented in the task.
+					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
+					height : 4 //Used to position the "Or" in the combined block.
+				}, 
+				media : [ //Stimuli
+					{word: 'Aproximo-me '},
+				{word: 'Chego-me'},
+				{word: 'Aproximação'},
+				{word: 'Aproximar-se'},
+				{word: 'Tocar'},
+				{word: 'Aconchegar'}
+				], 
+				//Can change color and size of the targets here.
+				css : {color:'#31b404','font-size':'2em'}
+			},	
+			trialsByBlock : 
+			[//Each object in this array defines a block
+			
+				{ 
+					instHTML : '', 
+					block : 2, 
+					miniBlocks : 2, 
+					singleAttTrials : 10, 
+					sharedAttTrials : 7, 
+					categoryTrials : 7
+				}, 
+				{ 
+					instHTML : '', 
+					block : 3, 
+					miniBlocks : 2, 
+					singleAttTrials : 10, 
+					sharedAttTrials : 7, 
+					categoryTrials : 7
+				}, 
+				{ 
+					instHTML : '', 
+					block : 4, 
+					miniBlocks : 2, 
+					singleAttTrials : 10, 
+					sharedAttTrials : 7, 
+					categoryTrials : 7
+				}, 
+				{ 
+					instHTML : '', 
+					block : 5, 
+					miniBlocks : 2, 
+					singleAttTrials : 10, 
+					sharedAttTrials : 7, 
+					categoryTrials : 7
+				}
+			],
+			//All blocks show attribute1 on the left and attribute2 on the right. 
+			//blockOrder can be: 'startRight', 'startLeft', and 'random'
+			blockOrder : 'random', 
+			//Change to 'startRight' if you want to start with category on the right in the first block. 
+			//Change to 'startLeft' if you want to start with category on the left in the first block. 
+			//Change to 'random' if you want to randomize whether the category starts on the left or on the right.
+			//NOTICE: to know what the block-order condition is, we save the pairing definition of the second block, 
+			//into the explicit table, under the variable name block2Condition.
 
-        // Merge settings
-        _.extend(piCurrent, _.defaults(options, stiatObj));
+			//If the switch parameter is 0 or smaller, we switch the side of the category every block. 
+			//If it is larger than 0, then we switch the category side only once, in the block specified in switchSideBlock.
+			switchSideBlock : 4, //By default, we switch on block 4 (i.e., after blocks 2 and 3 showed the first pairing condition).
 
-        // Add settings for Qualtrics
-        API.addSettings('onEnd', window.minnoJS.onEnd);
-        API.addSettings('canvas', piCurrent.canvas);
-        API.addSettings('base_url', piCurrent.base_url);
+			base_url : {//Where are your images?
+				image : '/implicit/user/yba/pipexample/stiat/images/'
+			}, 
+			ITIDuration : 250, //Duration between trials.
+			
+			fontColor : '#000000', //The color of messages and key reminders. 
+			
+			//Text and style for key instructions displayed about the category labels.
+			leftKeyText : 'Pressione a tecla "E" para', 
+			rightKeyText : 'Pressione a tecla "I" para', 
+			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
+			//Text and style for the separator between the top and bottom category labels.
+			orText : 'Ou', 
+			orCss : {'font-size':'1.8em', color:'#000000'},
 
-        // Define layouts
-        var leftLayout = [
-            {location:{left:6,top:1},media:{word:piCurrent.leftKeyText}, css:piCurrent.keysCss},
-            {location:{right:6,top:1},media:{word:piCurrent.rightKeyText}, css:piCurrent.keysCss},
-            {location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
-            {location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css},
-            {location:{left:6,top:4+(piCurrent.attribute1.title.height|3)}, media:{word:piCurrent.orText}, css:piCurrent.orCss},
-            {location:{left:6,top:11+(piCurrent.attribute1.title.height|3)},media:piCurrent.category.title.media, css:piCurrent.category.title.css}
-        ];
-        
-        var rightLayout = [
-            {location:{left:6,top:1},media:{word:piCurrent.leftKeyText}, css:piCurrent.keysCss},
-            {location:{right:6,top:1},media:{word:piCurrent.rightKeyText}, css:piCurrent.keysCss},
-            {location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
-            {location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css},
-            {location:{right:6,top:4+(piCurrent.attribute2.title.height|3)},media:{word:piCurrent.orText}, css:piCurrent.orCss},
-            {location:{right:6,top:11+(piCurrent.attribute2.title.height|3)},media:piCurrent.category.title.media, css:piCurrent.category.title.css}
-        ];
-        
-        var pracLayout = [
-            {location:{left:6,top:1},media:{word:piCurrent.leftKeyText}, css:piCurrent.keysCss},
-            {location:{right:6,top:1},media:{word:piCurrent.rightKeyText}, css:piCurrent.keysCss},
-            {location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
-            {location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css}
-        ];
-        
-        var reminderStimulus = {
-            location:{bottom:1}, 
-            css: {color:piCurrent.fontColor,'font-size':'1em'}, 
-            media: {html: piCurrent.remindErrorText}
-        };
+			//Will appear at the bottom of the screen during trials.
+			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
+			'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' +
+			'Carregue na outra tecla para continuar.<p/>',
+			
+			finalText: 'Concluiu esta tarefa<br/><br/>Pressione a BARRA DE ESPAÇO para continuar.', 
 
-        // Add stimulus sets with fixed feedback elements
-        API.addStimulusSets({
-            Default: [
-                {css:{color:'white','font-size':'2em'}}
-            ],
-
-            instructions: [
-                {css:{'font-size':'1.4em',color:'black', lineHeight:1.2}, nolog:true, location:{bottom:1}}
-            ],
-
-            attribute1: [{
-                data: {alias:piCurrent.attribute1.name, handle:'targetStim'}, 
-                inherit: 'Default', 
-                css:piCurrent.attribute1.css,
-                media: {inherit:{type:'exRandom',set:'attribute1'}}
-            }],
-            
-            attribute2: [{
-                data: {alias:piCurrent.attribute2.name, handle:'targetStim'}, 
-                inherit: 'Default', 
-                css:piCurrent.attribute2.css,
-                media: {inherit:{type:'exRandom',set:'attribute2'}}
-            }],
-            
-            category: [{
-                data: {alias:piCurrent.category.name, handle:'targetStim'}, 
-                inherit: 'Default', 
-                css:piCurrent.category.css,
-                media: {inherit:{type:'exRandom',set:'category'}}
-            }],
-            
-            // Error feedback (red X)
-            error: [{
-                data: {handle: 'error'},
-                location: {top: 70},
-                css: {color:'red', 'font-size':'4em', 'z-index': 9999},
-                media: {word: 'X'},
-                nolog: true
-            }],
-            
-            // Timeout message
-            timeoutMessage: [{
-                data: {handle: 'timeoutMessage'},
-                css: {color: 'black', 'font-size': '1.5em', 'z-index': 9999},
-                media: {html: piCurrent.timeoutMessage},
-                location: {bottom: 20},
-                nolog: true
-            }],
-            
-            // Correct feedback (green O)
-            correctFeedback: [{
-                data: {handle: 'correctFeedback'},
-                css: {color: '#00FF00', 'font-size': '4em', 'z-index': 9999},
-                media: {word: "O"},
-                location: {top: 70},
-                nolog: true
-            }],
-            
-            dummyForLog: [{
-                data: {name:'dummyForLog', alias:'dummyForLog'}, 
-                location: {left:99}, 
-                media: {word:' '}
-            }]
-        });
-
-        // Add media sets
-        API.addMediaSets({
-            attribute1: piCurrent.attribute1.media,
-            attribute2: piCurrent.attribute2.media,
-            category: piCurrent.category.media
-        });
-
-        // Create default trial with fixed feedback interactions
-        API.addTrialSets('sort', {
-            data: {score: 0, parcel: 'first'},
-            input: [
-                {handle: 'skip1', on: 'keypressed', key: 27},
-                {handle: 'left', on: 'keypressed', key: 'e'},
-                {handle: 'right', on: 'keypressed', key: 'i'},
-                {handle: 'timeout', on: 'timeout', duration: 1500}
-            ],
-            interactions: [
-                // Begin trial
-                {
-                    conditions: [{type: 'begin'}],
-                    actions: [{type: 'showStim', handle: 'targetStim'}]
-                },
-
-                // Error response
-                {
-                    conditions: [
-                        {type: 'inputEqualsTrial', property: 'corResp', negate: true},
-                        {type: 'inputEquals', value: ['right', 'left']}
-                    ],
-                    actions: [
-                        {type: 'showStim', handle: 'error'},
-                        {type: 'setTrialAttr', setter: {score: 1}},
-                        {type: 'log'},
-                        {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.ITIDuration}}
-                    ]
-                },
-
-                // Correct response
-                {
-                    conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
-                    actions: [
-                        {type: 'removeInput', handle: ['left', 'right']},
-                        {type: 'hideStim', handle: 'All'},
-                        {type: 'showStim', handle: 'correctFeedback'},
-                        {type: 'log'},
-                        {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.correctFeedbackDuration}}
-                    ]
-                },
-
-                // Timeout
-                {
-                    conditions: [{type: 'inputEquals', value: 'timeout'}],
-                    actions: [
-                        {type: 'showStim', handle: 'error'},
-                        {type: 'showStim', handle: 'timeoutMessage'},
-                        {type: 'setTrialAttr', setter: {score: 1}},
-                        {type: 'log'},
-                        {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.timeoutMessageDuration}}
-                    ]
-                },
-
-                // End trial
-                {
-                    conditions: [{type: 'inputEquals', value: 'end'}],
-                    actions: [
-                        {type: 'hideStim', handle: 'All'},
-                        {type: 'setInput', input: {handle: 'ITI', on: 'timeout', duration: piCurrent.ITIDuration}}
-                    ]
-                },
-                
-                // ITI period
-                {
-                    conditions: [{type: 'inputEquals', value: 'ITI'}],
-                    actions: [{type: 'endTrial'}]
-                },
-
-                // Skip block 1
-                {
-                    conditions: [{type: 'inputEquals', value: 'skip1'}],
-                    actions: [
-                        {type: 'setInput', input: {handle: 'skip2', on: 'enter'}}
-                    ]
-                },
-
-                // Skip block 2
-                {
-                    conditions: [{type: 'inputEquals', value: 'skip2'}],
-                    actions: [
-                        {type: 'goto', destination: 'nextWhere', properties: {blockStart: true}},
-                        {type: 'endTrial'}
-                    ]
-                }
-            ]
-        });
-      
 			//These are templates for the instructions in the task. 
 			//If you want more specific instructions for different blocks, 
 			// use the instHTML variables above. 
@@ -617,99 +367,82 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		/**
 		 * Create default Trial
 		 */
-		API.addTrialSets('sort', {
-    data: {score: 0, parcel: 'first'},
+		API.addTrialSets('sort',{
+    // by default each trial is correct, this is modified in case of an error
+    data: {score:0, parcel:'first'},
+    // set the interface for trials
     input: [
-        {handle: 'skip1', on: 'keypressed', key: 27},
-        {handle: 'left', on: 'keypressed', key: 'e'},
-        {handle: 'right', on: 'keypressed', key: 'i'},
-        {handle: 'timeout', on: 'timeout', duration: 1500}
+        {handle:'skip1', on:'keypressed', key:27}, // Esc + Enter will skip blocks
+        {handle:'left', on:'keypressed', key:'e'},
+        {handle:'right', on:'keypressed', key:'i'},
+        {handle:'timeout', on:'timeout', duration:1500} // ⏱ Timeout after 1500ms
     ],
+
     interactions: [
-        // Begin trial
+        // begin trial : display stimulus immediately
         {
-            conditions: [{type: 'begin'}],
-            actions: [{type: 'showStim', handle: 'targetStim'}]
+            conditions: [{type:'begin'}],
+            actions: [{type:'showStim', handle:'targetStim'}]
         },
 
-        // Incorrect response
+        // error: incorrect response
         {
             conditions: [
-                {type: 'inputEqualsTrial', property: 'corResp', negate: true},
-                {type: 'inputEquals', value: ['right', 'left']}
+                {type:'inputEqualsTrial', property:'corResp', negate:true},
+                {type:'inputEquals', value:['right','left']}
             ],
             actions: [
-                {type: 'showStim', handle: 'error'},
-                {type: 'setTrialAttr', setter: {score: 1}},
-                {type: 'log'},
-                {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.ITIDuration}}
+                {type:'showStim', handle:'error'},
+                {type:'setTrialAttr', setter:{score:1}}
             ]
         },
 
-        // Correct response – fixed with delay
-        {
-            conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
-            actions: [
-                {type: 'removeInput', handle: ['left', 'right']},
-                {type: 'hideStim', handle: 'All'},
-                {type: 'setInput', input: {handle: 'showCorrectFeedback', on: 'timeout', duration: 10}}
-            ]
-        },
-        {
-            conditions: [{type: 'inputEquals', value: 'showCorrectFeedback'}],
-            actions: [
-                {type: 'showStim', handle: 'correctFeedback'},
-                {type: 'log'},
-                {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.correctFeedbackDuration}}
-            ]
-        },
+        // correct response
+       {
+	conditions: [{type:'inputEqualsTrial', property:'corResp'}],
+	actions: [
+		{type:'showStim', handle:'correct'}, // Show green "O"
+		{type:'removeInput', handle:['left','right']},
+		{type:'log'},
+		{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+	]
+},
 
-        // Timeout – no response
+        // ⏱ timeout without response = mistake
         {
-            conditions: [{type: 'inputEquals', value: 'timeout'}],
+            conditions: [{type:'inputEquals', value:'timeout'}],
             actions: [
-                {type: 'showStim', handle: 'error'},
-                {type: 'showStim', handle: 'timeoutMessage'},
-                {type: 'setTrialAttr', setter: {score: 1}},
-                {type: 'log'},
-                {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.timeoutMessageDuration}}
+                {type:'showStim', handle:'error'},
+                {type:'setTrialAttr', setter:{score:1}},
+                {type:'log'},
+                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
             ]
         },
 
-        // End trial
+        // end trial
         {
-            conditions: [{type: 'inputEquals', value: 'end'}],
+            conditions: [{type:'inputEquals', value:'end'}],
+            actions: [{type:'endTrial'}]
+        },
+
+        // skip block 1
+        {
+            conditions: [{type:'inputEquals', value:'skip1'}],
             actions: [
-                {type: 'hideStim', handle: 'All'},
-                {type: 'setInput', input: {handle: 'ITI', on: 'timeout', duration: piCurrent.ITIDuration}}
+                {type:'setInput', input:{handle:'skip2', on:'enter'}}
             ]
         },
 
-        // ITI
+        // skip block 2
         {
-            conditions: [{type: 'inputEquals', value: 'ITI'}],
-            actions: [{type: 'endTrial'}]
-        },
-
-        // Skip block 1
-        {
-            conditions: [{type: 'inputEquals', value: 'skip1'}],
+            conditions: [{type:'inputEquals', value:'skip2'}],
             actions: [
-                {type: 'setInput', input: {handle: 'skip2', on: 'enter'}}
-            ]
-        },
-
-        // Skip block 2
-        {
-            conditions: [{type: 'inputEquals', value: 'skip2'}],
-            actions: [
-                {type: 'goto', destination: 'nextWhere', properties: {blockStart: true}},
-                {type: 'endTrial'}
+                {type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
+                {type:'endTrial'}
             ]
         }
     ]
 });
-
 
 		/**
 		 * Create default instructions trials
@@ -830,30 +563,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			error : [{
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 
-			// Timeout message stimulus (MISSING - NEED TO ADD THIS)
-			timeoutMessage: [{
-				data: {handle: 'timeoutMessage'},
-				css: {color: 'black', 'font-size': '1.5em'},
-				media: {html: piCurrent.timeoutMessage},
-				location: {bottom: 20},
-				nolog: true
-			}],
+			correct : [{
+	data:{handle:'correct'}, location: {top: 70}, css:{color:'green','font-size':'4em'}, media: {word:'O'}, nolog:true
+}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
 				location:{left:99}, media:{word:' '}
-			}],
-       // Correct feedback stimulus (green "O")
-            correctFeedback: [{
-                data: {handle: 'correctFeedback'},
-                css: {color: '#00FF00', 'font-size': '4em','z-index': 9999},
-                media: {word: 'O'},
-                location: {top: 70},
-                nolog: true
-            }],
-			dummyForLog : [{
-				data:{name:'dummyForLog', alias:'dummyForLog'}, 
-				location:{left:99}, media:{word:' '}
-				}]
+			}]
 		});
 
 		/**
