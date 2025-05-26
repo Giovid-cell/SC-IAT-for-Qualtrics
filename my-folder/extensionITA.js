@@ -459,64 +459,58 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			{type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
 			{type:'endTrial'}
 		]
+	},
+	{
+		conditions: [{type:'inputEqualsTrial', property:'corResp'}],
+		actions: [
+			{type:'showStim', handle:'correct'},               // Mostra la "O"
+			{type:'removeInput', handle:['left','right']},     // Disattiva input
+			{type:'log'},                                      // Logga la risposta
+			{type:'setInput', input:{handle:'afterCorrect', on:'timeout', duration:150}} // Pausa di 150ms
+		]
+	},
+	{
+		conditions: [{type:'inputEquals', value:'afterCorrect'}],
+		actions: [
+			{type:'hideStim', handle:'correct'}, // Nascondi SOLO la "O", non tutto
+			{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}} // Pausa ITI
+		]
+	},
+	 // ⏱ timeout without response = mistake
+	 {
+		conditions: [{type:'inputEquals', value:'timeout'}],
+		actions: [
+			{type:'showStim', handle:'error'},
+			{type:'setTrialAttr', setter:{score:1}},
+			{type:'log'},
+			{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
+		]
+	},
+
+	// end trial
+	{
+		conditions: [{type:'inputEquals', value:'end'}],
+		actions: [{type:'endTrial'}]
+	},
+
+	// skip block 1
+	{
+		conditions: [{type:'inputEquals', value:'skip1'}],
+		actions: [
+			{type:'setInput', input:{handle:'skip2', on:'enter'}}
+		]
+	},
+
+	// skip block 2
+	{
+		conditions: [{type:'inputEquals', value:'skip2'}],
+		actions: [
+			{type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
+			{type:'endTrial'}
+		]
 	}
 ]
-
-
-        // correct response
-      // correct response
-{
-	conditions: [{type:'inputEqualsTrial', property:'corResp'}],
-	actions: [
-		{type:'showStim', handle:'correct'},               // Mostra la "O"
-		{type:'removeInput', handle:['left','right']},     // Disattiva input
-		{type:'log'},                                      // Logga la risposta
-		{type:'setInput', input:{handle:'afterCorrect', on:'timeout', duration:150}} // Pausa di 150ms
-	]
-},
-{
-	conditions: [{type:'inputEquals', value:'afterCorrect'}],
-	actions: [
-		{type:'hideStim', handle:'correct'}, // Nascondi SOLO la "O", non tutto
-		{type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}} // Pausa ITI
-	]
-},
-
-
-        // ⏱ timeout without response = mistake
-        {
-            conditions: [{type:'inputEquals', value:'timeout'}],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:1}},
-                {type:'log'},
-                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
-            ]
-        },
-
-        // end trial
-        {
-            conditions: [{type:'inputEquals', value:'end'}],
-            actions: [{type:'endTrial'}]
-        },
-
-        // skip block 1
-        {
-            conditions: [{type:'inputEquals', value:'skip1'}],
-            actions: [
-                {type:'setInput', input:{handle:'skip2', on:'enter'}}
-            ]
-        },
-
-        // skip block 2
-        {
-            conditions: [{type:'inputEquals', value:'skip2'}],
-            actions: [
-                {type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
-                {type:'endTrial'}
-            ]
-        }
-    ]
+ 
 });
 
 		/**
