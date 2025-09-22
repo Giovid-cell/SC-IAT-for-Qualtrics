@@ -82,6 +82,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			
 				{ 
 					instHTML : '', 
+					block : 1, 
+					miniBlocks : 2, 
+					singleAttTrials : 10, 
+					sharedAttTrials : 7, 
+					categoryTrials : 7
+				}, 
+				{ 
+					instHTML : '', 
 					block : 2, 
 					miniBlocks : 2, 
 					singleAttTrials : 10, 
@@ -99,14 +107,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 4, 
-					miniBlocks : 2, 
-					singleAttTrials : 10, 
-					sharedAttTrials : 7, 
-					categoryTrials : 7
-				}, 
-				{ 
-					instHTML : '', 
-					block : 5, 
 					miniBlocks : 2, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
@@ -393,7 +393,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             ],
             actions: [
                 {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:1}}
+                {type:'setTrialAttr', setter:{score:0}}
             ]
         },
 
@@ -403,6 +403,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             actions: [
                 {type:'removeInput', handle:['left','right']},
                 {type:'hideStim', handle:'All'},
+				{type:'setTrialAttr', setter:{score:1}}, // correct = 1}.
                 {type:'log'},
                 {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
             ]
@@ -413,7 +414,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             conditions: [{type:'inputEquals', value:'timeout'}],
             actions: [
                 {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:1}},
+                {type:'setTrialAttr', setter:{score:2}},
                 {type:'log'},
                 {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
             ]
