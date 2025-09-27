@@ -29,13 +29,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Paolo'},
+				{word: 'Paolo'},
 				{word: 'Tosato'},
 				{word: 'Paolo Tosato'},
 				{word: 'P.T.'},
 				{word: 'Tosato Paolo'},
-					{word: 'Paolo Tosato'},
-					{word: 'Tosato Paolo'}
+				{word: 'Paolo Tosato'},
+				{word: 'Tosato Paolo'}
 					],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -49,13 +49,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'ostacolare'},
+				{word: 'ostacolare'},
 				{word: 'trascurare'},
 				{word: 'ignorare'},
 				{word: 'dimenticare'},
 				{word: 'tralasciare'},
-					{word: 'ostacolare'},
-					{word: 'trascurare'}
+				{word: 'ostacolare'},
+				{word: 'trascurare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -68,14 +68,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [ //Stimuli
-					{word: 'aiutare'},
+				media : [
+				{word: 'aiutare'},
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
 				{word: 'appoggiare'},
 				{word: 'aiutare'},
-					{word: 'sostenere'}
+				{word: 'sostenere'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
