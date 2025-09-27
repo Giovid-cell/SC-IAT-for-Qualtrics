@@ -22,57 +22,60 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			//Define the category.
 			category :  
 			{
-				name : 'Pessoa Racializada', //Category name to be used for feedback and logging.
+				name : 'Nome Paziente', //Category name to be used for feedback and logging.
 				title : {
-					media : {word : 'Pessoa Racializada'}, //Name of the category presented in the task.
+					media : {word : 'Nome Paziente'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [
-    					{image : 'b1.jpg'}, 
-        				{image : 'b2.jpg'},
-        				{image : 'b3.jpg'},
-        				{image : 'b4.jpg'},
-       					{image : 'b5.jpg'},
-        				{image : 'b6.jpg'}
-      					],
+				media : [ //Stimuli
+					{word: 'Paolo'},
+				{word: 'Tosato'},
+				{word: 'Paolo Tosato'},
+				{word: 'P.T.'},
+				{word: 'Tosato Paolo'},
+					{word: 'Paolo Tosato'},
+					{word: 'Tosato Paolo'}
+					],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},	
 			attribute1 : 
 			{
-				name : 'Evitamento', //Attribute name to be used for feedback and logging
+				name : 'Ignorare', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Avoidance'}, //Name of the category presented in the task.
+					media : {word : 'Ignorare'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Evito'},
-				{word: 'Fujo'},
-				{word: 'Afasto-me'},
-				{word: 'Desvio-me'},
-				{word: 'Rejeito'},
-				{word: 'Recuo'}
+					{word: 'ostacolare'},
+				{word: 'trascurare'},
+				{word: 'ignorare'},
+				{word: 'dimenticare'},
+				{word: 'tralasciare'},
+					{word: 'ostacolare'},
+					{word: 'trascurare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},
 			attribute2 : 
 			{
-				name : 'Aproximação', //Attribute name to be used for feedback and logging
+				name : 'Sostenere', //Attribute name to be used for feedback and logging
 				title : {
-					media : {word : 'Approach'}, //Name of the category presented in the task.
+					media : {word : 'Sostenere'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ //Stimuli
-					{word: 'Aproximo-me '},
-				{word: 'Chego-me'},
-				{word: 'Aproximação'},
-				{word: 'Aproximar-se'},
-				{word: 'Tocar'},
-				{word: 'Aconchegar'}
+					{word: 'aiutare'},
+				{word: 'assistere'},
+				{word: 'soccorrere'},
+				{word: 'sostenere'},
+				{word: 'appoggiare'},
+				{word: 'aiutare'},
+					{word: 'sostenere'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
