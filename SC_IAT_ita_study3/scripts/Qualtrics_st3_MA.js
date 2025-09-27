@@ -10,8 +10,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       }, 
-      media : [
-        media : [ //Stimuli
+      media : [ //Stimuli
 				{word: 'Nome'},
 				{word: 'Nome'},
 				{word: 'Nome'},
