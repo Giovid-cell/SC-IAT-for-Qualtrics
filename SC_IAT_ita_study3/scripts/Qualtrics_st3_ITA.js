@@ -4,53 +4,57 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
-      name : 'Pessoa Racializada',
+      name : 'Nome Paziente',
       title : {
-        media : {word : 'Pessoa Racializada'},
+        media : {word : 'Nome Paziente'},
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       }, 
       media : [
-        {image : 'b1.jpg'}, 
-        {image : 'b2.jpg'},
-        {image : 'b3.jpg'},
-        {image : 'b4.jpg'},
-        {image : 'b5.jpg'},
-        {image : 'b6.jpg'}
+        media : [ //Stimuli
+				{word: 'Paolo'},
+				{word: 'Tosato'},
+				{word: 'Paolo Tosato'},
+				{word: 'P.T.'},
+				{word: 'Tosato Paolo'},
+				{word: 'Paolo Tosato'},
+				{word: 'Tosato Paolo'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute1 : {
-      name : 'Evitamento',
+      name : 'Ignorare',
       title : {
-        media : {word : 'Evitamento'},
+        media : {word : 'Ignorare'},
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       },
-      media : [
-        {word: 'Evito'},
-        {word: 'Fujo'},
-        {word: 'Afasto-me'},
-        {word: 'Desvio-me'},
-        {word: 'Rejeito'},
-        {word: 'Recuo'}
+      media : [ 
+				{word: 'ostacolare'},
+				{word: 'trascurare'},
+				{word: 'ignorare'},
+				{word: 'dimenticare'},
+				{word: 'tralasciare'},
+				{word: 'ostacolare'},
+				{word: 'trascurare'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute2 : {
-      name : 'Aproximação',
+      name : 'Sostenere',
       title : {
-        media : {word : 'Aproximação'},
+        media : {word : 'Sostenere'},
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       },
       media : [
-        {word: 'Aproximo-me'},
-        {word: 'Chego-me'},
-        {word: 'Aproximação'},
-        {word: 'Aproximar-se'},
-        {word: 'Tocar'},
-        {word: 'Aconchegar'}
+				{word: 'aiutare'},
+				{word: 'assistere'},
+				{word: 'soccorrere'},
+				{word: 'sostenere'},
+				{word: 'appoggiare'},
+				{word: 'aiutare'},
+				{word: 'sostenere'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
