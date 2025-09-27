@@ -137,19 +137,19 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Pressione a tecla "E" para', 
-			rightKeyText : 'Pressione a tecla "I" para', 
+			leftKeyText : 'Premi il tasto "E" per', 
+			rightKeyText : 'Premi il tasto "I" per', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
-			orText : 'Ou', 
+			orText : 'O', 
 			orCss : {'font-size':'1.8em', color:'#000000'},
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
-			'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' +
-			'Carregue na outra tecla para continuar.<p/>',
+			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparità. ' +
+			'Premi un altro tasto per continuare.<p/>',
 			
-			finalText: 'Concluiu esta tarefa<br/><br/>Pressione a BARRA DE ESPAÇO para continuar.', 
+			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
 			//These are templates for the instructions in the task. 
 			//If you want more specific instructions for different blocks, 
@@ -160,38 +160,39 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
+				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-				'Carregue na outra tecla para continuar.<br/><br/>' + 
-				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
+				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
+				'Se ccommetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
+				'Premi un altro tasto per continuare.<br/><br/>' + 
+				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
+				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font> ' +
-				'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
-				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-				'Carregue na outra tecla para continuar.<br/><br/>' + 
-				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
+				'e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
+				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
+				'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
+				'Premi un altro tasto per continuare.<br/><br/>' + 
+				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
 				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Coloque os seus dedos indicadore esquerdo nas teclas <b>E</b> para itens que pertencem à categoria ' + 
+				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font> ' +
-				'e para itens que pertencem à categoria <font color="#31b404">thecategory</font>.<br/>' + 
-				'Coloque os seus dedos indicadore dereito nas teclas <b>I</b> para itens que pertencem à categoria ' + 
+				'e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Durante a tarefa aparecerão palavras e imagens no ecrã.<br/><br/>' + 
-				'Se cometer um erro, um <font color="#ff0000"><b>X</b></font> vermelho irá aparecer. ' + 
-				'Carregue na outra tecla para continuar.<br/><br/>' + 
-				'<p align="center">Quando estiver pronto, por favor, pressione a <b>barra de espaços </b> para começar.</font></p></div>', 
+				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
+				'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
+				'Premi un altro tasto per continuare.<br/><br/>' + 
+				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
+
 			
 			//The default feedback messages for each cutoff. 
 			//If you put attribute1, attribute2 and category here, 
