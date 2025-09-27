@@ -146,7 +146,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
-			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparità. ' +
+			'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' +
 			'Premi un altro tasto per continuare.<p/>',
 			
 			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
@@ -162,10 +162,10 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
 				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
-				'Se ccommetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
+				'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
 				'Premi un altro tasto per continuare.<br/><br/>' + 
 				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
