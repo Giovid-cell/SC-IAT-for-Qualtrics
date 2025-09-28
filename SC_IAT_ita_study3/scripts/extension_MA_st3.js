@@ -224,92 +224,98 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		//window.minnoJS.logger = console.log;
 		//window.minnoJS.onEnd = console.log;
 		
-        API.addSettings('logger', {
-            // gather logs in array
-            onRow: function(logName, log, settings, ctx){
-                if (!ctx.logs) ctx.logs = [];
-                ctx.logs.push(log);
-            },
-            // onEnd trigger save (by returning a value)
-            onEnd: function(name, settings, ctx){
-                return ctx.logs;
-            },
-            // Transform logs into a string
-            // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
-					            serialize: function(name, logs) {
-								    var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt'];
-								    var content = [];
-								
-								    // Transform logs to CSV rows - with filtering
-								    for (var i = 0; i < logs.length; i++) {
-								        var log = logs[i] || {};
-								        
-								        // FILTER OUT UNNECESSARY TRIALS:
-								        // Skip nolog items
-								        if (log.nolog) continue;
-								        
-								        // Skip instruction trials
-								        if (log.name === 'instructions' || log.name === 'dummyForLog') continue;
-								        
-								        // Skip trials with condition 'inst' (instructions)
-								        var data = log.data || {};
-								        if (data.condition === 'inst') continue;
-								        
-								        // Skip trials without trial_id (usually system logs)
-								        if (!log.trial_id) continue;
-								        
-								        // Skip the final "goodbye" trial if needed
-								        if (log.name && log.name.includes('goodbye')) continue;
-								
-								        // Extract with minimal processing
-								        var cat = '';
-								        var stim = '';
-								        
-								        if (log.stimuli && log.stimuli[0]) {
-								            var stimObj = log.stimuli[0];
-								            cat = (typeof stimObj === 'string') ? stimObj : (stimObj.word || '');
-								        }
-								        if (log.media && log.media[0]) {
-								            var mediaObj = log.media[0];
-								            stim = (typeof mediaObj === 'string') ? mediaObj : (mediaObj.word || '');
-								        }
-								
-								        // Error coding
-								        var errorCode = 1;
-								        if (data.score !== undefined) {
-								            if (data.score === 0) errorCode = 0;
-								            else if (data.score === 2) errorCode = 2;
-								        }
-								
-								        content.push([
-								            data.block || '',
-								            log.trial_id || '',
-								            data.condition || '',
-								            log.name || '',
-								            cat,
-								            stim,
-								            log.responseHandle || '',
-								            errorCode,
-								            log.latency || ''
-								        ]);
-								    }
-								
-								    // Add minimal end marker
-								    content.push([9, 999, 'end', '', '', '', '', '', '']);
-								
-								    // Insert headers
-								    content.unshift(headers);
-								
-								    // Efficient CSV conversion
-								    return content.map(function(row) {
-								        return row.map(function(cell) {
-								            if (cell === null || cell === undefined) return '';
-								            var str = String(cell);
-								            return str.indexOf(',') > -1 ? '"' + str.replace(/"/g, '""') + '"' : str;
-								        }).join(',');
-								    }).join('\n');
-								}
+API.addSettings('logger', {
+    // gather logs in array
+    onRow: function(logName, log, settings, ctx){
+        if (!ctx.logs) ctx.logs = [];
+        ctx.logs.push(log);
+    },
+    // onEnd trigger save (by returning a value)
+    onEnd: function(name, settings, ctx){
+        return ctx.logs;
+    },
+    // Transform logs into a string
+    // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
+    serialize: function(name, logs) {
+        var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt'];
+        var content = [];
 
+        // Transform logs to CSV rows - with filtering
+        for (var i = 0; i < logs.length; i++) {
+            var log = logs[i] || {};
+            
+            // FILTER OUT UNNECESSARY TRIALS:
+            // Skip nolog items
+            if (log.nolog) continue;
+            
+            // Skip instruction trials
+            if (log.name === 'instructions' || log.name === 'dummyForLog') continue;
+            
+            // Skip trials with condition 'inst' (instructions)
+            var data = log.data || {};
+            if (data.condition === 'inst') continue;
+            
+            // Skip trials without trial_id (usually system logs)
+            if (!log.trial_id) continue;
+            
+            // Skip the final "goodbye" trial if needed
+            if (log.name && log.name.includes('goodbye')) continue;
+
+            // Extract with minimal processing
+            var cat = '';
+            var stim = '';
+            
+            if (log.stimuli && log.stimuli[0]) {
+                var stimObj = log.stimuli[0];
+                cat = (typeof stimObj === 'string') ? stimObj : (stimObj.word || '');
+            }
+            if (log.media && log.media[0]) {
+                var mediaObj = log.media[0];
+                stim = (typeof mediaObj === 'string') ? mediaObj : (mediaObj.word || '');
+            }
+
+            // Error coding
+            var errorCode = 1;
+            if (data.score !== undefined) {
+                if (data.score === 0) errorCode = 0;
+                else if (data.score === 2) errorCode = 2;
+            }
+
+            content.push([
+                data.block || '',
+                log.trial_id || '',
+                data.condition || '',
+                log.name || '',
+                cat,
+                stim,
+                log.responseHandle || '',
+                errorCode,
+                log.latency || ''
+            ]);
+        }
+
+        // Add minimal end marker
+        content.push([9, 999, 'end', '', '', '', '', '', '']);
+
+        // Insert headers
+        content.unshift(headers);
+
+        // Efficient CSV conversion
+        function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
+        function buildRow(arr) { return arr.map(normalize).join(','); }
+        function normalize(val) {
+            if (val === null || val === undefined) return '';
+            var str = String(val);
+            return str.indexOf(',') > -1 ? '"' + str.replace(/"/g, '""') + '"' : str;
+        }
+
+        return toCsv(content);
+    },
+    // Set logs into an input (i.e. put them wherever you want)
+    send: function(name, serialized){
+        window.minnoJS.logger(serialized);
+    }
+});
 
                 function hasProperties(obj, props) {
                     var iProp;
