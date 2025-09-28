@@ -240,7 +240,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 							    var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb'];
 							    var content = [];
 							
-							    // Trasforma i log in righe CSV
 							    for (var i = 0; i < logs.length; i++) {
 							        var log = logs[i] || {};
 							        var data = log.data || {};
@@ -249,11 +248,10 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 							        var cat = '';
 							        var stim = '';
 							
-							        // Estrai stringhe leggibili da stimuli e media
-							        if (log.stimuli && log.stimuli[0]) {
+							        if (Array.isArray(log.stimuli) && log.stimuli[0]) {
 							            cat = (typeof log.stimuli[0] === 'string') ? log.stimuli[0] : (log.stimuli[0].word || '');
 							        }
-							        if (log.media && log.media[0]) {
+							        if (Array.isArray(log.media) && log.media[0]) {
 							            stim = (typeof log.media[0] === 'string') ? log.media[0] : (log.media[0].word || '');
 							        }
 							
@@ -272,21 +270,21 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 							        ]);
 							    }
 							
-							    // Riga finale placeholder compatibile Qualtrics
+							    // Riga finale compatibile Qualtrics
 							    content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
-							
-							    // Inserisci headers
 							    content.unshift(headers);
 							
-							    // Funzioni CSV
-							    function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
-							    function buildRow(arr) { return arr.map(normalize).join(','); }
 							    function normalize(val) {
 							        if (val === undefined || val === null) val = '';
-							        var quotable = /(\n|,|")/;
-							        if (quotable.test(val)) return '"' + val.toString().replace(/"/g,'""') + '"';
+							        val = val.toString();
+							        if (/(\n|,|")/.test(val)) {
+							            val = '"' + val.replace(/"/g,'""') + '"';
+							        }
 							        return val;
 							    }
+							
+							    function buildRow(arr) { return arr.map(normalize).join(','); }
+							    function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
 							
 							    return toCsv(content);
 							}
