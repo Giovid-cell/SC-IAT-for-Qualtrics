@@ -224,15 +224,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		//window.minnoJS.logger = console.log;
 		//window.minnoJS.onEnd = console.log;
 		
-API.addSettings('logger', {
-    onRow: function(logName, log, settings, ctx){
-        if (!ctx.logs) ctx.logs = [];
-        ctx.logs.push(log);
-    },
-    onEnd: function(name, settings, ctx){
-        return ctx.logs;
-    },
-    API.addSettings('logger', {
+AAPI.addSettings('logger', {
     onRow: function(logName, log, settings, ctx){
         if (!ctx.logs) ctx.logs = [];
         ctx.logs.push(log);
