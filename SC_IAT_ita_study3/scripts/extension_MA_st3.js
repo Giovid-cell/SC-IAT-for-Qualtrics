@@ -236,55 +236,61 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             },
             // Transform logs into a string
             // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
-					            serialize: function (name, logs) {
-					    var headers = ['block', 'trial', 'cond', 'type', 'cat', 'stim', 'resp', 'err', 'rt', 'd', 'fb'];
-					    var myLogs = [];
-					
-					    for (var iLog = 0; iLog < logs.length; iLog++) {
-					        // Assicurati che tutte le proprietà siano definite
-					        if (!logs[iLog].hasOwnProperty('data')) logs[iLog].data = {};
-					        if (!logs[iLog].data.hasOwnProperty('score')) logs[iLog].data.score = 1;
-					        if (!logs[iLog].data.hasOwnProperty('condition')) logs[iLog].data.condition = 'unknown';
-					
-					        // Inserisci il log
-					        myLogs.push(logs[iLog]);
-					    }
-					
-					    // mapping dei log
-					    var content = myLogs.map(function (log) { 
-					        return [
-					            log.data.block || '',           // 'block'
-					            log.trial_id || '',             // 'trial'
-					            log.data.condition || '',       // 'cond'
-					            log.name || '',                 // 'type'
-					            (log.stimuli && log.stimuli[0]) || '',  // 'cat'
-					            (log.media && log.media[0]) || '',      // 'stim'
-					            log.responseHandle || '',       // 'resp'
-					            log.data.score || '',           // 'err'
-					            log.latency || '',              // 'rt'
-					            '',                             // 'd' placeholder
-					            ''                              // 'fb' placeholder
-					        ]; 
-					    });
-					
-					    // Aggiungi riga finale vuota (feedback/score possono essere salvati altrove)
-					    content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
-					
-					    // Aggiungi intestazioni
-					    content.unshift(headers);
-					
-					    // Funzioni per CSV
-					    function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
-					    function buildRow(arr) { return arr.map(normalize).join(','); }
-					    function normalize(val) {
-					        if (val === undefined || val === null) val = '';
-					        var quotableRgx = /(\n|,|")/;
-					        if (quotableRgx.test(val)) return '"' + val.toString().replace(/"/g, '""') + '"';
-					        return val;
-					    }
-					
-					    return toCsv(content);
-					}
+					            serialize: function(name, logs) {
+							    var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb'];
+							    var content = [];
+							
+							    // Trasforma i log in righe CSV
+							    for (var i = 0; i < logs.length; i++) {
+							        var log = logs[i] || {};
+							        var data = log.data || {};
+							        var trial_id = log.trial_id || '';
+							        var nameVal = log.name || '';
+							        var cat = '';
+							        var stim = '';
+							
+							        // Estrai stringhe leggibili da stimuli e media
+							        if (log.stimuli && log.stimuli[0]) {
+							            cat = (typeof log.stimuli[0] === 'string') ? log.stimuli[0] : (log.stimuli[0].word || '');
+							        }
+							        if (log.media && log.media[0]) {
+							            stim = (typeof log.media[0] === 'string') ? log.media[0] : (log.media[0].word || '');
+							        }
+							
+							        content.push([
+							            data.block || '',
+							            trial_id,
+							            data.condition || '',
+							            nameVal,
+							            cat,
+							            stim,
+							            log.responseHandle || '',
+							            (data.score !== undefined) ? data.score : 1,
+							            log.latency || '',
+							            '', // d placeholder
+							            ''  // fb placeholder
+							        ]);
+							    }
+							
+							    // Riga finale placeholder compatibile Qualtrics
+							    content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
+							
+							    // Inserisci headers
+							    content.unshift(headers);
+							
+							    // Funzioni CSV
+							    function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
+							    function buildRow(arr) { return arr.map(normalize).join(','); }
+							    function normalize(val) {
+							        if (val === undefined || val === null) val = '';
+							        var quotable = /(\n|,|")/;
+							        if (quotable.test(val)) return '"' + val.toString().replace(/"/g,'""') + '"';
+							        return val;
+							    }
+							
+							    return toCsv(content);
+							}
+
 
 
                 function hasProperties(obj, props) {
