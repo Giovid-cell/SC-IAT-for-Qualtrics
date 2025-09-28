@@ -236,57 +236,56 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             },
             // Transform logs into a string
             // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
-            serialize: function (name, logs) {
-			    var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
-			    var myLogs = [];
-			
-			    for (var iLog = 0; iLog < logs.length; iLog++) {
-			        // Assicurati che tutte le proprietà siano definite
-			        if (!logs[iLog].hasOwnProperty('data')) logs[iLog].data = {};
-			        if (!logs[iLog].data.hasOwnProperty('score')) logs[iLog].data.score = 1; // corretto di default
-			        if (!logs[iLog].data.hasOwnProperty('condition')) logs[iLog].data.condition = 'unknown';
-			
-			        // Inserisci il log
-			        myLogs.push(logs[iLog]);
-			    }
-			
-			    // mapping dei log
-			    var content = myLogs.map(function (log) { 
-			        return [
-			            log.data.block, //'block'
-			            log.trial_id, //'trial'
-			            log.data.condition, //'cond'
-			            log.name, //'type'
-			            log.stimuli[0], //'cat'
-			            log.media[0], //'stim'
-			            log.responseHandle, //'resp'
-			            log.data.score, //'err'
-			            log.latency, //'rt'
-			            '', //'d'
-			            '', //'fb'
-			            block2Condition //'bOrd'
-			        ]; 
-			    });
-			
-			    //Add a line with the feedback, score and block-order condition
-			    content.push([
-			        9, //'block'
-			        999, //'trial'
-			        'end', //'cond'
-			        '', //'type'
-			        '', //'cat'
-			        '', //'stim'
-			        '', //'resp'
-			        '', //'err'
-			        '', //'rt'
-			        piCurrent.d, //'d'
-			        piCurrent.feedback, //'fb'
-			        block2Condition //'bOrd'
-			    ]);
-			
-			    content.unshift(headers);
-			    return toCsv(content);
-			}
+					            serialize: function (name, logs) {
+					    var headers = ['block', 'trial', 'cond', 'type', 'cat', 'stim', 'resp', 'err', 'rt', 'd', 'fb'];
+					    var myLogs = [];
+					
+					    for (var iLog = 0; iLog < logs.length; iLog++) {
+					        // Assicurati che tutte le proprietà siano definite
+					        if (!logs[iLog].hasOwnProperty('data')) logs[iLog].data = {};
+					        if (!logs[iLog].data.hasOwnProperty('score')) logs[iLog].data.score = 1;
+					        if (!logs[iLog].data.hasOwnProperty('condition')) logs[iLog].data.condition = 'unknown';
+					
+					        // Inserisci il log
+					        myLogs.push(logs[iLog]);
+					    }
+					
+					    // mapping dei log
+					    var content = myLogs.map(function (log) { 
+					        return [
+					            log.data.block || '',           // 'block'
+					            log.trial_id || '',             // 'trial'
+					            log.data.condition || '',       // 'cond'
+					            log.name || '',                 // 'type'
+					            (log.stimuli && log.stimuli[0]) || '',  // 'cat'
+					            (log.media && log.media[0]) || '',      // 'stim'
+					            log.responseHandle || '',       // 'resp'
+					            log.data.score || '',           // 'err'
+					            log.latency || '',              // 'rt'
+					            '',                             // 'd' placeholder
+					            ''                              // 'fb' placeholder
+					        ]; 
+					    });
+					
+					    // Aggiungi riga finale vuota (feedback/score possono essere salvati altrove)
+					    content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
+					
+					    // Aggiungi intestazioni
+					    content.unshift(headers);
+					
+					    // Funzioni per CSV
+					    function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
+					    function buildRow(arr) { return arr.map(normalize).join(','); }
+					    function normalize(val) {
+					        if (val === undefined || val === null) val = '';
+					        var quotableRgx = /(\n|,|")/;
+					        if (quotableRgx.test(val)) return '"' + val.toString().replace(/"/g, '""') + '"';
+					        return val;
+					    }
+					
+					    return toCsv(content);
+					}
+
 
                 function hasProperties(obj, props) {
                     var iProp;
