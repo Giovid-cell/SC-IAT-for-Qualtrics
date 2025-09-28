@@ -237,7 +237,7 @@ API.addSettings('logger', {
     // Transform logs into a string
     // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
     serialize: function(name, logs) {
-        var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt'];
+        var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt','d','fb'];
         var content = [];
 
         // Transform logs to CSV rows - with filtering
@@ -282,33 +282,43 @@ API.addSettings('logger', {
             }
 
             content.push([
-                data.block || '',
-                log.trial_id || '',
-                data.condition || '',
-                log.name || '',
-                cat,
-                stim,
-                log.responseHandle || '',
-                errorCode,
-                log.latency || ''
-            ]);
+			    data.block || '',
+			    log.trial_id || '',
+			    data.condition || '',
+			    log.name || '',
+			    cat,
+			    stim,
+			    log.responseHandle || '',
+			    errorCode,
+			    log.latency || '',
+			    log.d !== undefined ? log.d : '',
+			    log.fb || ''
+			]);
         }
 
         // Add minimal end marker
-        content.push([9, 999, 'end', '', '', '', '', '', '']);
+		content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
 
         // Insert headers
         content.unshift(headers);
 
         // Efficient CSV conversion
-        function toCsv(matrix) { return matrix.map(buildRow).join('\n'); }
-        function buildRow(arr) { return arr.map(normalize).join(','); }
-        function normalize(val) {
-            if (val === null || val === undefined) return '';
-            var str = String(val);
-            return str.indexOf(',') > -1 ? '"' + str.replace(/"/g, '""') + '"' : str;
-        }
-
+       function toCsv(matrix) { 
+		    return matrix.map(buildRow).join('\n'); 
+		}
+		function buildRow(arr) { 
+		    return arr.map(normalize).join(','); 
+		}
+		function normalize(val) {
+   		 if (val === null || val === undefined) return '';
+    		var str = String(val);
+    		// Escape se contiene virgola, ritorno a capo o doppio apice
+    		if (/[,"\n]/.test(str)) {
+      	  str = '"' + str.replace(/"/g,'""') + '"';
+    }
+    return str;
+}
+		}
         return toCsv(content);
     },
     // Set logs into an input (i.e. put them wherever you want)
