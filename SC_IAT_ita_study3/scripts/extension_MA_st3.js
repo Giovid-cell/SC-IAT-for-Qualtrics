@@ -390,16 +390,18 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
         },
 
         // error: incorrect response
-        {
-            conditions: [
-                {type:'inputEqualsTrial', property:'corResp', negate:true},
-                {type:'inputEquals', value:['right','left']}
-            ],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:0}}
-            ]
-        },
+			        {
+			    conditions: [
+			        {type:'inputEqualsTrial', property:'corResp', negate:true},
+			        {type:'inputEquals', value:['right','left']}
+			    ],
+			    actions: [
+			        {type:'showStim', handle:'error'},
+			        {type:'setTrialAttr', setter:{score:0}},           // errore = 0
+			        {type:'log'},                                      // registra il trial
+			        {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}  // passa al trial successivo
+			    ]
+			},
 
         // correct response
         {
