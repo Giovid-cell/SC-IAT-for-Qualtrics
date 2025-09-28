@@ -10,14 +10,14 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       }, 
-      media : [ //Stimuli
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'}
+      media : [ 
+				{word: 'Saif'},
+				{word: 'Khemal'},
+				{word: 'Saif Khemal'},
+				{word: 'S.K.'},
+				{word: 'Khemal Saif'},
+				{word: 'Saif Khemal'},
+				{word: 'Khemal Saif'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
