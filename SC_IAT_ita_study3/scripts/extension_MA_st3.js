@@ -237,7 +237,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             // Transform logs into a string
             // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
             serialize: function (name, logs) {
-                var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
+				var headers = ['block', 'trial', 'cond', 'type', 'cat', 'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd', 'startCond'];
                 //console.log(logs);
                 var myLogs = [];
                 var iLog;
@@ -278,20 +278,20 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
                 //console.log('mapped');
                 //Add a line with the feedback, score and block-order condition
                 content.push([
-                            9, //'block'
-                            999, //'trial'
-                            'end', //'cond'
-                            //'', //'comp'
-                            '', //'type'
-                            '', //'cat'
-                            '', //'stim'
-                            '', //'resp'
-                            '', //'err'
-                            '', //'rt'
-                            piCurrent.d, //'d'
-                            piCurrent.feedback, //'fb'
-                            block2Condition //'bOrd'
-                        ]);
+				    9, //'block'
+				    999, //'trial'
+				    'end', //'cond'
+				    '', //'type'
+				    '', //'cat'
+				    '', //'stim'
+				    '', //'resp'
+				    '', //'err'
+				    '', //'rt'
+				    piCurrent.d, //'d'
+				    piCurrent.feedback, //'fb'
+				    block2Condition, //'bOrd'
+				    piCurrent.startCondition //'startCond'
+					]);
                 //console.log(content);
                         
                 content.unshift(headers);
@@ -620,14 +620,17 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		
 		////Set the block order
 		var firstCatSide = 'leftCat';
-		if (piCurrent.blockOrder == 'startRight')
-		{
-			firstCatSide = 'rightCat';
-		}
-		else if (piCurrent.blockOrder == 'random')
-		{
-			firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
-		}
+if (piCurrent.blockOrder == 'startRight'){
+    firstCatSide = 'rightCat';
+}
+else if (piCurrent.blockOrder == 'random'){
+    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
+}
+
+// nuovo: registriamo la condizione iniziale
+piCurrent.startCondition = (firstCatSide === 'rightCat')
+    ? 'compatibile'
+    : 'incompatibile';
 		
 		var catSide = '';
 		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++)
