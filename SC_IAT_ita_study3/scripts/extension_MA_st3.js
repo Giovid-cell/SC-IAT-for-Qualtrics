@@ -232,67 +232,75 @@ API.addSettings('logger', {
     onEnd: function(name, settings, ctx){
         return ctx.logs;
     },
+    API.addSettings('logger', {
+    onRow: function(logName, log, settings, ctx){
+        if (!ctx.logs) ctx.logs = [];
+        ctx.logs.push(log);
+    },
+    onEnd: function(name, settings, ctx){
+        return ctx.logs;
+    },
     serialize: function(name, logs) {
-    var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt','d','fb'];
-    var content = [];
-    var currentBlock = null;
-    var blockContent = [];
+        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
+        var myLogs = [];
 
-    function pushBlock(block) {
-        if (block.length === 0) return;
-        block.unshift(headers);  // aggiungi intestazioni
-        // invia il blocco a Qualtrics o logger
-        window.minnoJS.logger(toCsv(block));
-        block.length = 0;  // reset
+        // Assicuriamoci che ogni log abbia proprietà base
+        for (var i = 0; i < logs.length; i++) {
+            var log = logs[i];
+            if (!log) continue;
+            if (!log.data) log.data = {};
+            if (!log.data.score) log.data.score = 1; // default corretto
+            if (!log.data.condition) log.data.condition = 'unknown';
+            myLogs.push(log);
+        }
+
+        // Mappa i log in CSV
+        var content = myLogs.map(function(log){
+            var cat = '';
+            if (Array.isArray(log.stimuli) && log.stimuli.length > 0)
+                cat = log.stimuli[0].word || log.stimuli[0] || '';
+
+            var stim = '';
+            if (Array.isArray(log.media) && log.media.length > 0)
+                stim = log.media[0].word || log.media[0] || '';
+
+            var errorCode = log.data.score === 0 ? 0 : (log.data.score === 2 ? 2 : 1);
+
+            return [
+                log.data.block || '',
+                log.trial_id || '',
+                log.data.condition || '',
+                log.name || '',
+                cat,
+                stim,
+                log.responseHandle || '',
+                errorCode,
+                log.latency || '',
+                log.data.d !== undefined ? log.data.d : '',
+                log.fb || '',
+                log.data.bOrd || ''
+            ];
+        });
+
+        // Aggiungi intestazioni
+        content.unshift(headers);
+
+        // Funzione CSV helper
+        function toCsv(matrix) {
+            return matrix.map(row => row.map(normalize).join(',')).join('\n');
+        }
+        function normalize(val) {
+            if (val === null || val === undefined) return '';
+            var str = String(val);
+            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+        }
+
+        return toCsv(content);
+    },
+    send: function(name, serialized){
+        window.minnoJS.logger(serialized);
     }
-
-    logs.forEach(function(log) {
-        if (!log || log.nolog) return;
-        if (log.name === 'instructions' || log.name === 'dummyForLog') return;
-        var data = log.data || {};
-        if (data.condition === 'inst') return;
-        if (!log.trial_id) return;
-        if (log.name && log.name.includes('goodbye')) return;
-
-        // Stimuli extraction
-        var cat = '';
-        if (Array.isArray(log.stimuli) && log.stimuli.length > 0) {
-            var stimObj = log.stimuli[0];
-            cat = (stimObj && typeof stimObj === 'object') ? (stimObj.word || '') : (stimObj || '');
-        }
-
-        var stim = '';
-        if (Array.isArray(log.media) && log.media.length > 0) {
-            var mediaObj = log.media[0];
-            stim = (mediaObj && typeof mediaObj === 'object') ? (mediaObj.word || '') : (mediaObj || '');
-        }
-
-        // Error coding
-        var errorCode = 1;
-        if (data.score !== undefined) {
-            errorCode = data.score === 0 ? 0 : (data.score === 2 ? 2 : 1);
-        }
-
-        // Se cambio blocco, invia blocco precedente
-        if (currentBlock !== data.block) {
-            pushBlock(blockContent);
-            currentBlock = data.block;
-        }
-
-        blockContent.push([
-            data.block || '',
-            log.trial_id || '',
-            data.condition || '',
-            log.name || '',
-            cat,
-            stim,
-            log.responseHandle || '',
-            errorCode,
-            log.latency || '',
-            log.d !== undefined ? log.d : '',
-            log.fb || ''
-        ]);
-    });
+});
 
     // push finale dell’ultimo blocco
     pushBlock(blockContent);
