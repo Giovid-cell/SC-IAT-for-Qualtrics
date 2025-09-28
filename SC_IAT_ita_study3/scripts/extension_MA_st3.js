@@ -158,7 +158,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
 			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte di nBlocks</u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
@@ -169,7 +169,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'Premi un altro tasto per continuare.<br/><br/>' + 
 				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte di nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
@@ -181,7 +181,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'Premi un altro tasto per continuare.<br/><br/>' + 
 				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
+				'<font color="#000000"><u>blockNum parte di nBlocks </u><br/><br/></p>' + 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font> ' +
@@ -237,7 +237,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             // Transform logs into a string
             // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
             serialize: function (name, logs) {
-				var headers = ['block', 'trial', 'cond', 'type', 'cat', 'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd', 'startCond'];
+                var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
                 //console.log(logs);
                 var myLogs = [];
                 var iLog;
@@ -278,20 +278,20 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
                 //console.log('mapped');
                 //Add a line with the feedback, score and block-order condition
                 content.push([
-				    9, //'block'
-				    999, //'trial'
-				    'end', //'cond'
-				    '', //'type'
-				    '', //'cat'
-				    '', //'stim'
-				    '', //'resp'
-				    '', //'err'
-				    '', //'rt'
-				    piCurrent.d, //'d'
-				    piCurrent.feedback, //'fb'
-				    block2Condition, //'bOrd'
-				    piCurrent.startCondition //'startCond'
-					]);
+                            9, //'block'
+                            999, //'trial'
+                            'end', //'cond'
+                            //'', //'comp'
+                            '', //'type'
+                            '', //'cat'
+                            '', //'stim'
+                            '', //'resp'
+                            '', //'err'
+                            '', //'rt'
+                            piCurrent.d, //'d'
+                            piCurrent.feedback, //'fb'
+                            block2Condition //'bOrd'
+                        ]);
                 //console.log(content);
                         
                 content.unshift(headers);
@@ -619,18 +619,23 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		var trialSequence = [];
 		
 		////Set the block order
-		var firstCatSide = 'leftCat';
-if (piCurrent.blockOrder == 'startRight'){
-    firstCatSide = 'rightCat';
-}
-else if (piCurrent.blockOrder == 'random'){
-    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
-}
-
-// nuovo: registriamo la condizione iniziale
-piCurrent.startCondition = (firstCatSide === 'rightCat')
-    ? 'compatibile'
-    : 'incompatibile';
+	
+			var firstCatSide = 'leftCat';
+			if (piCurrent.blockOrder == 'startRight')
+			{
+			    firstCatSide = 'rightCat';
+			}
+			else if (piCurrent.blockOrder == 'random')
+			{
+			    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
+			}
+			
+			// Definizione della condizione iniziale secondo la tua logica
+			// cat + attributo1 = compatibile, cat + attributo2 = incompatibile
+			piCurrent.startCondition = (firstCatSide === 'leftCat')
+			    ? 'compatibile'
+			    : 'incompatibile';
+		}
 		
 		var catSide = '';
 		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++)
