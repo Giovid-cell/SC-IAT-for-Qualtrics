@@ -29,13 +29,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ 
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'},
-				{word: 'Nome'}
+				{word: 'Saif'},
+				{word: 'Khemal'},
+				{word: 'Saif Khemal'},
+				{word: 'S.K.'},
+				{word: 'Khemal Saif'},
+				{word: 'Saif Khemal'},
+				{word: 'Khemal Saif'}
 					],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
