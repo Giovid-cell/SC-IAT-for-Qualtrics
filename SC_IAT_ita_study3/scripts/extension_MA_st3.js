@@ -635,7 +635,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			piCurrent.startCondition = (firstCatSide === 'leftCat')
 			    ? 'compatibile'
 			    : 'incompatibile';
-		}
+		
 		
 		var catSide = '';
 		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++)
