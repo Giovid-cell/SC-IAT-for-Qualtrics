@@ -233,74 +233,84 @@ API.addSettings('logger', {
         return ctx.logs;
     },
     serialize: function(name, logs) {
-        var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt','d','fb'];
-        var content = [];
+    var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt','d','fb'];
+    var content = [];
+    var currentBlock = null;
+    var blockContent = [];
 
-        logs.forEach(function(log) {
-            if (!log || log.nolog) return;
-            if (log.name === 'instructions' || log.name === 'dummyForLog') return;
-
-            var data = log.data || {};
-            if (data.condition === 'inst') return;
-            if (!log.trial_id) return;
-            if (log.name && log.name.includes('goodbye')) return;
-
-            // Stimuli extraction in modo robusto
-            var cat = '';
-            if (Array.isArray(log.stimuli) && log.stimuli.length > 0) {
-                var stimObj = log.stimuli[0];
-                cat = (stimObj && typeof stimObj === 'object') ? (stimObj.word || '') : (stimObj || '');
-            }
-
-            var stim = '';
-            if (Array.isArray(log.media) && log.media.length > 0) {
-                var mediaObj = log.media[0];
-                stim = (mediaObj && typeof mediaObj === 'object') ? (mediaObj.word || '') : (mediaObj || '');
-            }
-
-            // Error coding
-            var errorCode = 1;
-            if (data.score !== undefined) {
-                errorCode = data.score === 0 ? 0 : (data.score === 2 ? 2 : 1);
-            }
-
-            content.push([
-                data.block || '',
-                log.trial_id || '',
-                data.condition || '',
-                log.name || '',
-                cat,
-                stim,
-                log.responseHandle || '',
-                errorCode,
-                log.latency || '',
-                log.d !== undefined ? log.d : '',
-                log.fb || ''
-            ]);
-        });
-
-        // Add minimal end marker
-        content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
-        content.unshift(headers);
-
-        // CSV conversion con escape sicuro
-        function toCsv(matrix) {
-            return matrix.map(row => row.map(normalize).join(',')).join('\n');
-        }
-
-        function normalize(val) {
-            if (val === null || val === undefined) return '';
-            var str = String(val);
-            // Escape se contiene virgola, newline o doppio apice
-            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
-        }
-
-        return toCsv(content);
-    },
-    send: function(name, serialized){
-        window.minnoJS.logger(serialized);
+    function pushBlock(block) {
+        if (block.length === 0) return;
+        block.unshift(headers);  // aggiungi intestazioni
+        // invia il blocco a Qualtrics o logger
+        window.minnoJS.logger(toCsv(block));
+        block.length = 0;  // reset
     }
-});
+
+    logs.forEach(function(log) {
+        if (!log || log.nolog) return;
+        if (log.name === 'instructions' || log.name === 'dummyForLog') return;
+        var data = log.data || {};
+        if (data.condition === 'inst') return;
+        if (!log.trial_id) return;
+        if (log.name && log.name.includes('goodbye')) return;
+
+        // Stimuli extraction
+        var cat = '';
+        if (Array.isArray(log.stimuli) && log.stimuli.length > 0) {
+            var stimObj = log.stimuli[0];
+            cat = (stimObj && typeof stimObj === 'object') ? (stimObj.word || '') : (stimObj || '');
+        }
+
+        var stim = '';
+        if (Array.isArray(log.media) && log.media.length > 0) {
+            var mediaObj = log.media[0];
+            stim = (mediaObj && typeof mediaObj === 'object') ? (mediaObj.word || '') : (mediaObj || '');
+        }
+
+        // Error coding
+        var errorCode = 1;
+        if (data.score !== undefined) {
+            errorCode = data.score === 0 ? 0 : (data.score === 2 ? 2 : 1);
+        }
+
+        // Se cambio blocco, invia blocco precedente
+        if (currentBlock !== data.block) {
+            pushBlock(blockContent);
+            currentBlock = data.block;
+        }
+
+        blockContent.push([
+            data.block || '',
+            log.trial_id || '',
+            data.condition || '',
+            log.name || '',
+            cat,
+            stim,
+            log.responseHandle || '',
+            errorCode,
+            log.latency || '',
+            log.d !== undefined ? log.d : '',
+            log.fb || ''
+        ]);
+    });
+
+    // push finale dell’ultimo blocco
+    pushBlock(blockContent);
+
+    // csv helper
+    function toCsv(matrix) {
+        return matrix.map(row => row.map(normalize).join(',')).join('\n');
+    }
+
+    function normalize(val) {
+        if (val === null || val === undefined) return '';
+        var str = String(val);
+        return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+    }
+
+    return ''; // la funzione non ritorna più tutto il CSV unico
+},
+
                 function hasProperties(obj, props) {
                     var iProp;
                     for (iProp = 0; iProp < props.length; iProp++)
