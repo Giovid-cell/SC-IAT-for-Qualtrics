@@ -240,62 +240,67 @@ API.addSettings('logger', {
     onEnd: function(name, settings, ctx){
         return ctx.logs;
     },
-    serialize: function(name, logs) {
-        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
-        var myLogs = [];
-
-        // Assicuriamoci che ogni log abbia proprietà base
-        for (var i = 0; i < logs.length; i++) {
-            var log = logs[i];
-            if (!log) continue;
-            if (!log.data) log.data = {};
-            if (!log.data.score) log.data.score = 1; // default corretto
-            if (!log.data.condition) log.data.condition = 'unknown';
-            myLogs.push(log);
+    serialize: function (name, logs) {
+    var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
+    var myLogs = [];
+    var iLog;
+    for (iLog = 0; iLog < logs.length; iLog++)
+    {
+        if(!hasProperties(logs[iLog], ['trial_id', 'name', 'responseHandle', 'stimuli', 'media', 'latency'])){
+            //console.log('---MISSING PROPERTIY---');
         }
-
-        // Mappa i log in CSV
-        var content = myLogs.map(function(log){
-            var cat = '';
-            if (Array.isArray(log.stimuli) && log.stimuli.length > 0)
-                cat = log.stimuli[0].word || log.stimuli[0] || '';
-
-            var stim = '';
-            if (Array.isArray(log.media) && log.media.length > 0)
-                stim = log.media[0].word || log.media[0] || '';
-
-            var errorCode = log.data.score === 0 ? 0 : (log.data.score === 2 ? 2 : 1);
-
-            return [
-                log.data.block || '',
-                log.trial_id || '',
-                log.data.condition || '',
-                log.name || '',
-                cat,
-                stim,
-                log.responseHandle || '',
-                errorCode,
-                log.latency || '',
-                log.data.d !== undefined ? log.data.d : '',
-                log.fb || '',
-                log.data.bOrd || ''
-            ];
-        });
-
-        // Aggiungi intestazioni
-        content.unshift(headers);
-
-        // Funzione CSV helper
-        function toCsv(matrix) {
-            return matrix.map(row => row.map(normalize).join(',')).join('\n');
+        else if(!hasProperties(logs[iLog].data, ['block', 'condition', 'score']))
+        {
+            //console.log('---MISSING data PROPERTIY---');
         }
-        function normalize(val) {
-            if (val === null || val === undefined) return '';
-            var str = String(val);
-            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+        else
+        {
+            myLogs.push(logs[iLog]);
         }
+    }
 
-        return toCsv(content);
+    var content = myLogs.map(function (log) { 
+        // Qui trasformiamo score in err: 1 = corretto, 0 = errore, 2 = timeout
+        var errCode = log.data.score;
+        // sicurezza: se score non definito, fallback a ''
+        if(errCode !== 0 && errCode !== 1 && errCode !== 2) errCode = '';
+
+        return [
+            log.data.block,          //'block'
+            log.trial_id,            //'trial'
+            log.data.condition,      //'cond'
+            log.name,                //'type'
+            log.stimuli[0],          //'cat'
+            log.media[0],            //'stim'
+            log.responseHandle,      //'resp'
+            errCode,                 //'err'
+            log.latency,             //'rt'
+            '',                      //'d'
+            '',                      //'fb'
+            ''                       //'bOrd'
+        ]; 
+    });
+
+    // linea finale con feedback e punteggi
+    content.push([
+        9,                   //'block'
+        999,                 //'trial'
+        'end',               //'cond'
+        '',                  //'type'
+        '',                  //'cat'
+        '',                  //'stim'
+        '',                  //'resp'
+        '',                  //'err'
+        '',                  //'rt'
+        piCurrent.d,         //'d'
+        piCurrent.feedback,  //'fb'
+        block2Condition      //'bOrd'
+    ]);
+
+    content.unshift(headers);
+    return toCsv(content);
+}
+
     },
     send: function(name, serialized){
         window.minnoJS.logger(serialized);
