@@ -225,108 +225,82 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		//window.minnoJS.onEnd = console.log;
 		
 API.addSettings('logger', {
-    // gather logs in array
     onRow: function(logName, log, settings, ctx){
         if (!ctx.logs) ctx.logs = [];
         ctx.logs.push(log);
     },
-    // onEnd trigger save (by returning a value)
     onEnd: function(name, settings, ctx){
         return ctx.logs;
     },
-    // Transform logs into a string
-    // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
     serialize: function(name, logs) {
         var headers = ['blk','tid','cond','typ','cat','stim','rsp','err','rt','d','fb'];
         var content = [];
 
-        // Transform logs to CSV rows - with filtering
-        for (var i = 0; i < logs.length; i++) {
-            var log = logs[i] || {};
-            
-            // FILTER OUT UNNECESSARY TRIALS:
-            // Skip nolog items
-            if (log.nolog) continue;
-            
-            // Skip instruction trials
-            if (log.name === 'instructions' || log.name === 'dummyForLog') continue;
-            
-            // Skip trials with condition 'inst' (instructions)
-            var data = log.data || {};
-            if (data.condition === 'inst') continue;
-            
-            // Skip trials without trial_id (usually system logs)
-            if (!log.trial_id) continue;
-            
-            // Skip the final "goodbye" trial if needed
-            if (log.name && log.name.includes('goodbye')) continue;
+        logs.forEach(function(log) {
+            if (!log || log.nolog) return;
+            if (log.name === 'instructions' || log.name === 'dummyForLog') return;
 
-            // Extract with minimal processing
+            var data = log.data || {};
+            if (data.condition === 'inst') return;
+            if (!log.trial_id) return;
+            if (log.name && log.name.includes('goodbye')) return;
+
+            // Stimuli extraction in modo robusto
             var cat = '';
-            var stim = '';
-            
-            if (log.stimuli && log.stimuli[0]) {
+            if (Array.isArray(log.stimuli) && log.stimuli.length > 0) {
                 var stimObj = log.stimuli[0];
-                cat = (typeof stimObj === 'string') ? stimObj : (stimObj.word || '');
+                cat = (stimObj && typeof stimObj === 'object') ? (stimObj.word || '') : (stimObj || '');
             }
-            if (log.media && log.media[0]) {
+
+            var stim = '';
+            if (Array.isArray(log.media) && log.media.length > 0) {
                 var mediaObj = log.media[0];
-                stim = (typeof mediaObj === 'string') ? mediaObj : (mediaObj.word || '');
+                stim = (mediaObj && typeof mediaObj === 'object') ? (mediaObj.word || '') : (mediaObj || '');
             }
 
             // Error coding
             var errorCode = 1;
             if (data.score !== undefined) {
-                if (data.score === 0) errorCode = 0;
-                else if (data.score === 2) errorCode = 2;
+                errorCode = data.score === 0 ? 0 : (data.score === 2 ? 2 : 1);
             }
 
             content.push([
-			    data.block || '',
-			    log.trial_id || '',
-			    data.condition || '',
-			    log.name || '',
-			    cat,
-			    stim,
-			    log.responseHandle || '',
-			    errorCode,
-			    log.latency || '',
-			    log.d !== undefined ? log.d : '',
-			    log.fb || ''
-			]);
-        }
+                data.block || '',
+                log.trial_id || '',
+                data.condition || '',
+                log.name || '',
+                cat,
+                stim,
+                log.responseHandle || '',
+                errorCode,
+                log.latency || '',
+                log.d !== undefined ? log.d : '',
+                log.fb || ''
+            ]);
+        });
 
         // Add minimal end marker
-		content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
-
-        // Insert headers
+        content.push([9, 999, 'end', '', '', '', '', '', '', '', '']);
         content.unshift(headers);
 
-        // Efficient CSV conversion
-       function toCsv(matrix) { 
-		    return matrix.map(buildRow).join('\n'); 
-		}
-		function buildRow(arr) { 
-		    return arr.map(normalize).join(','); 
-		}
-		function normalize(val) {
-   		 if (val === null || val === undefined) return '';
-    		var str = String(val);
-    		// Escape se contiene virgola, ritorno a capo o doppio apice
-    		if (/[,"\n]/.test(str)) {
-      	  str = '"' + str.replace(/"/g,'""') + '"';
-    }
-    return str;
-}
-		}
+        // CSV conversion con escape sicuro
+        function toCsv(matrix) {
+            return matrix.map(row => row.map(normalize).join(',')).join('\n');
+        }
+
+        function normalize(val) {
+            if (val === null || val === undefined) return '';
+            var str = String(val);
+            // Escape se contiene virgola, newline o doppio apice
+            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+        }
+
         return toCsv(content);
     },
-    // Set logs into an input (i.e. put them wherever you want)
     send: function(name, serialized){
         window.minnoJS.logger(serialized);
     }
 });
-
                 function hasProperties(obj, props) {
                     var iProp;
                     for (iProp = 0; iProp < props.length; iProp++)
