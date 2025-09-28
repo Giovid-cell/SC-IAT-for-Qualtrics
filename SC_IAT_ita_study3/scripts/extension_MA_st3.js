@@ -237,65 +237,56 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
             // Transform logs into a string
             // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
             serialize: function (name, logs) {
-                var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
-                //console.log(logs);
-                var myLogs = [];
-                var iLog;
-                for (iLog = 0; iLog < logs.length; iLog++)
-                {
-                    if(!hasProperties(logs[iLog], ['trial_id', 'name', 'responseHandle', 'stimuli', 'media', 'latency'])){
-                        //console.log('---MISSING PROPERTIY---');
-                        //console.log(logs[iLog]);
-                        //console.log('---MISSING PROPERTIY---');
-                    }
-                    else if(!hasProperties(logs[iLog].data, ['block', 'condition', 'score']))
-                    {
-                        //console.log('---MISSING data PROPERTIY---');
-                        //console.log(logs[iLog].data);
-                        //console.log('---MISSING data PROPERTIY---');
-                    }
-                    else
-                    {
-                        myLogs.push(logs[iLog]);
-                    }
-                }
-                var content = myLogs.map(function (log) { 
-                    return [
-                        log.data.block, //'block'
-                        log.trial_id, //'trial'
-                        log.data.condition, //'cond'
-                        //log.data, //'comp'
-                        log.name, //'type'
-                        log.stimuli[0], //'cat'
-                        log.media[0], //'stim'
-                        log.responseHandle, //'resp'
-                        log.data.score, //'err'
-                        log.latency, //'rt'
-                        '', //'d'
-                        '', //'fb'
-                        '' //'bOrd'
-                        ]; });
-                //console.log('mapped');
-                //Add a line with the feedback, score and block-order condition
-                content.push([
-                            9, //'block'
-                            999, //'trial'
-                            'end', //'cond'
-                            //'', //'comp'
-                            '', //'type'
-                            '', //'cat'
-                            '', //'stim'
-                            '', //'resp'
-                            '', //'err'
-                            '', //'rt'
-                            piCurrent.d, //'d'
-                            piCurrent.feedback, //'fb'
-                            block2Condition //'bOrd'
-                        ]);
-                //console.log(content);
-                        
-                content.unshift(headers);
-                return toCsv(content);
+			    var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
+			    var myLogs = [];
+			
+			    for (var iLog = 0; iLog < logs.length; iLog++) {
+			        // Assicurati che tutte le proprietà siano definite
+			        if (!logs[iLog].hasOwnProperty('data')) logs[iLog].data = {};
+			        if (!logs[iLog].data.hasOwnProperty('score')) logs[iLog].data.score = 1; // corretto di default
+			        if (!logs[iLog].data.hasOwnProperty('condition')) logs[iLog].data.condition = 'unknown';
+			
+			        // Inserisci il log
+			        myLogs.push(logs[iLog]);
+			    }
+			
+			    // mapping dei log
+			    var content = myLogs.map(function (log) { 
+			        return [
+			            log.data.block, //'block'
+			            log.trial_id, //'trial'
+			            log.data.condition, //'cond'
+			            log.name, //'type'
+			            log.stimuli[0], //'cat'
+			            log.media[0], //'stim'
+			            log.responseHandle, //'resp'
+			            log.data.score, //'err'
+			            log.latency, //'rt'
+			            '', //'d'
+			            '', //'fb'
+			            block2Condition //'bOrd'
+			        ]; 
+			    });
+			
+			    //Add a line with the feedback, score and block-order condition
+			    content.push([
+			        9, //'block'
+			        999, //'trial'
+			        'end', //'cond'
+			        '', //'type'
+			        '', //'cat'
+			        '', //'stim'
+			        '', //'resp'
+			        '', //'err'
+			        '', //'rt'
+			        piCurrent.d, //'d'
+			        piCurrent.feedback, //'fb'
+			        block2Condition //'bOrd'
+			    ]);
+			
+			    content.unshift(headers);
+			    return toCsv(content);
+			}
 
                 function hasProperties(obj, props) {
                     var iProp;
