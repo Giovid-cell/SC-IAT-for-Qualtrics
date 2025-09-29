@@ -226,19 +226,21 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 				window.minnoJS.onEnd = function(){
 				    try {
-				        // piccolo delay per permettere a Qualtrics di gestire il page break
-				        setTimeout(function(){
+				        var advance = function(){
 				            if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
 				                qthis.clickNextButton();
 				            } else if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
 				                Qualtrics.SurveyEngine.navNext();
+				            } else {
+				                // riprova finché non trova il bottone
+				                setTimeout(advance, 200);
 				            }
-				        }, 300); // 300 ms = sufficiente per Qualtrics
+				        };
+				        advance();
 				    } catch(e) {
 				        console.error("Errore in onEnd:", e);
 				    }
 				};
-
 			
 			// Estensione piCurrent con opzioni e valori di default
 			_.extend(piCurrent, _.defaults(options, stiatObj));
