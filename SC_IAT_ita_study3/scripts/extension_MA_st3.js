@@ -214,7 +214,16 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		// extend the current object with the default
 		_.extend(piCurrent, _.defaults(options, stiatObj));
 
-		
+		// Definizione onEnd per avanzamento automatico
+			window.minnoJS.onEnd = function() {
+			    try {
+			        if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
+			            Qualtrics.SurveyEngine.navNext();
+			        }
+			    } catch(e) {}
+			};
+
+_.extend(piCurrent, _.defaults(options, stiatObj));
 		/**
         **** For Qualtrics
         */
