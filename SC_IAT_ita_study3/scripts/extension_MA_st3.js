@@ -210,43 +210,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			tooFast: '',
 			notEnough: '' //Usually relevant only if skipped the task.
 		};
-
-		// --- Assicuriamoci che minnoJS e logger siano definiti ---
-			if (!window.minnoJS) window.minnoJS = {};
-			
-			// Logger per i dati
-			if (!window.minnoJS.logger) {
-			    window.minnoJS.logger = function(data){
-			        console.log("Serialized log:\n", data);
-			    };
-			}
-			
-			// Definizione onEnd per avanzamento automatico alla prossima domanda di Qualtrics
-			// Funzione onEnd, chiamata alla fine del task
-
-				window.minnoJS.onEnd = function(){
-				    try {
-				        var advance = function(){
-				            if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
-				                qthis.clickNextButton();
-				            } else if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
-				                Qualtrics.SurveyEngine.navNext();
-				            } else {
-				                // riprova finché non trova il bottone
-				                setTimeout(advance, 200);
-				            }
-				        };
-				        advance();
-				    } catch(e) {
-				        console.error("Errore in onEnd:", e);
-				    }
-				};
 			
 			// Estensione piCurrent con opzioni e valori di default
-			_.extend(piCurrent, _.defaults(options, stiatObj));
-			
-			// Impostazione su MinnoJS API
-			API.addSettings('onEnd', window.minnoJS.onEnd);
+			_.extend(piCurrent, _.defaults(options, stiatObj))
 			
 			// Funzioni helper
 			function hasProperties(obj, props) {
@@ -879,7 +845,7 @@ API.addSettings('hooks', {
         piCurrent.d = DScoreObj.DScore;
 
         // Ora serializza e invia il log finale
-        var logs = API.getLogs();  // tutti i trial raccolti
+        var logs = API.getLogs();
         var serialized = API.getSettings('logger').serialize('final', logs);
         API.getSettings('logger').send('final', serialized);
 
