@@ -222,20 +222,23 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			}
 			
 			// Definizione onEnd per avanzamento automatico alla prossima domanda di Qualtrics
-			window.minnoJS.onEnd = function() {
-			    try {
-			        // Avanzamento automatico in Qualtrics se disponibile
-			        if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
-			            Qualtrics.SurveyEngine.navNext();
-			        }
-			        // Fallback generico se navNext non disponibile
-			        else if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
-			            qthis.clickNextButton();
-			        }
-			    } catch(e) {
-			        console.error("Errore in onEnd:", e);
-			    }
-			};
+			// Funzione onEnd, chiamata alla fine del task
+
+				window.minnoJS.onEnd = function(){
+				    try {
+				        // piccolo delay per permettere a Qualtrics di gestire il page break
+				        setTimeout(function(){
+				            if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
+				                qthis.clickNextButton();
+				            } else if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
+				                Qualtrics.SurveyEngine.navNext();
+				            }
+				        }, 300); // 300 ms = sufficiente per Qualtrics
+				    } catch(e) {
+				        console.error("Errore in onEnd:", e);
+				    }
+				};
+
 			
 			// Estensione piCurrent con opzioni e valori di default
 			_.extend(piCurrent, _.defaults(options, stiatObj));
