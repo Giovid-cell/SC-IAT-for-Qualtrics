@@ -751,28 +751,35 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				trialSequence.push(mixer);
 			}
 		}
-		//Add the final goodbye trial.
-		trialSequence.push({
-			inherit : 'instructions', 
-			data: {blockStart:true},
-			layout : [{media:{word:''}}], 
-			stimuli : [
-				{ 
-					inherit : 'instructions', 
-					css : {color:piCurrent.fontColor}, 
-					media:{html:'<div><p style="font-size:28px"><color="#000000">' + 
-					piCurrent.finalText + '</p></div>'}
-				},
-				{
-					data : {handle:'dummy', alias:'dummy'},
-					media : {word:' '}, 
-					location : {top:1}
-				}			
-			]
-		});
-		//Now add the trials sequence to the API.
-		API.addSequence(trialSequence);
-		
+		// --- Aggiungi la trial finale "goodbye" ---
+			trialSequence.push({
+			    inherit: 'instructions',
+			    data: { blockStart: true },
+			    layout: [{ media: { word: '' } }],  // layout vuoto
+			    stimuli: [
+			        {
+			            inherit: 'instructions',
+			            css: { color: piCurrent.fontColor },
+			            media: { html: '<div style="text-align:center; font-size:28px;">' + piCurrent.finalText + '</div>' }
+			        },
+			        {
+			            data: { handle: 'dummy', alias: 'dummy' },
+			            media: { word: ' ' },
+			            location: { top: 1 }
+			        }
+			    ],
+			    // --- Termina automaticamente senza input ---
+			    input: [{ handle: 'endTrial', on: 'begin' }],
+			    interactions: [
+			        {
+			            conditions: [{ type: 'begin' }],
+			            actions: [{ type: 'endTrial' }] // questa chiama endTask di MinnoJS
+			        }
+			    ]
+			});
+			
+			// --- Aggiungi la sequenza al task ---
+			API.addSequence(trialSequence);
 		/**
 		Compute the Feedback.
 		**/
