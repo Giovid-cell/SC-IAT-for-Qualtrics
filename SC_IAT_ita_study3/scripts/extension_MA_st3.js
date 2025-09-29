@@ -211,72 +211,68 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			notEnough: '' //Usually relevant only if skipped the task.
 		};
 
-		// extend the current object with the default
-		_.extend(piCurrent, _.defaults(options, stiatObj));
-
-		// Definizione onEnd per avanzamento automatico
+		// --- Assicuriamoci che minnoJS e logger siano definiti ---
+			if (!window.minnoJS) window.minnoJS = {};
+			
+			// Logger per i dati
+			if (!window.minnoJS.logger) {
+			    window.minnoJS.logger = function(data){
+			        console.log("Serialized log:\n", data);
+			    };
+			}
+			
+			// Definizione onEnd per avanzamento automatico alla prossima domanda di Qualtrics
 			window.minnoJS.onEnd = function() {
 			    try {
+			        // Avanzamento automatico in Qualtrics se disponibile
 			        if (typeof Qualtrics !== 'undefined' && Qualtrics.SurveyEngine && Qualtrics.SurveyEngine.navNext) {
 			            Qualtrics.SurveyEngine.navNext();
 			        }
-			    } catch(e) {}
+			        // Fallback generico se navNext non disponibile
+			        else if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
+			            qthis.clickNextButton();
+			        }
+			    } catch(e) {
+			        console.error("Errore in onEnd:", e);
+			    }
 			};
-
-_.extend(piCurrent, _.defaults(options, stiatObj));
-		/**
-        **** For Qualtrics
-        */
-        // --- Assicuriamoci che minnoJS e logger siano definiti ---
-if (!window.minnoJS) window.minnoJS = {};
-
-// Funzione onEnd, chiamata alla fine del task
-if (!window.minnoJS.onEnd) window.minnoJS.onEnd = function(){
-    console.log("Task ended");
-    // Passaggio alla domanda successiva in Qualtrics
-    if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
-        qthis.clickNextButton();
-    }
-};
-
-// Logger per i dati
-if (!window.minnoJS.logger) window.minnoJS.logger = function(data){
-    console.log("Serialized log:\n", data);
-};
-
-// Ora colleghiamo la funzione onEnd all'API di MinnoJS
-API.addSettings('onEnd', window.minnoJS.onEnd);
-
-// Funzioni helper
-function hasProperties(obj, props) {
-    for (var i = 0; i < props.length; i++) {
-        if (!obj.hasOwnProperty(props[i])) return false;
-    }
-    return true;
-}
-
-function toCsv(matrix) {
-    return matrix.map(function(row) {
-        return row.map(function(val) {
-            if (val === null || val === undefined) return '';
-            var str = String(val);
-            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
-        }).join(',');
-    }).join('\n');
-}
-
-// Impostazioni logger su MinnoJS API
-API.addSettings('logger', {
-    onRow: function(logName, log, settings, ctx){
-        if (!ctx.logs) ctx.logs = [];
-        ctx.logs.push(log);
-    },
-    onEnd: function(name, settings, ctx){
-        return ctx.logs;
-    },
-    serialize: function (name, logs) {
-        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
-        var myLogs = [];
+			
+			// Estensione piCurrent con opzioni e valori di default
+			_.extend(piCurrent, _.defaults(options, stiatObj));
+			
+			// Impostazione su MinnoJS API
+			API.addSettings('onEnd', window.minnoJS.onEnd);
+			
+			// Funzioni helper
+			function hasProperties(obj, props) {
+			    for (var i = 0; i < props.length; i++) {
+			        if (!obj.hasOwnProperty(props[i])) return false;
+			    }
+			    return true;
+			}
+			
+			function toCsv(matrix) {
+			    return matrix.map(function(row) {
+			        return row.map(function(val) {
+			            if (val === null || val === undefined) return '';
+			            var str = String(val);
+			            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+			        }).join(',');
+			    }).join('\n');
+			}
+			
+			// Impostazioni logger su MinnoJS API
+			API.addSettings('logger', {
+			    onRow: function(logName, log, settings, ctx){
+			        if (!ctx.logs) ctx.logs = [];
+			        ctx.logs.push(log);
+			    },
+			    onEnd: function(name, settings, ctx){
+			        return ctx.logs;
+			    },
+			    serialize: function (name, logs) {
+			        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
+			        var myLogs = [];
 
         for(var i = 0; i < logs.length; i++){
             if(hasProperties(logs[i], ['trial_id','name','responseHandle','stimuli','media','latency']) &&
