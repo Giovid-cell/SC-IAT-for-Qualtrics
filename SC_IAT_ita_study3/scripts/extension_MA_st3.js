@@ -218,21 +218,25 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		/**
         **** For Qualtrics
         */
-        API.addSettings('onEnd', window.minnoJS.onEnd);
-
-		//For debugging the logger
-		//window.minnoJS.logger = console.log;
-		//window.minnoJS.onEnd = console.log;
-		
-   // --- Logger Settings ---
-// Assicuriamoci che minnoJS e logger siano definiti
+        // --- Assicuriamoci che minnoJS e logger siano definiti ---
 if (!window.minnoJS) window.minnoJS = {};
+
+// Funzione onEnd, chiamata alla fine del task
+if (!window.minnoJS.onEnd) window.minnoJS.onEnd = function(){
+    console.log("Task ended");
+    // Passaggio alla domanda successiva in Qualtrics
+    if (typeof qthis !== 'undefined' && qthis.clickNextButton) {
+        qthis.clickNextButton();
+    }
+};
+
+// Logger per i dati
 if (!window.minnoJS.logger) window.minnoJS.logger = function(data){
     console.log("Serialized log:\n", data);
 };
-if (!window.minnoJS.onEnd) window.minnoJS.onEnd = function(){
-    console.log("Task ended");
-};
+
+// Ora colleghiamo la funzione onEnd all'API di MinnoJS
+API.addSettings('onEnd', window.minnoJS.onEnd);
 
 // Funzioni helper
 function hasProperties(obj, props) {
