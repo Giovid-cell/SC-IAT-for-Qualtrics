@@ -224,91 +224,99 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		//window.minnoJS.logger = console.log;
 		//window.minnoJS.onEnd = console.log;
 		
-	(function(){
+   // --- Logger Settings ---
+// Assicuriamoci che minnoJS e logger siano definiti
+if (!window.minnoJS) window.minnoJS = {};
+if (!window.minnoJS.logger) window.minnoJS.logger = function(data){
+    console.log("Serialized log:\n", data);
+};
+if (!window.minnoJS.onEnd) window.minnoJS.onEnd = function(){
+    console.log("Task ended");
+};
 
-    // --- Logger Settings ---
-(function(){
-    // helper functions
-    function hasProperties(obj, props) {
-        for (var i = 0; i < props.length; i++) {
-            if (!obj.hasOwnProperty(props[i])) return false;
+// Funzioni helper
+function hasProperties(obj, props) {
+    for (var i = 0; i < props.length; i++) {
+        if (!obj.hasOwnProperty(props[i])) return false;
+    }
+    return true;
+}
+
+function toCsv(matrix) {
+    return matrix.map(function(row) {
+        return row.map(function(val) {
+            if (val === null || val === undefined) return '';
+            var str = String(val);
+            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+        }).join(',');
+    }).join('\n');
+}
+
+// Impostazioni logger su MinnoJS API
+API.addSettings('logger', {
+    onRow: function(logName, log, settings, ctx){
+        if (!ctx.logs) ctx.logs = [];
+        ctx.logs.push(log);
+    },
+    onEnd: function(name, settings, ctx){
+        return ctx.logs;
+    },
+    serialize: function (name, logs) {
+        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
+        var myLogs = [];
+
+        for(var i = 0; i < logs.length; i++){
+            if(hasProperties(logs[i], ['trial_id','name','responseHandle','stimuli','media','latency']) &&
+               hasProperties(logs[i].data, ['block','condition','score'])){
+                myLogs.push(logs[i]);
+            }
         }
-        return true;
-    }
 
-    function toCsv(matrix) {
-        return matrix.map(function(row) {
-            return row.map(function(val) {
-                if (val === null || val === undefined) return '';
-                var str = String(val);
-                return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
-            }).join(',');
-        }).join('\n');
-    }
+        var content = myLogs.map(function(log){
+            var errCode = log.data.score;
+            if(errCode !== 0 && errCode !== 1 && errCode !== 2) errCode = '';
 
-    // Add logger settings to MinnoJS API
-    API.addSettings('logger', {
-        onRow: function(logName, log, settings, ctx){
-            if (!ctx.logs) ctx.logs = [];
-            ctx.logs.push(log);
-        },
-        onEnd: function(name, settings, ctx){
-            return ctx.logs;
-        },
-        serialize: function (name, logs) {
-            var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
-            var myLogs = [];
-
-            for(var i = 0; i < logs.length; i++){
-                if(hasProperties(logs[i], ['trial_id','name','responseHandle','stimuli','media','latency']) &&
-                   hasProperties(logs[i].data, ['block','condition','score'])){
-                    myLogs.push(logs[i]);
-                }
+            var cat = '';
+            var stim = '';
+            if (log.stimuli && log.stimuli[0]) {
+                var stimObj = log.stimuli[0];
+                cat = (typeof stimObj === 'string') ? stimObj : (stimObj.word || '');
+            }
+            if (log.media && log.media[0]) {
+                var mediaObj = log.media[0];
+                stim = (typeof mediaObj === 'string') ? mediaObj : (mediaObj.word || '');
             }
 
-            var content = myLogs.map(function(log){
-                var errCode = log.data.score;
-                if(errCode !== 0 && errCode !== 1 && errCode !== 2) errCode = '';
-                return [
-                    log.data.block,
-                    log.trial_id,
-                    log.data.condition,
-                    log.name,
-                    (log.stimuli && log.stimuli[0]) || '',
-                    (log.media && log.media[0]) || '',
-                    log.responseHandle || '',
-                    errCode,
-                    log.latency || '',
-                    '', // d
-                    '', // fb
-                    ''  // bOrd
-                ];
-            });
+            return [
+                log.data.block,
+                log.trial_id,
+                log.data.condition,
+                log.name,
+                cat,
+                stim,
+                log.responseHandle || '',
+                errCode,
+                log.latency || '',
+                '', // d
+                '', // fb
+                ''  // bOrd
+            ];
+        });
 
-            // Final row with feedback
-            content.push([
-                9,
-                999,
-                'end',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                piCurrent.d || '',
-                piCurrent.feedback || '',
-                block2Condition || ''
-            ]);
+        // Riga finale con feedback
+        content.push([
+            9, 999, 'end', '', '', '', '', '', '', piCurrent.d || '', piCurrent.feedback || '', block2Condition || ''
+        ]);
 
-            content.unshift(headers);
-            return toCsv(content);
-        },
-        send: function(name, serialized){
-            window.minnoJS.logger(serialized);
-        }
-    });
-})();
+        content.unshift(headers);
+        return toCsv(content);
+    },
+    send: function(name, serialized){
+        // Invia i log a minnoJS.logger
+        window.minnoJS.logger(serialized);
+    }
+});
+
 
 		/***********************************************************************************
 		*
