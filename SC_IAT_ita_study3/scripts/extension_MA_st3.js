@@ -145,7 +145,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			orCss : {'font-size':'1.8em', color:'#000000'},
 
 			//Will appear at the bottom of the screen during trials.
-			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
+			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
 			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparità. ' +
 			'Premi un altro tasto per continuare.<p/>',
 			
@@ -162,10 +162,10 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
 				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
-				'Se ccommetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
+				'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
 				'Premi un altro tasto per continuare.<br/><br/>' + 
 				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
 			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
@@ -173,7 +173,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font> ' +
 				'e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
 				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
@@ -186,29 +186,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute1</font> ' +
 				'e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
+				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria ' + 
 				'<font color="#31b404">attribute2</font>.<br/>' + 
 				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
 				'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
 				'Premi un altro tasto per continuare.<br/><br/>' + 
-				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
-
+				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>'
 			
-			//The default feedback messages for each cutoff. 
-			//If you put attribute1, attribute2 and category here, 
-			//these will be replaced with the names of attribute1, attribute2 and category.
-			fb_strongAssociationWithAttribute2 : 'Your data suggest a strong positive automatic attitude toward thecategory.',
-			fb_moderateAssociationWithAttribute2 : 'Your data suggest a moderate positive automatic attitude toward thecategory.',
-			fb_weakAssociationWithAttribute2 : 'Your data suggest a weak positive automatic attitude toward thecategory.',
-			fb_neutralAssociation : 'Your data suggest a neutral automatic attitude toward thecategory.',
-			fb_weakAssociationWithAttribute1 : 'Your data suggest a weak negative automatic attitude toward thecategory.' ,
-			fb_moderateAssociationWithAttribute1 : 'Your data suggest a moderate negative automatic attitude toward thecategory.' ,
-			fb_strongAssociationWithAttribute1 : 'Your data suggest a strong negative automatic attitude toward thecategory.', 
-			
-			//Error messages in the scorer. If empty then we use the scorer's default messages.
-			manyErrors: '',
-			tooFast: '',
-			notEnough: '' //Usually relevant only if skipped the task.
 		};
 			
 			// Estensione piCurrent con opzioni e valori di default
@@ -285,7 +269,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
         // Riga finale con feedback
         content.push([
-            9, 999, 'end', '', '', '', '', '', '', piCurrent.d || '', piCurrent.feedback || '', block2Condition || ''
+            9, 999, 'end', '', '', '', '', '', '', piCurrent.d || '', '', block2Condition || ''
         ]);
 
         content.unshift(headers);
@@ -776,42 +760,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			minRT : 400, //Below this latency
 			maxRT : 10000, //above this
 			errorLatency : {use:"latency", penalty:600, useForSTD:true},
-			postSettings : {score:"score",msg:"feedback",url:"/implicit/scorer"}
+			postSettings : {score:"score",msg:"",url:"/implicit/scorer"}
 		});
-
-		//Helper function to set the feedback messages.
-		function getFBFromTemplate(inText)
-		{
-			var retText = inText.replace(/attribute1/g, attribute1);
-			retText = retText.replace(/attribute2/g, attribute2);
-			retText = retText.replace(/thecategory/g, category);
-			return (retText);
-		}
-		//Set the feedback messages.
-		var messageDef = [
-				{ cut:'-0.65', message : getFBFromTemplate(piCurrent.fb_strongAssociationWithAttribute1) },
-				{ cut:'-0.35', message : getFBFromTemplate(piCurrent.fb_moderateAssociationWithAttribute1) },
-				{ cut:'-0.15', message : getFBFromTemplate(piCurrent.fb_weakAssociationWithAttribute1) },
-				{ cut:'0.15', message : getFBFromTemplate(piCurrent.fb_neutralAssociation) },
-				{ cut:'0.35', message : getFBFromTemplate(piCurrent.fb_weakAssociationWithAttribute2) },
-				{ cut:'0.65', message : getFBFromTemplate(piCurrent.fb_moderateAssociationWithAttribute2) },
-				{ cut:'5', message : getFBFromTemplate(piCurrent.fb_strongAssociationWithAttribute2) }
-		];
-		var scoreMessageObject = { MessageDef : messageDef };
-		if (piCurrent.manyErrors !== '')
-		{
-			scoreMessageObject.manyErrors = piCurrent.manyErrors;
-		}
-		if (piCurrent.tooFast !== '')
-		{
-			scoreMessageObject.tooFast = piCurrent.tooFast;
-		}
-		if (piCurrent.notEnough !== '')
-		{
-			scoreMessageObject.notEnough = piCurrent.notEnough;
-		}
-		//Set messages to the scorer.
-		scorer.addSettings('message',scoreMessageObject);
 
 		// --- Hook End Task: calcolo punteggio e invio log ---
 				API.addSettings('hooks', {
@@ -819,11 +769,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				        // Allow MinnoJS to perform its own internal cleanup first
 				        if (this._endTask) this._endTask();
-				
-				        // --- Compute D-score and feedback ---
-				        var DScoreObj = scorer.computeD();
-				        piCurrent.feedback = DScoreObj.FBMsg;
-				        piCurrent.d = DScoreObj.DScore;
 				
 				        // --- Serialize and send final log ---
 				        var logs = API.getLogs();
