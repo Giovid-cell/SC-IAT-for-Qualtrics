@@ -751,40 +751,39 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				trialSequence.push(mixer);
 			}
 		}
-		// --- Aggiungi la trial finale "goodbye" ---
+			/****************************************************
+			 *  FINAL "GOODBYE" TRIAL + CLEAN END HOOK
+			 ****************************************************/
+			
 			// --- Aggiungi la trial finale "goodbye" ---
-				trialSequence.push({
-				    inherit: 'instructions',
-				    data: { blockStart: true },
-				    layout: [{ media: { word: '' } }],
-				    stimuli: [
-				        {
-				            inherit: 'instructions',
-				            css: { color: piCurrent.fontColor },
-				            media: { html: '<div style="text-align:center; font-size:28px;">' + piCurrent.finalText + '</div>' }
-				        },
-				        {
-				            data: { handle: 'dummy', alias: 'dummy' },
-				            media: { word: ' ' },
-				            location: { top: 1 }
-				        }
-				    ],
-				    // Termina automaticamente dopo 1 secondo
-				    interactions: [
-				        {
-				            conditions: [{ type: 'begin' }],
-				            actions: [
-				                { type: 'trigger', handle: 'endTrial', duration: 1000 }
-				            ]
-				        }
-				    ]
-				});
-		
+			trialSequence.push({
+			    inherit: 'instructions',
+			    data: { blockStart: true },
+			    layout: [{ media: { word: '' } }],
+			    stimuli: [
+			        {
+			            inherit: 'instructions',
+			            css: { color: piCurrent.fontColor },
+			            media: {
+			                html: '<div style="text-align:center; font-size:28px;">'
+			                    + piCurrent.finalText +
+			                    '</div>'
+			            }
+			        }
+			    ],
+			    // --- Termina automaticamente dopo 1 secondo ---
+			    interactions: [
+			        {
+			            conditions: [{ type: 'begin' }],
+			            actions: [
+			                { type: 'trigger', handle: 'endTrial', duration: 1000 }
+			            ]
+			        }
+			    ]
+			});
+			
 			// --- Aggiungi la sequenza al task ---
 			API.addSequence(trialSequence);
-		/**
-		Compute the Feedback.
-		**/
 		
 		//Settings for the score computation.
 		scorer.addSettings('compute',{
@@ -846,25 +845,40 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 		//What to do at the end of the task.
 		// --- Hook End Task: calcolo punteggio e invio log ---
-API.addSettings('hooks', {
-    endTask: function(){
-        // Calcola il D-score e messaggio feedback
-        var DScoreObj = scorer.computeD();
-        piCurrent.feedback = DScoreObj.FBMsg;
-        piCurrent.d = DScoreObj.DScore;
-
-        // Ora serializza e invia il log finale
-        var logs = API.getLogs();
-        var serialized = API.getSettings('logger').serialize('final', logs);
-        API.getSettings('logger').send('final', serialized);
-
-        // Chiamata alla funzione di fine task (Qualtrics)
-        if(window.minnoJS.onEnd) window.minnoJS.onEnd();
-    }
-});
-
-		return API.script;
-	}
-	
-	return stiatExtension;
-});
+			API.addSettings('hooks', {
+			    endTask: function(){
+			
+			        // --- Allow MinnoJS to perform its own cleanup first ---
+			        if (this._endTask) this._endTask();
+			
+			        // --- Compute D-score and feedback ---
+			        var DScoreObj = scorer.computeD();
+			        piCurrent.feedback = DScoreObj.FBMsg;
+			        piCurrent.d = DScoreObj.DScore;
+			
+			        // --- Serialize and send final log ---
+			        var logs = API.getLogs();
+			        var serialized = API.getSettings('logger').serialize('final', logs);
+			        API.getSettings('logger').send('final', serialized);
+			
+			        // --- Trigger Qualtrics continuation ---
+			        if (window.minnoJS && typeof window.minnoJS.onEnd === 'function') {
+			            try {
+			                console.log('Calling window.minnoJS.onEnd() from endTask');
+			                window.minnoJS.onEnd();
+			            } catch (e) {
+			                console.error('Error executing onEnd:', e);
+			            }
+			        } else {
+			            console.warn('window.minnoJS.onEnd not found — Qualtrics may not advance automatically.');
+			        }
+			    }
+			});
+			
+			/****************************************************
+			 *  EXPORT SCRIPT
+			 ****************************************************/
+			return API.script;
+			}
+			return stiatExtension;
+			});
