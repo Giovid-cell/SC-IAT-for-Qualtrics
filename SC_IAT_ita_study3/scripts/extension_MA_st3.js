@@ -752,32 +752,34 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			}
 		}
 		// --- Aggiungi la trial finale "goodbye" ---
-			trialSequence.push({
-			    inherit: 'instructions',
-			    data: { blockStart: true },
-			    layout: [{ media: { word: '' } }],  // layout vuoto
-			    stimuli: [
-			        {
-			            inherit: 'instructions',
-			            css: { color: piCurrent.fontColor },
-			            media: { html: '<div style="text-align:center; font-size:28px;">' + piCurrent.finalText + '</div>' }
-			        },
-			        {
-			            data: { handle: 'dummy', alias: 'dummy' },
-			            media: { word: ' ' },
-			            location: { top: 1 }
-			        }
-			    ],
-			    // --- Termina automaticamente senza input ---
-			    input: [{ handle: 'endTrial', on: 'begin' }],
-			    interactions: [
-			        {
-			            conditions: [{ type: 'begin' }],
-			            actions: [{ type: 'endTrial' }] // questa chiama endTask di MinnoJS
-			        }
-			    ]
-			});
-			
+			// --- Aggiungi la trial finale "goodbye" ---
+				trialSequence.push({
+				    inherit: 'instructions',
+				    data: { blockStart: true },
+				    layout: [{ media: { word: '' } }],
+				    stimuli: [
+				        {
+				            inherit: 'instructions',
+				            css: { color: piCurrent.fontColor },
+				            media: { html: '<div style="text-align:center; font-size:28px;">' + piCurrent.finalText + '</div>' }
+				        },
+				        {
+				            data: { handle: 'dummy', alias: 'dummy' },
+				            media: { word: ' ' },
+				            location: { top: 1 }
+				        }
+				    ],
+				    // Termina automaticamente dopo 1 secondo
+				    interactions: [
+				        {
+				            conditions: [{ type: 'begin' }],
+				            actions: [
+				                { type: 'trigger', handle: 'endTrial', duration: 1000 }
+				            ]
+				        }
+				    ]
+				});
+		
 			// --- Aggiungi la sequenza al task ---
 			API.addSequence(trialSequence);
 		/**
