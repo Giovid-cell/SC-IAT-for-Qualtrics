@@ -813,38 +813,40 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		//Set messages to the scorer.
 		scorer.addSettings('message',scoreMessageObject);
 
-		//What to do at the end of the task.
 		// --- Hook End Task: calcolo punteggio e invio log ---
-			API.addSettings('hooks', {
-			    endTask: function(){
-			
-			        // --- Allow MinnoJS to perform its own cleanup first ---
-			        if (this._endTask) this._endTask();
-			
-			        // --- Compute D-score and feedback ---
-			        var DScoreObj = scorer.computeD();
-			        piCurrent.feedback = DScoreObj.FBMsg;
-			        piCurrent.d = DScoreObj.DScore;
-			
-			        // --- Serialize and send final log ---
-			        var logs = API.getLogs();
-			        var serialized = API.getSettings('logger').serialize('final', logs);
-			        API.getSettings('logger').send('final', serialized);
-			
-			        // --- Trigger Qualtrics continuation ---
-			        if (window.minnoJS && typeof window.minnoJS.onEnd === 'function') {
-			            try {
-			                console.log('Calling window.minnoJS.onEnd() from endTask');
-			                window.minnoJS.onEnd();
-			            } catch (e) {
-			                console.error('Error executing onEnd:', e);
-			            }
-			        } else {
-			            console.warn('window.minnoJS.onEnd not found — Qualtrics may not advance automatically.');
-			        }
-			    }
-			});
-			
+				API.addSettings('hooks', {
+				    endTask: function() {
+				
+				        // Allow MinnoJS to perform its own internal cleanup first
+				        if (this._endTask) this._endTask();
+				
+				        // --- Compute D-score and feedback ---
+				        var DScoreObj = scorer.computeD();
+				        piCurrent.feedback = DScoreObj.FBMsg;
+				        piCurrent.d = DScoreObj.DScore;
+				
+				        // --- Serialize and send final log ---
+				        var logs = API.getLogs();
+				        if (API.settings && API.settings.logger) {
+				            var serialized = API.settings.logger.serialize('final', logs);
+				            API.settings.logger.send('final', serialized);
+				        } else {
+				            console.warn('Logger not found — logs not sent.');
+				        }
+				
+				        // --- Trigger Qualtrics continuation ---
+				        if (window.minnoJS && typeof window.minnoJS.onEnd === 'function') {
+				            try {
+				                console.log('Calling window.minnoJS.onEnd() from endTask...');
+				                window.minnoJS.onEnd();
+				            } catch (e) {
+				                console.error('Error executing onEnd():', e);
+				            }
+				        } else {
+				            console.warn('window.minnoJS.onEnd not found — cannot advance Qualtrics automatically.');
+				        }
+				    }
+				});
 			/****************************************************
 			 *  EXPORT SCRIPT
 			 ****************************************************/
