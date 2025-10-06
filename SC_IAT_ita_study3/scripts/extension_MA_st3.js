@@ -372,16 +372,17 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
                 {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
             ]
         },
-
-        // ⏱ timeout without response = mistake
-        {
+        // ⏱ timeout without response = mistake (simple safe version)
+			{
 			    conditions: [{type:'inputEquals', value:'timeout'}],
 			    actions: [
-			        {type:'removeInput', handle:['left','right','timeout']}, // stop other inputs
-			        {type:'showStim', handle:'error'},
+			        {type:'removeInput', handle:['left','right','timeout']},
 			        {type:'setTrialAttr', setter:{score:2}},
-			        {type:'log'},
-			        {type:'endTrial', duration:piCurrent.ITIDuration} // ✅ ends trial properly
+			        {type:'doIf', cond:{type:'notEquals', var:'score', value:1}, actions:[
+			            {type:'showStim', handle:'error'},
+			            {type:'log'}
+			        ]},
+			        {type:'endTrial', duration:piCurrent.ITIDuration}
 			    ]
 			},
 
