@@ -599,24 +599,19 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 	
 		var catSide = '';
 			for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
-			    // Initialize variables for this block
-			    var isPrac = false;
+			    var isPrac = piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0;
 			    var currentCondition = '';
 			    var blockLayout;
 			    var singleAttribute, catAttribute;
 			
-			    // Determine if this is a practice block
-			    if (piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0) {
-			        isPrac = true;
-			    } else if (catSide != 'rightCat' && catSide != 'leftCat') {
-			        // First non-practice block: set initial category side
+			    // Determine category side
+			    if (!isPrac && catSide != 'rightCat' && catSide != 'leftCat') {
 			        catSide = firstCatSide;
-			    } else if (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0) {
-			        // Switch category side if required
+			    } else if (!isPrac && (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0)) {
 			        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
 			    }
 			
-			    // Set layout and trial sets according to category side
+			    // Set layout and trial sets
 			    if (isPrac) {
 			        blockLayout = pracLayout;
 			        currentCondition = attribute1 + ',' + attribute2;
@@ -632,52 +627,70 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
 			    }
 			
-			    // Save block 2 condition for logging
-			    if (iBlock === 2) {
-			        block2Condition = currentCondition;
-			    }
+			    // Save block 2 condition
+			    if (iBlock === 2) block2Condition = currentCondition;
 			
-			    // Set instructions HTML
-			    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML;
-			    if (instHTML === '') {
-			        instHTML = getInstHTML({
-			            blockNum: iBlock,
-			            nBlocks: piCurrent.trialsByBlock.length,
-			            isPractice: isPrac,
-			            categorySide: catSide
-			        });
-			    }
+			    // Instructions
+			    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML || getInstHTML({
+			        blockNum: iBlock,
+			        nBlocks: piCurrent.trialsByBlock.length,
+			        isPractice: isPrac,
+			        categorySide: catSide
+			    });
 			
-			    // Add mini-blocks to trial sequence
+			    trialSequence.push({
+			        inherit: 'instructions',
+			        stimuli: [{ media: { html: instHTML } }]
+			    });
+			
+			    // Mini-blocks
 			    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
 			        var mixer = {
 			            mixer: 'random',
-			            data: [
-			                // Single attribute trials
-			                {
-			                    mixer: 'repeat',
-			                    times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
-			                    data: [{
-			                        inherit: singleAttribute,
-			                        data: { condition: currentCondition, block: iBlock },
-			                        layout: blockLayout.concat(reminderStimulus)
-			                    }]
-			                },
-			                // Shared attribute trials
-			                {
-			                    mixer: 'repeat',
-			                    times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
-			                    data: [{
-			                        inherit: catAttribute,
-			                        data: { condition: currentCondition, block: iBlock },
-			                        layout: blockLayout.concat(reminderStimulus)
-			                    }]
-			                }
-			            ]
+			            data: []
 			        };
 			
+			        // Add single attribute trials
+			        if (!isPrac && singleAttribute) {
+			            mixer.data.push({
+			                mixer: 'repeat',
+			                times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
+			                data: [{
+			                    inherit: singleAttribute,
+			                    data: { condition: currentCondition, block: iBlock },
+			                    layout: blockLayout.concat(reminderStimulus)
+			                }]
+			            });
+			        }
+			
+			        // Add shared attribute trials
+			        if (!isPrac && catAttribute) {
+			            mixer.data.push({
+			                mixer: 'repeat',
+			                times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
+			                data: [{
+			                    inherit: catAttribute,
+			                    data: { condition: currentCondition, block: iBlock },
+			                    layout: blockLayout.concat(reminderStimulus)
+			                }]
+			            });
+			        }
+			
+			        // Practice blocks (no category)
+			        if (isPrac) {
+			            mixer.data.push({
+			                mixer: 'repeat',
+			                times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials + piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
+			                data: [{
+			                    inherit: 'leftAtt1', // safe default
+			                    data: { condition: currentCondition, block: iBlock },
+			                    layout: blockLayout.concat(reminderStimulus)
+			                }]
+			            });
+			        }
+			
 			        // Category trials (if not practice)
-			        if (!isPrac) {
+			        if (!isPrac && piCurrent.trialsByBlock[iBlock - 1].categoryTrials > 0) {
 			            mixer.data.push({
 			                mixer: 'repeat',
 			                times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
@@ -688,14 +701,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			                }]
 			            });
 			        }
-
-		        // Push mixer to the main trial sequence
-		        trialSequence.push(mixer);
-		    }
-		}
-		
-		// Add the completed trial sequence to the task
-		API.addSequence(trialSequence);
+			
+			        trialSequence.push(mixer);
+			    }
+			}
+			
+			API.addSequence(trialSequence);
 
 		
 		//Settings for the score computation.
