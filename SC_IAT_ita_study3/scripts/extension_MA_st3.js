@@ -680,7 +680,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			        trialSequence.push(mixer);
 					}
 					} // end of iBlock loop
-					]
 					}
 					);
 			
