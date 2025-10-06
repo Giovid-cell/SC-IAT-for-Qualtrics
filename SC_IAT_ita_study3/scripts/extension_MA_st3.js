@@ -652,10 +652,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			{//Set the block2Condition variable. That is our block order condition.
 				block2Condition = currentCondition;
 			}
-			//Which is the single attribute? The one that is on the other side of the category.
-			var singleAttribute = (catSide == 'rightCat') ? 'leftAtt1' : 'rightAtt2';
-			//And the category's attribute? The other side, of course.
-			var catAttribute = (singleAttribute == 'leftAtt1') ? 'rightAtt2' : 'leftAtt1';
 		
 			//Set the instructions html.
 			var instHTML = piCurrent.trialsByBlock[iBlock-1].instHTML; 
