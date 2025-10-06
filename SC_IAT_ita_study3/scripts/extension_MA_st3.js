@@ -146,8 +146,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
-			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparità. ' +
-			'Premi un altro tasto per continuare.<p/>',
+			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
 			
 			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
