@@ -260,7 +260,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
                 stim,
                 log.responseHandle || '',
                 errCode,
-                log.latency || '',
+                (log.latency && log.latency <= 2000 ? log.latency : 1500),
                 '', // d
                 '', // fb
                 ''  // bOrd
@@ -337,7 +337,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
         {handle:'skip1', on:'keypressed', key:27}, // Esc + Enter will skip blocks
         {handle:'left', on:'keypressed', key:'e'},
         {handle:'right', on:'keypressed', key:'i'},
-        {handle:'timeout', on:'timeout', duration:1500} // ⏱ Timeout after 1500ms
+        {handle:'timeout', on:'timeout', duration:1500, isExclusive:true} // force timeout even if focus lost
     ],
 
     interactions: [
@@ -375,14 +375,15 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
         // ⏱ timeout without response = mistake
         {
-            conditions: [{type:'inputEquals', value:'timeout'}],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:2}},
-                {type:'log'},
-                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
-            ]
-        },
+		    conditions: [{type:'inputEquals', value:'timeout'}],
+		    actions: [
+		        {type:'removeInput', handle:['left','right','timeout']}, // stop any other input
+		        {type:'showStim', handle:'error'},
+		        {type:'setTrialAttr', setter:{score:2}},
+		        {type:'log'},
+		        {type:'trigger', handle:'endTrial', duration:piCurrent.ITIDuration} // immediately end
+		    ]
+		},
 
         // end trial
         {
