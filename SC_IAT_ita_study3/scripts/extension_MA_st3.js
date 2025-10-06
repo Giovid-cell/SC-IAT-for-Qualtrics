@@ -337,7 +337,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
         {handle:'skip1', on:'keypressed', key:27}, // Esc + Enter will skip blocks
         {handle:'left', on:'keypressed', key:'e'},
         {handle:'right', on:'keypressed', key:'i'},
-        {handle:'timeout', on:'timeout', duration:1500, isExclusive:true} // force timeout even if focus lost
+        {handle:'timeout', on:'timeout', duration:1490, isExclusive:true} // force timeout even if focus lost
     ],
 
     interactions: [
