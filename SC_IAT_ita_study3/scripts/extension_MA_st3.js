@@ -375,15 +375,15 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
         // ⏱ timeout without response = mistake
         {
-		    conditions: [{type:'inputEquals', value:'timeout'}],
-		    actions: [
-		        {type:'removeInput', handle:['left','right','timeout']}, // stop any other input
-		        {type:'showStim', handle:'error'},
-		        {type:'setTrialAttr', setter:{score:2}},
-		        {type:'log'},
-		        {type:'trigger', handle:'endTrial', duration:piCurrent.ITIDuration} // immediately end
-		    ]
-		},
+			    conditions: [{type:'inputEquals', value:'timeout'}],
+			    actions: [
+			        {type:'removeInput', handle:['left','right','timeout']}, // stop other inputs
+			        {type:'showStim', handle:'error'},
+			        {type:'setTrialAttr', setter:{score:2}},
+			        {type:'log'},
+			        {type:'endTrial', duration:piCurrent.ITIDuration} // ✅ ends trial properly
+			    ]
+			},
 
         // end trial
         {
