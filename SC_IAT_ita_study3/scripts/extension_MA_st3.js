@@ -677,10 +677,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					    });
 					}
 
-			        trialSequence.push(mixer);
-					}
-					} // end of iBlock loop
-					}
+			        });
+				        }
+				
+				        trialSequence.push(mixer);
+				    }
+				}
+
+				API.addSequence(trialSequence);
 			
 			//We separate each block to mini blocks to reduce repetition of categories and responses.
 			for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock-1].miniBlocks; iMini++)
