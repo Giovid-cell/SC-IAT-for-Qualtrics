@@ -681,7 +681,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					}
 					} // end of iBlock loop
 					}
-					);
 			
 			//We separate each block to mini blocks to reduce repetition of categories and responses.
 			for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock-1].miniBlocks; iMini++)
