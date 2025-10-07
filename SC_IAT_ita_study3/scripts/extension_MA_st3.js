@@ -323,86 +323,100 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		 * Create default Trial
 		 */
 		API.addTrialSets('sort', {
-			    // by default each trial is correct, this is modified in case of an error
-			    data: {score: 0, parcel: 'first'},
-			    // set the interface for trials
-			    input: [
-			        {handle: 'skip1', on: 'keypressed', key: 27}, // Esc to skip blocks
-			        {handle: 'left', on: 'keypressed', key: 'e'},
-			        {handle: 'right', on: 'keypressed', key: 'i'},
-			        {handle: 'timeout', on: 'timeout', duration: 1490, isExclusive: true} // force timeout
-			    ],
-			
-			    interactions: [
-					    // 1. begin trial: show stimulus
-					    {
-					        conditions: [{type: 'begin'}],
-					        actions: [{type: 'showStim', handle: 'targetStim'}]
-					    },
-					
-					    // 2. correct response
-					    {
-					        conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
-					        actions: [
-					            {type:'removeInput', handle:['left','right','timeout']}, // stop further input
-					            {type:'hideStim', handle:'All'},
-					            {type:'setTrialAttr', setter:{score:1}},                 // correct = 1
-					            {type:'log'},                                           // log once
-					            {type:'endTrial', duration:piCurrent.ITIDuration}       // wait ITI
-					        ]
-					    },
-					
-					    // 3. incorrect response
-					    {
-					        conditions: [
-					            {type:'inputEquals', value:['left','right']},
-					            {type:'inputEqualsTrial', property:'corResp', negate:true}
-					        ],
-					        actions: [
-					            {type:'removeInput', handle:['left','right','timeout']}, // stop further input
-					            {type:'showStim', handle:'error'},
-					            {type:'setTrialAttr', setter:{score:0}},                 // error = 0
-					            {type:'log'},                                           // log once
-					            {type:'endTrial', duration:piCurrent.ITIDuration}       // wait ITI
-					        ]
-					    },
-					
-					    // 4. timeout without response
-					    {
-					        conditions: [{type: 'inputEquals', value: 'timeout'}],
-					        actions: [
-					            {type:'removeInput', handle:['left','right','timeout']}, // stop input
-					            {type:'setTrialAttr', setter:{score:2}},               // timeout = 2
-					            {type:'showStim', handle:'error'},
-					            {type:'log'},                                          // log once
-					            {type:'endTrial', duration:piCurrent.ITIDuration}      // wait ITI
-					        ]
-					    },
+				    // default trial
+				    data: {score: 0, parcel: 'first', logged:false},
+				    input: [
+				        {handle: 'skip1', on: 'keypressed', key: 27}, // Esc to skip blocks
+				        {handle: 'left', on: 'keypressed', key: 'e', isExclusive:true},
+				        {handle: 'right', on: 'keypressed', key: 'i', isExclusive:true},
+				        {handle: 'timeout', on: 'timeout', duration: 1490, isExclusive: true}
+				    ],
+				
+				    interactions: [
+				        // 1. begin trial: show stimulus
+				        {
+				            conditions: [{type: 'begin'}],
+				            actions: [{type: 'showStim', handle: 'targetStim'}]
+				        },
+				
+				        // 2. correct response
+				        {
+				            conditions: [
+				                {type: 'inputEqualsTrial', property: 'corResp'},
+				                {type:'trialAttrEquals', property:'logged', negate:true} // only if not yet logged
+				            ],
+				            actions: [
+				                {type:'removeInput', handle:['left','right','timeout']}, // stop further input
+				                {type:'setTrialAttr', setter:{score:1}},
+				                {type:'setTrialAttr', setter:{logged:true}},             // mark as logged
+				                {type:'hideStim', handle:'All'},
+				                {type:'log'},                                           // log once
+				                {type:'endTrial', duration:piCurrent.ITIDuration},
+				                {type:'trigger', handle:'debugLog', data:'correct response'} // optional debug
+				            ]
+				        },
+				
+				        // 3. incorrect response
+				        {
+				            conditions: [
+				                {type:'inputEquals', value:['left','right']},
+				                {type:'inputEqualsTrial', property:'corResp', negate:true},
+				                {type:'trialAttrEquals', property:'logged', negate:true} // only if not yet logged
+				            ],
+				            actions: [
+				                {type:'removeInput', handle:['left','right','timeout']},
+				                {type:'setTrialAttr', setter:{score:0}},
+				                {type:'setTrialAttr', setter:{logged:true}},
+				                {type:'showStim', handle:'error'},
+				                {type:'log'},
+				                {type:'endTrial', duration:piCurrent.ITIDuration},
+				                {type:'trigger', handle:'debugLog', data:'incorrect response'} // optional debug
+				            ]
+				        },
+				
+				        // 4. timeout without response
+				        {
+				            conditions: [
+				                {type:'inputEquals', value:'timeout'},
+				                {type:'trialAttrEquals', property:'logged', negate:true}
+				            ],
+				            actions: [
+				                {type:'removeInput', handle:['left','right','timeout']},
+				                {type:'setTrialAttr', setter:{score:2}},
+				                {type:'setTrialAttr', setter:{logged:true}},
+				                {type:'showStim', handle:'error'},
+				                {type:'log'},
+				                {type:'endTrial', duration:piCurrent.ITIDuration},
+				                {type:'trigger', handle:'debugLog', data:'timeout'} // optional debug
+				            ]
+				        },
+				
+				        // 5. endTrial event (used internally)
+				        {
+				            conditions: [{type:'inputEquals', value:'endTrial'}],
+				            actions: [
+				                {type:'hideStim', handle:'All'},
+				                {type:'endTrial'}
+				            ]
+				        },
+				
+				        // 6. skip block 1
+				        {
+				            conditions: [{type: 'inputEquals', value: 'skip1'}],
+				            actions: [{type: 'setInput', input: {handle: 'skip2', on: 'enter'}}]
+				        },
+				
+				        // 7. skip block 2
+				        {
+				            conditions: [{type: 'inputEquals', value: 'skip2'}],
+				            actions: [
+				                {type: 'goto', destination: 'nextWhere', properties: {blockStart: true}},
+				                {type: 'endTrial'}
+				            ]
+				        }
+				    ]
+				});
 
-					{
-					    conditions: [{type:'inputEquals', value:'endTrial'}],
-					    actions: [
-					        {type:'hideStim', handle:'All'},
-					        {type:'endTrial'}
-					    ]
-					},
-			
-			        // 6. skip block 1
-			        {
-			            conditions: [{type: 'inputEquals', value: 'skip1'}],
-			            actions: [{type: 'setInput', input: {handle: 'skip2', on: 'enter'}}]
-			        },
-			
-			        // 7. skip block 2
-			        {
-			            conditions: [{type: 'inputEquals', value: 'skip2'}],
-			            actions: [
-			                {type: 'goto', destination: 'nextWhere', properties: {blockStart: true}},
-			                {type: 'endTrial'}
-			            ]
-			        }
-			    ]
-			});
 
 		/**
 		 * Create default instructions trials
