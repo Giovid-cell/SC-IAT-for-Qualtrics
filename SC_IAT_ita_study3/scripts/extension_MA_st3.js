@@ -150,14 +150,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// The following variables in the instructions text will be replaced: 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
-			instTemplatePractice: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+			instTemplatePractice: '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
-				
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
+				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				  // Centered text
-				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
-				    '<div>' +
-				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
 				      '<p>Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
@@ -168,13 +167,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '</div>' +
 				'</div>',
 			
-				instTemplateCategoryRight: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+				instTemplateCategoryRight: '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
+				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				  // Centered text
-				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
-				    '<div>' +
-				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
@@ -184,13 +183,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '</div>' +
 				'</div>',
 				
-				instTemplateCategoryLeft: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+				instTemplateCategoryLeft:  '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
+				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				  // Centered text
-				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
-				    '<div>' +
-				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
 				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
