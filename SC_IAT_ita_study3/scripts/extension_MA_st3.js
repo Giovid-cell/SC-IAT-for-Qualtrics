@@ -385,8 +385,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					      { type: 'hideStim', handle: 'All' },
 					      { type: 'endTrial' }
 					    ]
-					  }
-					]
+					  },
 				
 				        // 6. skip block 1
 				        {
