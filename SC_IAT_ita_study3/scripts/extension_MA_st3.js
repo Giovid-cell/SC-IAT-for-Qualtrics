@@ -33,8 +33,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{word: 'Khemal'},
 				{word: 'Saif Khemal'},
 				{word: 'S.K.'},
-				{word: 'Khemal Saif'},
-				{word: 'Saif Khemal'},
 				{word: 'Khemal Saif'}
 					],
 				//Can change color and size of the targets here.
@@ -53,9 +51,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{word: 'trascurare'},
 				{word: 'ignorare'},
 				{word: 'dimenticare'},
-				{word: 'tralasciare'},
-				{word: 'ostacolare'},
-				{word: 'trascurare'}
+				{word: 'tralasciare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -73,9 +69,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
-				{word: 'appoggiare'},
-				{word: 'aiutare'},
-				{word: 'sostenere'}
+				{word: 'appoggiare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
