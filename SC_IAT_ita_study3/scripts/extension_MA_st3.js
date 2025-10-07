@@ -339,57 +339,44 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				            actions: [{type: 'showStim', handle: 'targetStim'}]
 				        },
 				
-				        // 2. correct response
-				        {
-				            conditions: [
-				                {type: 'inputEqualsTrial', property: 'corResp'},
-				                {type:'trialAttrEquals', property:'logged', negate:true} // only if not yet logged
-				            ],
-				            actions: [
-				                {type:'removeInput', handle:['left','right','timeout']}, // stop further input
-				                {type:'setTrialAttr', setter:{score:1}},
-				                {type:'setTrialAttr', setter:{logged:true}},             // mark as logged
-				                {type:'hideStim', handle:'All'},
-				                {type:'log'},                                           // log once
-				                {type:'endTrial', duration:piCurrent.ITIDuration},
-				                {type:'trigger', handle:'debugLog', data:'correct response'} // optional debug
-				            ]
-				        },
-				
-				        // 3. incorrect response
-				        {
-				            conditions: [
-				                {type:'inputEquals', value:['left','right']},
-				                {type:'inputEqualsTrial', property:'corResp', negate:true},
-				                {type:'trialAttrEquals', property:'logged', negate:true} // only if not yet logged
-				            ],
-				            actions: [
-				                {type:'removeInput', handle:['left','right','timeout']},
-				                {type:'setTrialAttr', setter:{score:0}},
-				                {type:'setTrialAttr', setter:{logged:true}},
-				                {type:'showStim', handle:'error'},
-				                {type:'log'},
-				                {type:'endTrial', duration:piCurrent.ITIDuration},
-				                {type:'trigger', handle:'debugLog', data:'incorrect response'} // optional debug
-				            ]
-				        },
-				
-				        // 4. timeout without response
-				        {
-				            conditions: [
-				                {type:'inputEquals', value:'timeout'},
-				                {type:'trialAttrEquals', property:'logged', negate:true}
-				            ],
-				            actions: [
-				                {type:'removeInput', handle:['left','right','timeout']},
-				                {type:'setTrialAttr', setter:{score:2}},
-				                {type:'setTrialAttr', setter:{logged:true}},
-				                {type:'showStim', handle:'error'},
-				                {type:'log'},
-				                {type:'endTrial', duration:piCurrent.ITIDuration},
-				                {type:'trigger', handle:'debugLog', data:'timeout'} // optional debug
-				            ]
-				        },
+				        // Correct response
+						{
+						    conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
+						    actions: [
+						        {type:'removeInput', handle:['left','right','timeout']},
+						        {type:'setTrialAttr', setter:{score:1}},
+						        {type:'hideStim', handle:'All'},
+						        {type:'log'},
+						        {type:'endTrial', duration:piCurrent.ITIDuration}
+						    ]
+						},
+						
+						// Incorrect response
+						{
+						    conditions: [
+						        {type:'inputEquals', value:['left','right']},
+						        {type:'inputEqualsTrial', property:'corResp', negate:true}
+						    ],
+						    actions: [
+						        {type:'removeInput', handle:['left','right','timeout']},
+						        {type:'setTrialAttr', setter:{score:0}},
+						        {type:'showStim', handle:'error'},
+						        {type:'log'},
+						        {type:'endTrial', duration:piCurrent.ITIDuration}
+						    ]
+						},
+						
+						// Timeout
+						{
+						    conditions: [{type: 'inputEquals', value: 'timeout'}],
+						    actions: [
+						        {type:'removeInput', handle:['left','right','timeout']},
+						        {type:'setTrialAttr', setter:{score:2}},
+						        {type:'showStim', handle:'error'},
+						        {type:'log'},
+						        {type:'endTrial', duration:piCurrent.ITIDuration}
+						    ]
+						},
 				
 				        // 5. endTrial event (used internally)
 				        {
