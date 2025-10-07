@@ -150,11 +150,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// The following variables in the instructions text will be replaced: 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
-			instTemplatePractice: '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
-				  // Top-left image
+			instTemplatePractice:  '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+				  // Top-left image inside canvas
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
-				  // Centered text
+				       'style="position:absolute; top:10px; left:10px; width:60px; height:auto;">' +
+				  // Centered text relative to canvas
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
@@ -167,11 +167,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '</div>' +
 				'</div>',
 			
-				instTemplateCategoryRight: '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
-				  // Top-left image
+				instTemplateCategoryRight:  '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+				  // Top-left image inside canvas
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
-				  // Centered text
+				       'style="position:absolute; top:10px; left:10px; width:60px; height:auto;">' +
+				  // Centered text relative to canvas
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
@@ -183,11 +183,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '</div>' +
 				'</div>',
 				
-				instTemplateCategoryLeft:  '<div style="position:relative; width:100%; height:100vh; font-family:arial;">' +
-				  // Top-left image
+				instTemplateCategoryLeft:  '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
+				  // Top-left image inside canvas
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
-				  // Centered text
+				       'style="position:absolute; top:10px; left:10px; width:60px; height:auto;">' +
+				  // Centered text relative to canvas
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:20px;">' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
