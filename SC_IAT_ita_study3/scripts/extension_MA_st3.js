@@ -151,12 +151,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
 			instTemplatePractice: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
-				  // Top-left image (slightly bigger)
+				  // Top-left image moved 1cm higher
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:15px; left:10px; width:80px; height:auto;">' +
-				  // Centered text with reduced padding to move it higher
+				       'style="position:absolute; top:-22px; left:10px; width:80px; height:auto;">' +
+				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%; padding-top:50px;">' +
-				    '<div style="text-align:center; font-size:22px;">' +  // slightly bigger font
+				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
@@ -169,12 +169,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'</div>',
 			
 				instTemplateCategoryRight: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
-				  // Top-left image (slightly bigger)
+				  // Top-left image moved 1cm higher
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:15px; left:10px; width:80px; height:auto;">' +
-				  // Centered text with reduced padding to move it higher
+				       'style="position:absolute; top:-22px; left:10px; width:80px; height:auto;">' +
+				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%; padding-top:50px;">' +
-				    '<div style="text-align:center; font-size:22px;">' +  // slightly bigger font
+				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
@@ -186,12 +186,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				'</div>',
 				
 				instTemplateCategoryLeft: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
-				  // Top-left image (slightly bigger)
+				  // Top-left image moved 1cm higher
 				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" ' +
-				       'style="position:absolute; top:15px; left:10px; width:80px; height:auto;">' +
-				  // Centered text with reduced padding to move it higher
+				       'style="position:absolute; top:-22px; left:10px; width:80px; height:auto;">' +
+				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%; padding-top:50px;">' +
-				    '<div style="text-align:center; font-size:22px;">' +  // slightly bigger font
+				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
