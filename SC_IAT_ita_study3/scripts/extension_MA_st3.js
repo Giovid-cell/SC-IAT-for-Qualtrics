@@ -594,116 +594,116 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			    ? 'compatibile'
 			    : 'incompatibile';
 	
-		var catSide = '';
-			for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
-			    var isPrac = piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0;
-			    var currentCondition = '';
-			    var blockLayout;
-			    var singleAttribute, catAttribute;
-			
-			    // Determine category side
-			    if (!isPrac && catSide != 'rightCat' && catSide != 'leftCat') {
-			        catSide = firstCatSide;
-			    } else if (!isPrac && (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0)) {
-			        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
-			    }
-			
-			    // Set layout and trial sets
-			    if (isPrac) {
-			        blockLayout = pracLayout;
-			        currentCondition = attribute1 + ',' + attribute2;
-			    } else if (catSide == 'leftCat') {
-			        blockLayout = leftLayout;
-			        singleAttribute = 'rightAtt2';
-			        catAttribute = 'leftAtt1';
-			        currentCondition = category + '/' + attribute1 + ',' + attribute2;
-			    } else if (catSide == 'rightCat') {
-			        blockLayout = rightLayout;
-			        singleAttribute = 'leftAtt1';
-			        catAttribute = 'rightAtt2';
-			        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
-			    }
-			
-			    // Save block 2 condition
-			    if (iBlock === 2) block2Condition = currentCondition;
-			
-			    // Instructions
-			    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML || getInstHTML({
-			        blockNum: iBlock,
-			        nBlocks: piCurrent.trialsByBlock.length,
-			        isPractice: isPrac,
-			        categorySide: catSide
-			    });
-			
-			    trialSequence.push({
-			        inherit: 'instructions',
-			        stimuli: [{ media: { html: instHTML } }]
-			    });
-			
-			    // Mini-blocks
-			    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
-			        var mixer = {
-			            mixer: 'random',
-			            data: []
-			        };
-			
-			        // Add single attribute trials
-			        if (!isPrac && singleAttribute) {
-			            mixer.data.push({
-			                mixer: 'repeat',
-			                times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
-			                data: [{
-			                    inherit: singleAttribute,
-			                    data: { condition: currentCondition, block: iBlock },
-			                    layout: blockLayout.concat(reminderStimulus)
-			                }]
-			            });
-			        }
-			
-			        // Add shared attribute trials
-			        if (!isPrac && catAttribute) {
-			            mixer.data.push({
-			                mixer: 'repeat',
-			                times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
-			                data: [{
-			                    inherit: catAttribute,
-			                    data: { condition: currentCondition, block: iBlock },
-			                    layout: blockLayout.concat(reminderStimulus)
-			                }]
-			            });
-			        }
-			
-			        // Practice blocks (no category)
-			        if (isPrac) {
-			            mixer.data.push({
-			                mixer: 'repeat',
-			                times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials + piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
-			                data: [{
-			                    inherit: 'leftAtt1', // safe default
-			                    data: { condition: currentCondition, block: iBlock },
-			                    layout: blockLayout.concat(reminderStimulus)
-			                }]
-			            });
-			        }
-			
-			        // Category trials (if not practice)
-			        if (!isPrac && piCurrent.trialsByBlock[iBlock - 1].categoryTrials > 0) {
-			            mixer.data.push({
-			                mixer: 'repeat',
-			                times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
-			                data: [{
-			                    inherit: catSide,
-			                    data: { condition: currentCondition, block: iBlock },
-			                    layout: blockLayout.concat(reminderStimulus)
-			                }]
-			            });
-			        }
-			
-			        trialSequence.push(mixer);
-			    }
-			}
-			
-			API.addSequence(trialSequence);
+		// --- Build the full trial sequence ---
+				var trialSequence = [];
+				var catSide = '';
+				
+				for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
+				    var isPrac = false;
+				    var currentCondition = '';
+				    var blockLayout;
+				    var singleAttribute, catAttribute;
+				
+				    // --- Determine block type ---
+				    if (piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0) {
+				        // Practice block
+				        isPrac = true;
+				    } else if (catSide !== 'rightCat' && catSide !== 'leftCat') {
+				        // First main block — initialize side
+				        catSide = firstCatSide;
+				    } else if (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0) {
+				        // Switch category sides
+				        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
+				    }
+				
+				    // --- Define layout and conditions ---
+				    if (isPrac) {
+				        blockLayout = pracLayout;
+				        currentCondition = attribute1 + ',' + attribute2;
+				    } else if (catSide == 'leftCat') {
+				        blockLayout = leftLayout;
+				        singleAttribute = 'rightAtt2';
+				        catAttribute = 'leftAtt1';
+				        currentCondition = category + '/' + attribute1 + ',' + attribute2;
+				    } else if (catSide == 'rightCat') {
+				        blockLayout = rightLayout;
+				        singleAttribute = 'leftAtt1';
+				        catAttribute = 'rightAtt2';
+				        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
+				    }
+				
+				    if (iBlock === 2) {
+				        block2Condition = currentCondition; // store condition order
+				    }
+				
+				    // --- Instructions for this block ---
+				    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML;
+				    if (instHTML === '') {
+				        instHTML = getInstHTML({
+				            blockNum: iBlock,
+				            nBlocks: piCurrent.trialsByBlock.length,
+				            isPractice: isPrac,
+				            categorySide: catSide
+				        });
+				    }
+				
+				    // Add instruction screen
+				    trialSequence.push({
+				        inherit: 'instructions',
+				        data: { block: iBlock, condition: currentCondition },
+				        stimuli: [
+				            { media: { html: instHTML }, css: { color: 'black', 'font-size': '1em' } }
+				        ]
+				    });
+				
+				    // --- Mini-blocks ---
+				    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
+				        var mixer = {
+				            mixer: 'random',
+				            data: [
+				                // Single-attribute trials
+				                {
+				                    mixer: 'repeat',
+				                    times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
+				                    data: [{
+				                        inherit: singleAttribute,
+				                        data: { condition: currentCondition, block: iBlock },
+				                        layout: blockLayout.concat(reminderStimulus)
+				                    }]
+				                },
+				                // Shared-attribute trials
+				                {
+				                    mixer: 'repeat',
+				                    times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
+				                    data: [{
+				                        inherit: catAttribute,
+				                        data: { condition: currentCondition, block: iBlock },
+				                        layout: blockLayout.concat(reminderStimulus)
+				                    }]
+				                }
+				            ]
+				        };
+				
+				        // Add category trials (only for main blocks)
+				        if (!isPrac) {
+				            mixer.data.push({
+				                mixer: 'repeat',
+				                times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
+				                data: [{
+				                    inherit: catSide,
+				                    data: { condition: currentCondition, block: iBlock },
+				                    layout: blockLayout.concat(reminderStimulus)
+				                }]
+				            });
+				        }
+				
+				        trialSequence.push(mixer);
+				    }
+				}
+				
+				// --- Add the completed sequence ---
+				API.addSequence(trialSequence);
+
 
 		
 		//Settings for the score computation.
