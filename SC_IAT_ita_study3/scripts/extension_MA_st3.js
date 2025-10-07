@@ -341,48 +341,51 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			        },
 			
 			        // 2. correct response
-			        {
-			            conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
-			            actions: [
-			                {type: 'removeInput', handle: ['left', 'right']},
-			                {type: 'hideStim', handle: 'All'},
-			                {type: 'setTrialAttr', setter: {score: 1}}, // correct = 1
-			                {type: 'log'},
-			                {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.ITIDuration}}
-			            ]
-			        },
-			
-			        // 3. incorrect response
-			        {
-			            conditions: [
-			                {type: 'inputEquals', value: ['left', 'right']},
-			                {type: 'inputEqualsTrial', property: 'corResp', negate: true}
-			            ],
-			            actions: [
-			                {type: 'showStim', handle: 'error'},
-			                {type: 'setTrialAttr', setter: {score: 0}}, // error = 0
-			                {type: 'log'},
-			                {type: 'setInput', input: {handle: 'end', on: 'timeout', duration: piCurrent.ITIDuration}}
-			            ]
-			        },
-			
+			        // correct key pressed
+						{
+						  conditions: [{type: 'inputEqualsTrial', property: 'corResp'}],
+						  actions: [
+						    {type:'removeInput', handle:['left','right']},   // <-- critical
+						    {type:'hideStim', handle:'All'},
+						    {type:'setTrialAttr', setter:{score:1}},
+						    {type:'log'},
+						    {type:'endTrial', duration:piCurrent.ITIDuration}
+						  ]
+						},
+						
+						// incorrect key pressed
+						{
+						  conditions: [
+						    {type:'inputEquals', value:['left','right']},
+						    {type:'inputEqualsTrial', property:'corResp', negate:true}
+						  ],
+						  actions: [
+						    {type:'removeInput', handle:['left','right']},   // <-- same here
+						    {type:'showStim', handle:'error'},
+						    {type:'setTrialAttr', setter:{score:0}},
+						    {type:'log'},
+						    {type:'endTrial', duration:piCurrent.ITIDuration}
+						  ]
+						},
+									
 			        // 4. timeout without response
 			        {
-			            conditions: [{type: 'inputEquals', value: 'timeout'}],
-			            actions: [
-			                {type: 'removeInput', handle: ['left', 'right', 'timeout']},
-			                {type: 'setTrialAttr', setter: {score: 2}}, // timeout = 2
-			                {type: 'showStim', handle: 'error'},
-			                {type: 'log'},
-			                {type: 'endTrial', duration: piCurrent.ITIDuration}
-			            ]
-			        },
-			
-			        // 5. end trial after ITI
-			        {
-			            conditions: [{type: 'inputEquals', value: 'end'}],
-			            actions: [{type: 'endTrial'}]
-			        },
+					    conditions: [{type: 'inputEquals', value: 'timeout'}],
+					    actions: [
+					        {type: 'removeInput', handle: ['left','right','timeout']},
+					        {type: 'setTrialAttr', setter:{score:2}},
+					        {type: 'showStim', handle:'error'},
+					        {type: 'log'},
+					        {type:'setInput', input:{handle:'endTrial', on:'timeout', duration: piCurrent.ITIDuration}}
+					    ]
+					},
+					{
+					    conditions: [{type:'inputEquals', value:'endTrial'}],
+					    actions: [
+					        {type:'hideStim', handle:'All'},
+					        {type:'endTrial'}
+					    ]
+					},
 			
 			        // 6. skip block 1
 			        {
