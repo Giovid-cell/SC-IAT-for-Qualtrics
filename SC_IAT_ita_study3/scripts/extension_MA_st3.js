@@ -152,7 +152,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// Notice that this is HTML text.
 			instTemplatePractice: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="path/to/your/image.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				
 				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
@@ -167,9 +167,10 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				    '</div>' +
 				  '</div>' +
 				'</div>',
+			
 				instTemplateCategoryRight: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="path/to/your/image.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
 				    '<div>' +
@@ -185,7 +186,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryLeft: '<div style="position:relative; width:100%; height:100%; font-family:arial;">' +
 				  // Top-left image
-				  '<img src="path/to/your/image.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
+				  '<img src="https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@5eabb4ca08eeb55ddc0c6446a67101a6c5f892a8/images/pd_logo.png" style="position:absolute; top:10px; left:10px; width:80px; height:auto;">' +
 				  // Centered text
 				  '<div style="display:flex; justify-content:center; align-items:center; height:100%; text-align:center; font-size:20px;">' +
 				    '<div>' +
