@@ -15,8 +15,6 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
 				{word: 'Khemal'},
 				{word: 'Saif Khemal'},
 				{word: 'S.K.'},
-				{word: 'Khemal Saif'},
-				{word: 'Saif Khemal'},
 				{word: 'Khemal Saif'}
       ],
       css : {color:'#31b404','font-size':'3em'}
@@ -33,9 +31,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
 				{word: 'trascurare'},
 				{word: 'ignorare'},
 				{word: 'dimenticare'},
-				{word: 'tralasciare'},
-				{word: 'ostacolare'},
-				{word: 'trascurare'}
+				{word: 'tralasciare'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
@@ -51,9 +47,7 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
-				{word: 'appoggiare'},
-				{word: 'aiutare'},
-				{word: 'sostenere'}
+				{word: 'appoggiare'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
