@@ -28,13 +28,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [ //Stimuli
+				media : [ 
 				{word: 'Paolo'},
 				{word: 'Tosato'},
 				{word: 'Paolo Tosato'},
 				{word: 'P.T.'},
-				{word: 'Tosato Paolo'},
-				{word: 'Paolo Tosato'},
 				{word: 'Tosato Paolo'}
 					],
 				//Can change color and size of the targets here.
@@ -53,9 +51,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{word: 'trascurare'},
 				{word: 'ignorare'},
 				{word: 'dimenticare'},
-				{word: 'tralasciare'},
-				{word: 'ostacolare'},
-				{word: 'trascurare'}
+				{word: 'tralasciare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -73,9 +69,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
-				{word: 'appoggiare'},
-				{word: 'aiutare'},
-				{word: 'sostenere'}
+				{word: 'appoggiare'}
 				], 
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -86,7 +80,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 1, 
-					miniBlocks : 2, 
+					miniBlocks : 1, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
 					categoryTrials : 7
@@ -94,7 +88,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 2, 
-					miniBlocks : 2, 
+					miniBlocks : 1, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
 					categoryTrials : 7
@@ -102,7 +96,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 3, 
-					miniBlocks : 2, 
+					miniBlocks : 1, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
 					categoryTrials : 7
@@ -110,7 +104,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				{ 
 					instHTML : '', 
 					block : 4, 
-					miniBlocks : 2, 
+					miniBlocks : 1, 
 					singleAttTrials : 10, 
 					sharedAttTrials : 7, 
 					categoryTrials : 7
@@ -141,13 +135,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			rightKeyText : 'Premi il tasto "I" per', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
-			orText : 'O', 
+			orText : 'o', 
 			orCss : {'font-size':'1.8em', color:'#000000'},
 
 			//Will appear at the bottom of the screen during trials.
-			remindErrorText : '<p align="center" style="font-size:"0.6em"; font-family:arial">' +
-			'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' +
-			'Premi un altro tasto per continuare.<p/>',
+			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
+			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
 			
 			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
@@ -157,172 +150,133 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// The following variables in the instructions text will be replaced: 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
-			instTemplatePractice : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks</u><br/><br/></p>' + 
-				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
-				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria ' + 
-				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
-				'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
-				'Premi un altro tasto per continuare.<br/><br/>' + 
-				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
-			instTemplateCategoryRight : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
-				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
-				'<font color="#31b404">attribute1</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
-				'<font color="#31b404">attribute2</font> ' +
-				'e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
-				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
-				'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
-				'Premi un altro tasto per continuare.<br/><br/>' + 
-				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
-			instTemplateCategoryLeft : '<div><p align="center" style="font-size:20px; font-family:arial">' +
-				'<font color="#000000"><u>blockNum parte de nBlocks </u><br/><br/></p>' + 
-				'<p style="font-size:20px; text-align:left; vertical-align:bottom; margin-left:10px; font-family:arial">' +
-				'Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria ' + 
-				'<font color="#31b404">attribute1</font> ' +
-				'e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' + 
-				'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riuguardano la categoria ' + 
-				'<font color="#31b404">attribute2</font>.<br/>' + 
-				'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' + 
-				'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. ' + 
-				'Premi un altro tasto per continuare.<br/><br/>' + 
-				'<p align="center">Quando sei pronto, per favore, premi la <b>barra spaziatrice </b> per cominciare.</font></p></div>', 
-
+			instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:22px;">' +
+				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
+				      '<p>Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
+				      'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/>' +
+				      'Premi un altro tasto per continuare.<br/><br/></p>' +
+				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				    '</div>' +
+				  '</div>' +
+				'</div>',
 			
-			//The default feedback messages for each cutoff. 
-			//If you put attribute1, attribute2 and category here, 
-			//these will be replaced with the names of attribute1, attribute2 and category.
-			fb_strongAssociationWithAttribute2 : 'Your data suggest a strong positive automatic attitude toward thecategory.',
-			fb_moderateAssociationWithAttribute2 : 'Your data suggest a moderate positive automatic attitude toward thecategory.',
-			fb_weakAssociationWithAttribute2 : 'Your data suggest a weak positive automatic attitude toward thecategory.',
-			fb_neutralAssociation : 'Your data suggest a neutral automatic attitude toward thecategory.',
-			fb_weakAssociationWithAttribute1 : 'Your data suggest a weak negative automatic attitude toward thecategory.' ,
-			fb_moderateAssociationWithAttribute1 : 'Your data suggest a moderate negative automatic attitude toward thecategory.' ,
-			fb_strongAssociationWithAttribute1 : 'Your data suggest a strong negative automatic attitude toward thecategory.', 
-			
-			//Error messages in the scorer. If empty then we use the scorer's default messages.
-			manyErrors: '',
-			tooFast: '',
-			notEnough: '' //Usually relevant only if skipped the task.
+				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:22px;">' +
+				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
+				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
+				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				    '</div>' +
+				  '</div>' +
+				'</div>',
+				
+				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
+				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+				    '<div style="text-align:center; font-size:22px;">' +
+				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
+				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
+				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
+				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				    '</div>' +
+				  '</div>' +
+				'</div>'
 		};
+			
+			// Estensione piCurrent con opzioni e valori di default
+			_.extend(piCurrent, _.defaults(options, stiatObj))
+			
+			// Funzioni helper
+			function hasProperties(obj, props) {
+			    for (var i = 0; i < props.length; i++) {
+			        if (!obj.hasOwnProperty(props[i])) return false;
+			    }
+			    return true;
+			}
+			
+			function toCsv(matrix) {
+			    return matrix.map(function(row) {
+			        return row.map(function(val) {
+			            if (val === null || val === undefined) return '';
+			            var str = String(val);
+			            return /[,"\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
+			        }).join(',');
+			    }).join('\n');
+			}
+			
+			// Impostazioni logger su MinnoJS API
+			API.addSettings('logger', {
+			    onRow: function(logName, log, settings, ctx){
+			        if (!ctx.logs) ctx.logs = [];
+			        ctx.logs.push(log);
+			    },
+			    onEnd: function(name, settings, ctx){
+			        return ctx.logs;
+			    },
+			    serialize: function (name, logs) {
+			        var headers = ['block','trial','cond','type','cat','stim','resp','err','rt','d','fb','bOrd'];
+			        var myLogs = [];
 
-		// extend the current object with the default
-		_.extend(piCurrent, _.defaults(options, stiatObj));
-
-		
-		/**
-        **** For Qualtrics
-        */
-        API.addSettings('onEnd', window.minnoJS.onEnd);
-
-		//For debugging the logger
-		//window.minnoJS.logger = console.log;
-		//window.minnoJS.onEnd = console.log;
-		
-        API.addSettings('logger', {
-            // gather logs in array
-            onRow: function(logName, log, settings, ctx){
-                if (!ctx.logs) ctx.logs = [];
-                ctx.logs.push(log);
-            },
-            // onEnd trigger save (by returning a value)
-            onEnd: function(name, settings, ctx){
-                return ctx.logs;
-            },
-            // Transform logs into a string
-            // we save as CSV because qualtrics limits to 20K characters and this is more efficient.
-            serialize: function (name, logs) {
-                var headers = ['block', 'trial', 'cond', 'type', 'cat',  'stim', 'resp', 'err', 'rt', 'd', 'fb', 'bOrd'];
-                //console.log(logs);
-                var myLogs = [];
-                var iLog;
-                for (iLog = 0; iLog < logs.length; iLog++)
-                {
-                    if(!hasProperties(logs[iLog], ['trial_id', 'name', 'responseHandle', 'stimuli', 'media', 'latency'])){
-                        //console.log('---MISSING PROPERTIY---');
-                        //console.log(logs[iLog]);
-                        //console.log('---MISSING PROPERTIY---');
-                    }
-                    else if(!hasProperties(logs[iLog].data, ['block', 'condition', 'score']))
-                    {
-                        //console.log('---MISSING data PROPERTIY---');
-                        //console.log(logs[iLog].data);
-                        //console.log('---MISSING data PROPERTIY---');
-                    }
-                    else
-                    {
-                        myLogs.push(logs[iLog]);
-                    }
-                }
-                var content = myLogs.map(function (log) { 
-                    return [
-                        log.data.block, //'block'
-                        log.trial_id, //'trial'
-                        log.data.condition, //'cond'
-                        //log.data, //'comp'
-                        log.name, //'type'
-                        log.stimuli[0], //'cat'
-                        log.media[0], //'stim'
-                        log.responseHandle, //'resp'
-                        log.data.score, //'err'
-                        log.latency, //'rt'
-                        '', //'d'
-                        '', //'fb'
-                        '' //'bOrd'
-                        ]; });
-                //console.log('mapped');
-                //Add a line with the feedback, score and block-order condition
-                content.push([
-                            9, //'block'
-                            999, //'trial'
-                            'end', //'cond'
-                            //'', //'comp'
-                            '', //'type'
-                            '', //'cat'
-                            '', //'stim'
-                            '', //'resp'
-                            '', //'err'
-                            '', //'rt'
-                            piCurrent.d, //'d'
-                            piCurrent.feedback, //'fb'
-                            block2Condition //'bOrd'
-                        ]);
-                //console.log(content);
-                        
-                content.unshift(headers);
-                return toCsv(content);
-
-                function hasProperties(obj, props) {
-                    var iProp;
-                    for (iProp = 0; iProp < props.length; iProp++)
-                    {
-                        if (!obj.hasOwnProperty(props[iProp]))
-                        {
-                            //console.log('missing ' + props[iProp]);
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                function toCsv(matrice) { return matrice.map(buildRow).join('\n'); }
-                function buildRow(arr) { return arr.map(normalize).join(','); }
-                // wrap in double quotes and escape inner double quotes
-                function normalize(val) {
-                    var quotableRgx = /(\n|,|")/;
-                    if (quotableRgx.test(val)) return '"' + val.replace(/"/g, '""') + '"';
-                    return val;
-                }
-            },
-            // Set logs into an input (i.e. put them wherever you want)
-            send: function(name, serialized){
-                window.minnoJS.logger(serialized);
+        for(var i = 0; i < logs.length; i++){
+            if(hasProperties(logs[i], ['trial_id','name','responseHandle','stimuli','media','latency']) &&
+               hasProperties(logs[i].data, ['block','condition','score'])){
+                myLogs.push(logs[i]);
             }
+        }
+
+        var content = myLogs.map(function(log){
+            var errCode = log.data.score;
+            if(errCode !== 0 && errCode !== 1 && errCode !== 2) errCode = '';
+
+            var cat = '';
+            var stim = '';
+            if (log.stimuli && log.stimuli[0]) {
+                var stimObj = log.stimuli[0];
+                cat = (typeof stimObj === 'string') ? stimObj : (stimObj.word || '');
+            }
+            if (log.media && log.media[0]) {
+                var mediaObj = log.media[0];
+                stim = (typeof mediaObj === 'string') ? mediaObj : (mediaObj.word || '');
+            }
+
+            return [
+                log.data.block,
+                log.trial_id,
+                log.data.condition,
+                log.name,
+                cat,
+                stim,
+                log.responseHandle || '',
+                errCode,
+                (log.latency && log.latency <= 2000 ? log.latency : 1500),
+                '', // d
+                '', // fb
+                ''  // bOrd
+            ];
         });
+
+        // Riga finale con feedback
+        content.push([
+            9, 999, 'end', '', '', '', '', '', '', piCurrent.d || '', '', block2Condition || ''
+        ]);
+
+        content.unshift(headers);
+        return toCsv(content);
+    },
+    send: function(name, serialized){
+        // Invia i log a minnoJS.logger
+        window.minnoJS.logger(serialized);
+    }
+});
+
 
 		/***********************************************************************************
 		*
@@ -371,83 +325,88 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		/**
 		 * Create default Trial
 		 */
-		API.addTrialSets('sort',{
-    // by default each trial is correct, this is modified in case of an error
-    data: {score:0, parcel:'first'},
-    // set the interface for trials
-    input: [
-        {handle:'skip1', on:'keypressed', key:27}, // Esc + Enter will skip blocks
-        {handle:'left', on:'keypressed', key:'e'},
-        {handle:'right', on:'keypressed', key:'i'},
-        {handle:'timeout', on:'timeout', duration:1500} // ⏱ Timeout after 1500ms
-    ],
+		API.addTrialSets('sort', {
+				    // default trial
+				    data: {score: 0, parcel: 'first', logged:false},
+				    input: [
+				        {handle: 'skip1', on: 'keypressed', key: 27}, // Esc to skip blocks
+				        {handle: 'left', on: 'keypressed', key: 'e', isExclusive:true},
+				        {handle: 'right', on: 'keypressed', key: 'i', isExclusive:true},
+				        {handle: 'timeout', on: 'timeout', duration: 1490, isExclusive: true}
+				    ],
+				
+				    interactions: [
+					  // 1. begin trial: show stimulus
+					  {
+					    conditions: [{ type: 'begin' }],
+					    actions: [{ type: 'showStim', handle: 'targetStim' }]
+					  },
+					
+					  // 2. correct response
+					  {
+					    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
+					    actions: [
+					      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+					      { type: 'hideStim', handle: 'All' },
+					      { type: 'setTrialAttr', setter: { score: 1 } },
+					      { type: 'log' },
+					      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
+					    ]
+					  },
+					
+					  // 3. incorrect response
+					  {
+					    conditions: [
+					      { type: 'inputEquals', value: ['left', 'right'] },
+					      { type: 'inputEqualsTrial', property: 'corResp', negate: true }
+					    ],
+					    actions: [
+					      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+					      { type: 'showStim', handle: 'error' },
+					      { type: 'setTrialAttr', setter: { score: 0 } },
+					      { type: 'log' },
+					      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
+					    ]
+					  },
+					
+					  // 4. timeout without response
+					  {
+					    conditions: [{ type: 'inputEquals', value: 'timeout' }],
+					    actions: [
+					      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+					      { type: 'setTrialAttr', setter: { score: 2 } },
+					      { type: 'showStim', handle: 'error' },
+					      { type: 'log' },
+					      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
+					    ]
+					  },
+					
+					  // 5. ITI listener (single, final)
+					  {
+					    conditions: [{ type: 'inputEquals', value: 'endTrial' }],
+					    actions: [
+					      { type: 'hideStim', handle: 'All' },
+					      { type: 'endTrial' }
+					    ]
+					  },
+				
+				        // 6. skip block 1
+				        {
+				            conditions: [{type: 'inputEquals', value: 'skip1'}],
+				            actions: [{type: 'setInput', input: {handle: 'skip2', on: 'enter'}}]
+				        },
+				
+				        // 7. skip block 2
+				        {
+				            conditions: [{type: 'inputEquals', value: 'skip2'}],
+				            actions: [
+				                {type: 'goto', destination: 'nextWhere', properties: {blockStart: true}},
+				                {type: 'endTrial'}
+				            ]
+				        }
+				    ]
+				});
 
-    interactions: [
-        // begin trial : display stimulus immediately
-        {
-            conditions: [{type:'begin'}],
-            actions: [{type:'showStim', handle:'targetStim'}]
-        },
-
-        // error: incorrect response
-        {
-            conditions: [
-                {type:'inputEqualsTrial', property:'corResp', negate:true},
-                {type:'inputEquals', value:['right','left']}
-            ],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:0}}
-            ]
-        },
-
-        // correct response
-        {
-            conditions: [{type:'inputEqualsTrial', property:'corResp'}],
-            actions: [
-                {type:'removeInput', handle:['left','right']},
-                {type:'hideStim', handle:'All'},
-				{type:'setTrialAttr', setter:{score:1}}, // correct = 1}.
-                {type:'log'},
-                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
-            ]
-        },
-
-        // ⏱ timeout without response = mistake
-        {
-            conditions: [{type:'inputEquals', value:'timeout'}],
-            actions: [
-                {type:'showStim', handle:'error'},
-                {type:'setTrialAttr', setter:{score:2}},
-                {type:'log'},
-                {type:'setInput', input:{handle:'end', on:'timeout', duration:piCurrent.ITIDuration}}
-            ]
-        },
-
-        // end trial
-        {
-            conditions: [{type:'inputEquals', value:'end'}],
-            actions: [{type:'endTrial'}]
-        },
-
-        // skip block 1
-        {
-            conditions: [{type:'inputEquals', value:'skip1'}],
-            actions: [
-                {type:'setInput', input:{handle:'skip2', on:'enter'}}
-            ]
-        },
-
-        // skip block 2
-        {
-            conditions: [{type:'inputEquals', value:'skip2'}],
-            actions: [
-                {type:'goto', destination: 'nextWhere', properties: {blockStart:true}},
-                {type:'endTrial'}
-            ]
-        }
-    ]
-});
 
 		/**
 		 * Create default instructions trials
@@ -619,179 +578,134 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		var trialSequence = [];
 		
 		////Set the block order
-		var firstCatSide = 'leftCat';
-		if (piCurrent.blockOrder == 'startRight')
-		{
-			firstCatSide = 'rightCat';
-		}
-		else if (piCurrent.blockOrder == 'random')
-		{
-			firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
-		}
-		
-		var catSide = '';
-		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++)
-		{//For each block
-
-			var isPrac = false;
-			var currentCondition = '';
-			var blockLayout;
-			if (piCurrent.trialsByBlock[iBlock-1].categoryTrials === 0)
-			{//There are no category trials, so this is a practice block because.
-				isPrac = true;
-			}
-			else if (catSide != 'rightCat' && catSide != 'leftCat' )
-			{//This is not practice, and we should not switch sides, but the category side has has never been set.
-				catSide = firstCatSide;
-			}
-			else if (piCurrent.switchSideBlock == iBlock  //Switch category once, on this block
-			|| piCurrent.switchSideBlock <= 0 //Switch layout every block
-			)
-			{//Switch layout
-				if (catSide == 'rightCat')
-				{
-					catSide = 'leftCat';
-				}
-				else if (catSide == 'leftCat')
-				{
-					catSide = 'rightCat';
-				}
-			}
-
-			//According to the catSide
-			if (isPrac)
+	
+			var firstCatSide = 'leftCat';
+			if (piCurrent.blockOrder == 'startRight')
 			{
-				blockLayout = pracLayout;
-				currentCondition = attribute1 + ',' + attribute2;
+			    firstCatSide = 'rightCat';
 			}
-			else if (catSide == 'leftCat')
+			else if (piCurrent.blockOrder == 'random')
 			{
-				blockLayout =  leftLayout;
-				singleAttribute = 'rightAtt2';
-				catAttribute = 'leftAtt1';
-				currentCondition = category + '/' + attribute1 + ',' + attribute2;
+			    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
 			}
-			else if (catSide == 'rightCat')
-			{
-				blockLayout =  rightLayout;
-				singleAttribute = 'leftAtt1';
-				catAttribute = 'rightAtt2';
-				currentCondition = attribute1 + ',' + attribute2 + '/' + category;
-			}
-
-			if (iBlock === 2)
-			{//Set the block2Condition variable. That is our block order condition.
-				block2Condition = currentCondition;
-			}
-			//Which is the single attribute? The one that is on the other side of the category.
-			var singleAttribute = (catSide == 'rightCat') ? 'leftAtt1' : 'rightAtt2';
-			//And the category's attribute? The other side, of course.
-			var catAttribute = (singleAttribute == 'leftAtt1') ? 'rightAtt2' : 'leftAtt1';
-		
-			//Set the instructions html.
-			var instHTML = piCurrent.trialsByBlock[iBlock-1].instHTML; 
-			//Users can set the instHTML of each block, or use the instructions templates.
-			if (instHTML === '') 
-			{//Did not use the instHTML of each block, so let's use the instructions templates.
-				instHTML = getInstHTML({
-					blockNum : iBlock, 
-					nBlocks : piCurrent.trialsByBlock.length, 
-					isPractice : isPrac, categorySide : catSide
-				});
-			}
-			//Add the block's instructions sequence
-			trialSequence.push(
-				{
-					inherit : 'instructions', 
-					data: {blockStart:true},
-					layout : blockLayout, 
-					stimuli : [
-						{ 
-							inherit : 'instructions', 
-							media : {html : instHTML}
-						},
-						{
-							data : {handle:'dummy', alias:'dummy'},
-							media : {word:' '}, 
-							location : {top:1}
-						}
-					]
-				}
-			);
 			
-			//We separate each block to mini blocks to reduce repetition of categories and responses.
-			for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock-1].miniBlocks; iMini++)
-			{//For each mini block
-				var mixer = 
-				{//This mixer will randomize the trials of all the three groups.
-					mixer : 'random', 
-					data : 
-					[
-						{//The single attribute trials
-							mixer : 'repeat', 
-							times : piCurrent.trialsByBlock[iBlock-1].singleAttTrials,
-							data : 
-							[{
-								inherit : singleAttribute, 
-								data : {condition : currentCondition, block : iBlock}, 
-								layout : blockLayout.concat(reminderStimulus)
-							}]
-						}, 
-						{//The key-shared attribute trials
-							mixer : 'repeat', 
-							times : piCurrent.trialsByBlock[iBlock-1].sharedAttTrials,
-							data : 
-							[{
-								inherit : catAttribute, 
-								data : {condition : currentCondition, block : iBlock}, 
-								layout : blockLayout.concat(reminderStimulus)
-							}]
-						} 
-					]
-				};
-				if (!isPrac) //If it is not a practice block, then
-				{//Add the category trials to mixer's data
-					mixer.data.push(
-						{//The key-shared attribute trials
-							mixer : 'repeat', 
-							times : piCurrent.trialsByBlock[iBlock-1].categoryTrials,
-							data : 
-							[{
-								inherit : catSide, 
-								data : {condition : currentCondition, block : iBlock}, 
-								layout : blockLayout.concat(reminderStimulus)
-							}]
-						}
-					);
+			// Definizione della condizione iniziale secondo la tua logica
+			// cat + attributo1 = compatibile, cat + attributo2 = incompatibile
+			piCurrent.startCondition = (firstCatSide === 'leftCat')
+			    ? 'compatibile'
+			    : 'incompatibile';
+	
+		// --- Build the full trial sequence ---
+				var trialSequence = [];
+				var catSide = '';
+				
+				for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
+				    var isPrac = false;
+				    var currentCondition = '';
+				    var blockLayout;
+				    var singleAttribute, catAttribute;
+				
+				    // --- Determine block type ---
+				    if (piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0) {
+				        // Practice block
+				        isPrac = true;
+				    } else if (catSide !== 'rightCat' && catSide !== 'leftCat') {
+				        // First main block — initialize side
+				        catSide = firstCatSide;
+				    } else if (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0) {
+				        // Switch category sides
+				        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
+				    }
+				
+				    // --- Define layout and conditions ---
+				    if (isPrac) {
+				        blockLayout = pracLayout;
+				        currentCondition = attribute1 + ',' + attribute2;
+				    } else if (catSide == 'leftCat') {
+				        blockLayout = leftLayout;
+				        singleAttribute = 'rightAtt2';
+				        catAttribute = 'leftAtt1';
+				        currentCondition = category + '/' + attribute1 + ',' + attribute2;
+				    } else if (catSide == 'rightCat') {
+				        blockLayout = rightLayout;
+				        singleAttribute = 'leftAtt1';
+				        catAttribute = 'rightAtt2';
+				        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
+				    }
+				
+				    if (iBlock === 2) {
+				        block2Condition = currentCondition; // store condition order
+				    }
+				
+				    // --- Instructions for this block ---
+				    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML;
+				    if (instHTML === '') {
+				        instHTML = getInstHTML({
+				            blockNum: iBlock,
+				            nBlocks: piCurrent.trialsByBlock.length,
+				            isPractice: isPrac,
+				            categorySide: catSide
+				        });
+				    }
+				
+				    // Add instruction screen
+				    trialSequence.push({
+				        inherit: 'instructions',
+				        data: { block: iBlock, condition: currentCondition },
+				        stimuli: [
+				            { media: { html: instHTML }, css: { color: 'black', 'font-size': '1em' } }
+				        ]
+				    });
+				
+				    // --- Mini-blocks ---
+				    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
+				        var mixer = {
+				            mixer: 'random',
+				            data: [
+				                // Single-attribute trials
+				                {
+				                    mixer: 'repeat',
+				                    times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
+				                    data: [{
+				                        inherit: singleAttribute,
+				                        data: { condition: currentCondition, block: iBlock },
+				                        layout: blockLayout.concat(reminderStimulus)
+				                    }]
+				                },
+				                // Shared-attribute trials
+				                {
+				                    mixer: 'repeat',
+				                    times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
+				                    data: [{
+				                        inherit: catAttribute,
+				                        data: { condition: currentCondition, block: iBlock },
+				                        layout: blockLayout.concat(reminderStimulus)
+				                    }]
+				                }
+				            ]
+				        };
+				
+				        // Add category trials (only for main blocks)
+				        if (!isPrac) {
+				            mixer.data.push({
+				                mixer: 'repeat',
+				                times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
+				                data: [{
+				                    inherit: catSide,
+				                    data: { condition: currentCondition, block: iBlock },
+				                    layout: blockLayout.concat(reminderStimulus)
+				                }]
+				            });
+				        }
+				
+				        trialSequence.push(mixer);
+				    }
 				}
-				trialSequence.push(mixer);
-			}
-		}
-		//Add the final goodbye trial.
-		trialSequence.push({
-			inherit : 'instructions', 
-			data: {blockStart:true},
-			layout : [{media:{word:''}}], 
-			stimuli : [
-				{ 
-					inherit : 'instructions', 
-					css : {color:piCurrent.fontColor}, 
-					media:{html:'<div><p style="font-size:28px"><color="#000000">' + 
-					piCurrent.finalText + '</p></div>'}
-				},
-				{
-					data : {handle:'dummy', alias:'dummy'},
-					media : {word:' '}, 
-					location : {top:1}
-				}			
-			]
-		});
-		//Now add the trials sequence to the API.
-		API.addSequence(trialSequence);
-		
-		/**
-		Compute the Feedback.
-		**/
+				
+				// --- Add the completed sequence ---
+				API.addSequence(trialSequence);
+
+
 		
 		//Settings for the score computation.
 		scorer.addSettings('compute',{
@@ -814,60 +728,42 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			minRT : 400, //Below this latency
 			maxRT : 10000, //above this
 			errorLatency : {use:"latency", penalty:600, useForSTD:true},
-			postSettings : {score:"score",msg:"feedback",url:"/implicit/scorer"}
+			postSettings : {score:"score",msg:"",url:"/implicit/scorer"}
 		});
 
-		//Helper function to set the feedback messages.
-		function getFBFromTemplate(inText)
-		{
-			var retText = inText.replace(/attribute1/g, attribute1);
-			retText = retText.replace(/attribute2/g, attribute2);
-			retText = retText.replace(/thecategory/g, category);
-			return (retText);
-		}
-		//Set the feedback messages.
-		var messageDef = [
-				{ cut:'-0.65', message : getFBFromTemplate(piCurrent.fb_strongAssociationWithAttribute1) },
-				{ cut:'-0.35', message : getFBFromTemplate(piCurrent.fb_moderateAssociationWithAttribute1) },
-				{ cut:'-0.15', message : getFBFromTemplate(piCurrent.fb_weakAssociationWithAttribute1) },
-				{ cut:'0.15', message : getFBFromTemplate(piCurrent.fb_neutralAssociation) },
-				{ cut:'0.35', message : getFBFromTemplate(piCurrent.fb_weakAssociationWithAttribute2) },
-				{ cut:'0.65', message : getFBFromTemplate(piCurrent.fb_moderateAssociationWithAttribute2) },
-				{ cut:'5', message : getFBFromTemplate(piCurrent.fb_strongAssociationWithAttribute2) }
-		];
-		var scoreMessageObject = { MessageDef : messageDef };
-		if (piCurrent.manyErrors !== '')
-		{
-			scoreMessageObject.manyErrors = piCurrent.manyErrors;
-		}
-		if (piCurrent.tooFast !== '')
-		{
-			scoreMessageObject.tooFast = piCurrent.tooFast;
-		}
-		if (piCurrent.notEnough !== '')
-		{
-			scoreMessageObject.notEnough = piCurrent.notEnough;
-		}
-		//Set messages to the scorer.
-		scorer.addSettings('message',scoreMessageObject);
-
-		//What to do at the end of the task.
-		API.addSettings('hooks',{
-			endTask: function(){
-				//Compute score
-				var DScoreObj = scorer.computeD();
-				//Save for the task's session.
-				piCurrent.feedback = DScoreObj.FBMsg;
-				piCurrent.d = DScoreObj.DScore;
-				//Save to server
-				//API.save({block2Condition:block2Condition, feedback:DScoreObj.FBMsg, d: DScoreObj.DScore});
-				window.minnoJS.onEnd();
-
+		// --- Hook End Task: calcolo punteggio e invio log ---
+				API.addSettings('hooks', {
+				    endTask: function() {
+				
+				        // Allow MinnoJS to perform its own internal cleanup first
+				        if (this._endTask) this._endTask();
+				
+				        // --- Serialize and send final log ---
+				        var logs = API.getLogs();
+				        if (API.settings && API.settings.logger) {
+				            var serialized = API.settings.logger.serialize('final', logs);
+				            API.settings.logger.send('final', serialized);
+				        } else {
+				            console.warn('Logger not found — logs not sent.');
+				        }
+				
+				        // --- Trigger Qualtrics continuation ---
+				        if (window.minnoJS && typeof window.minnoJS.onEnd === 'function') {
+				            try {
+				                console.log('Calling window.minnoJS.onEnd() from endTask...');
+				                window.minnoJS.onEnd();
+				            } catch (e) {
+				                console.error('Error executing onEnd():', e);
+				            }
+				        } else {
+				            console.warn('window.minnoJS.onEnd not found — cannot advance Qualtrics automatically.');
+				        }
+				    }
+				});
+			/****************************************************
+			 *  EXPORT SCRIPT
+			 ****************************************************/
+			return API.script;
 			}
-		});
-
-		return API.script;
-	}
-	
-	return stiatExtension;
-});
+			return stiatExtension;
+			});
