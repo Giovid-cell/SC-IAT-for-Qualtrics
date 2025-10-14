@@ -131,8 +131,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Premi il tasto "E" per', 
-			rightKeyText : 'Premi il tasto "I" per', 
+			leftKeyText : 'Premi il tasto "W" per', 
+			rightKeyText : 'Premi il tasto "P" per', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
 			orText : 'o', 
@@ -330,8 +330,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				    data: {score: 0, parcel: 'first', logged:false},
 				    input: [
 				        {handle: 'skip1', on: 'keypressed', key: 27}, // Esc to skip blocks
-				        {handle: 'left', on: 'keypressed', key: 'e', isExclusive:true},
-				        {handle: 'right', on: 'keypressed', key: 'i', isExclusive:true},
+				        {handle: 'left', on: 'keypressed', key: 'w', isExclusive:true},
+				        {handle: 'right', on: 'keypressed', key: 'p', isExclusive:true},
 				        {handle: 'timeout', on: 'timeout', duration: 1490, isExclusive: true}
 				    ],
 				
