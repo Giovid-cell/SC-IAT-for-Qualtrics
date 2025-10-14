@@ -40,37 +40,38 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			},	
 			attribute1 : 
 			{
-				name : 'Ignorare', //Attribute name to be used for feedback and logging
-				title : {
-					media : {word : 'Ignorare'}, //Name of the category presented in the task.
-					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
-					height : 4 //Used to position the "Or" in the combined block.
-				}, 
-				media : [ //Stimuli
-				{word: 'ostacolare'},
-				{word: 'trascurare'},
-				{word: 'ignorare'},
-				{word: 'dimenticare'},
-				{word: 'tralasciare'}
-				], 
-				//Can change color and size of the targets here.
-				css : {color:'#31b404','font-size':'2em'}
-			},
-			attribute2 : 
-			{
 				name : 'Sostenere', //Attribute name to be used for feedback and logging
 				title : {
 					media : {word : 'Sostenere'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [
+				 media : [
 				{word: 'aiutare'},
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
 				{word: 'appoggiare'}
-				], 
+				],
+				//Can change color and size of the targets here.
+				css : {color:'#31b404','font-size':'2em'}
+			},
+			attribute2 : 
+			{
+				name : 'Ignorare', //Attribute name to be used for feedback and logging
+				title : {
+					media : {word : 'Ignorare'}, //Name of the category presented in the task.
+					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
+					height : 4 //Used to position the "Or" in the combined block.
+				},
+				media : [ //Stimuli
+				{word: 'ostacolare'},
+				{word: 'trascurare'},
+				{word: 'ignorare'},
+				{word: 'dimenticare'},
+				{word: 'tralasciare'}
+				],
+
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},	
@@ -154,8 +155,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
 				      '<p>Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
 				      'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/>' +
 				      'Premi un altro tasto per continuare.<br/><br/></p>' +
@@ -168,8 +169,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
 				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
 				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
@@ -181,8 +182,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>E</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>I</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
+				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
 				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
 				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
 				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
