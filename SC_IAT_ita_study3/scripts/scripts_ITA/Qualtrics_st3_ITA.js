@@ -1,6 +1,6 @@
 // https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/QualtricsStiat.js
 
-define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@093c5022abc61343569940ba8baad87a6e95ec05/SC_IAT_ita_study3/scripts/scripts_ITA/extension_ITA_st3.js'], function(APIConstructor, stiatExtension){
+define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@b7891c705b3c5f99517c5fe3a4f9d18060af2eca/SC_IAT_ita_study3/scripts/scripts_ITA/extension_ITA_st3.js'], function(APIConstructor, stiatExtension){
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
@@ -20,22 +20,6 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute1 : {
-      name : 'Ignorare',
-      title : {
-        media : {word : 'Ignorare'},
-        css : {color:'#31b404','font-size':'2em'},
-        height : 7
-      },
-      media : [ 
-				{word: 'ostacolare'},
-				{word: 'trascurare'},
-				{word: 'ignorare'},
-				{word: 'dimenticare'},
-				{word: 'tralasciare'}
-      ],
-      css : {color:'#31b404','font-size':'3em'}
-    },
-    attribute2 : {
       name : 'Sostenere',
       title : {
         media : {word : 'Sostenere'},
@@ -48,6 +32,23 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
 				{word: 'appoggiare'}
+      ],
+		
+      css : {color:'#31b404','font-size':'3em'}
+    },
+    attribute2 : {
+      name : 'Ignorare',
+      title : {
+        media : {word : 'Ignorare '},
+        css : {color:'#31b404','font-size':'2em'},
+        height : 7
+      },
+      media : [ 
+				{word: 'ostacolare'},
+				{word: 'trascurare'},
+				{word: 'ignorare'},
+				{word: 'dimenticare'},
+				{word: 'tralasciare'}
       ],
       css : {color:'#31b404','font-size':'3em'}
     },
