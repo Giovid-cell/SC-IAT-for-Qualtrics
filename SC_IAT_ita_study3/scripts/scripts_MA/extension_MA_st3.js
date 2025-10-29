@@ -132,8 +132,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Premi il tasto "W" per', 
-			rightKeyText : 'Premi il tasto "P" per', 
+			leftKeyText : 'Prema il tasto "W" per', 
+			rightKeyText : 'Prema il tasto "P" per', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
 			orText : 'o', 
@@ -141,9 +141,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
-			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
+			'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
 			
-			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
+			finalText: 'Ha completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
 			//These are templates for the instructions in the task. 
 			//If you want more specific instructions for different blocks, 
@@ -155,12 +155,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
-				      '<p>Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
-				      'Se commetterai un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/>' +
-				      'Premi un altro tasto per continuare.<br/><br/></p>' +
-				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
+				      '<p>Durante il compito appariranno parole sullo schermo.<br/><br/>' +
+				      'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/>' +
+				      '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>',
@@ -169,11 +168,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
-				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
-				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
-				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      'Durante il compito appariranno parole sullo schermo.<br/><br/>' +
+				      'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
+				      '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>',
@@ -182,11 +181,11 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="text-align:center; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
-				      '<p>Colloca il tuo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
-				      'Colloca il tuo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
-				      'Durante il compito appariranno parole e immagini sullo schermo.<br/><br/>' +
-				      'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà. Premi un altro tasto per continuare.<br/><br/>' +
-				      '<p>Quando sei pronto, per favore, premi la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
+				      'Durante il compito appariranno parole sullo schermo.<br/><br/>' +
+				      'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
+				      '<p>Quando si sente pronto pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>'
