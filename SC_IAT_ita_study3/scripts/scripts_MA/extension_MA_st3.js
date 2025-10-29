@@ -155,14 +155,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="font-size:22px; max-width:800px; line-height:1.6;">' +
 				      // blocco centrato
-				      '<p style="text-align:center; margin-bottom:25px;"><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p style="text-align:center; margin-bottom:15px;"><font color="#000000"><u>blockNum</u></font></p>' +
 				      
 				      // testo allineato a sinistra
 				      '<div style="text-align:left;">' +
-				        '<p style="margin-bottom:15px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.</p>' +
-				        '<p style="margin-bottom:15px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
-				        '<p style="margin-bottom:20px;">Durante il compito appariranno parole sullo schermo.</p>' +
-				        '<p style="margin-bottom:20px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.</p>' +
+				        '<p style="margin-bottom:10px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.</p>' +
+				        '<p style="margin-bottom:10px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
+				        '<p style="margin-bottom:12px;">Durante il compito appariranno parole sullo schermo.</p>' +
+				        '<p style="margin-bottom:12px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.</p>' +
 				        '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				      '</div>' +
 				    '</div>' +
@@ -173,14 +173,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="font-size:22px; max-width:800px; line-height:1.6;">' +
 				      // blocco centrato
-				      '<p style="text-align:center; margin-bottom:25px;"><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p style="text-align:center; margin-bottom:15px;"><font color="#000000"><u>blockNum</u></font></p>' +
 				      
 				      // testo allineato a sinistra
 				      '<div style="text-align:left;">' +
-				      '<p style="margin-bottom:15px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
-				      '<p style="margin-bottom:15px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
-				      '<p style="margin-bottom:20px;">Durante il compito appariranno parole sullo schermo.<br/><br/>' +
-				      '<p style="margin-bottom:20px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
+				      '<p style="margin-bottom:10px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
+				      '<p style="margin-bottom:10px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      '<p style="margin-bottom:12px;">Durante il compito appariranno parole sullo schermo.<br/><br/>' +
+				      '<p style="margin-bottom:12px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
 				      '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
@@ -190,14 +190,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
 				    '<div style="font-size:22px; max-width:800px; line-height:1.6;">' +
 				      // blocco centrato
-				      '<p style="text-align:center; margin-bottom:25px;"><font color="#000000"><u>blockNum</u></font></p>' +
+				      '<p style="text-align:center; margin-bottom:15px;"><font color="#000000"><u>blockNum</u></font></p>' +
 				      
 				      // testo allineato a sinistra
 				      '<div style="text-align:left;">' +
-				      '<p style="margin-bottom:15px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
-				      '<p style="margin-bottom:15px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
-				      '<p style="margin-bottom:20px;">Durante il compito appariranno parole sullo schermo.<br/><br/>' +
-				      '<p style="margin-bottom:20px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
+				      '<p style="margin-bottom:10px;">Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
+				      '<p style="margin-bottom:10px;">Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
+				      '<p style="margin-bottom:12px;">Durante il compito appariranno parole sullo schermo.<br/><br/>' +
+				      '<p style="margin-bottom:12px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
 				      '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
