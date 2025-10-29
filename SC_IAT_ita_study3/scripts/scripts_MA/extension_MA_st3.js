@@ -151,9 +151,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// The following variables in the instructions text will be replaced: 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
-			instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
+				instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:left; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px; max-width:800px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
@@ -163,10 +163,10 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				    '</div>' +
 				  '</div>' +
 				'</div>',
-			
+				
 				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:left; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px; max-width:800px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
@@ -179,13 +179,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:left; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px; max-width:800px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
 				      'Durante il compito appariranno parole sullo schermo.<br/><br/>' +
 				      'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<br/><br/>' +
-				      '<p>Quando si sente pronto pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Quando si sente pronto, per favore, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>'
