@@ -153,7 +153,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// Notice that this is HTML text.
 			instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:center; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.</p>' +
@@ -166,7 +166,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			
 				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:center; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font> e per parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
@@ -179,7 +179,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
 				  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-				    '<div style="text-align:center; font-size:22px;">' +
+				    '<div style="text-align:left; font-size:22px;">' +
 				      '<p><font color="#000000"><u>blockNum</u></font></p>' +
 				      '<p>Collochi il suo indice sinistro sul tasto <b>W</b> per parole che riguardano la categoria <font color="#31b404">attribute1</font> e parole che riguardano la categoria <font color="#31b404">thecategory</font>.<br/>' +
 				      'Collochi il suo indice destro sul tasto <b>P</b> per parole che riguardano la categoria <font color="#31b404">attribute2</font>.<br/>' +
