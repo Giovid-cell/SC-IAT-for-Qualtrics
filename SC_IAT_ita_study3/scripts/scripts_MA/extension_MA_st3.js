@@ -179,7 +179,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
 				        '<p style="margin-bottom:8px;">Se lo stimolo appartiene a una delle due categorie a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
 				        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-				        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
+				        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Saif, Saif Khemal, S.K.</p>' +
 				        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
 				        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
 				        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
@@ -199,7 +199,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
 				        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
 				        'se lo stimolo appartiene a una delle due categorie a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-				        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
+				        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Saif, Saif Khemal, S.K.</p>' +
 				        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
 				        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
 				        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
