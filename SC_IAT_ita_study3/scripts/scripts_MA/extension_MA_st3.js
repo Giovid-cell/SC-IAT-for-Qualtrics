@@ -371,7 +371,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 						    { type: 'log' },
 						    { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration }
 						]
-						}
+						},
 						
 					  // 3. incorrect response
 					  {
