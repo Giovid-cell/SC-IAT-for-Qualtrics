@@ -22,18 +22,18 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			//Define the category.
 			category :  
 			{
-				name : 'Nome Paziente', //Category name to be used for feedback and logging.
+				name : 'Paziente', //Category name to be used for feedback and logging.
 				title : {
-					media : {word : 'Nome Paziente'}, //Name of the category presented in the task.
+					media : {word : 'Paziente'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
 				media : [ 
-				{word: 'Paolo'},
-				{word: 'Tosato'},
-				{word: 'Paolo Tosato'},
-				{word: 'P.T.'},
-				{word: 'Tosato Paolo'}
+				{word: 'Saif'},
+				{word: 'Khemal'},
+				{word: 'Saif Khemal'},
+				{word: 'S.K.'},
+				{word: 'Khemal Saif'}
 					],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
@@ -46,14 +46,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
 				}, 
-				media : [
+				 media : [
 				{word: 'aiutare'},
 				{word: 'assistere'},
 				{word: 'soccorrere'},
 				{word: 'sostenere'},
 				{word: 'appoggiare'}
-				], 
-				
+				],
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},
@@ -64,20 +63,20 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					media : {word : 'Ignorare'}, //Name of the category presented in the task.
 					css : {color:'#31b404','font-size':'2em'}, //Style of the category title.
 					height : 4 //Used to position the "Or" in the combined block.
-				}, 
+				},
 				media : [ //Stimuli
 				{word: 'ostacolare'},
 				{word: 'trascurare'},
 				{word: 'ignorare'},
 				{word: 'dimenticare'},
 				{word: 'tralasciare'}
-				], 
+				],
+
 				//Can change color and size of the targets here.
 				css : {color:'#31b404','font-size':'2em'}
 			},	
 			trialsByBlock : 
 			[//Each object in this array defines a block
-			
 				{ 
 					instHTML : '', 
 					block : 1, 
@@ -122,7 +121,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			//If the switch parameter is 0 or smaller, we switch the side of the category every block. 
 			//If it is larger than 0, then we switch the category side only once, in the block specified in switchSideBlock.
-			switchSideBlock : 3, //By default, we switch on block 4 (i.e., after blocks 2 and 3 showed the first pairing condition).
+			switchSideBlock : 3, // Switch after block 2 (before block 3)
 
 			base_url : {//Where are your images?
 				image : '/implicit/user/yba/pipexample/stiat/images/'
@@ -132,8 +131,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			fontColor : '#000000', //The color of messages and key reminders. 
 			
 			//Text and style for key instructions displayed about the category labels.
-			leftKeyText : 'Premi il tasto "W" per', 
-			rightKeyText : 'Premi il tasto "P" per', 
+			leftKeyText : 'Prema il tasto "W" per', 
+			rightKeyText : 'Prema il tasto "P" per', 
 			keysCss : {'font-size':'0.8em', 'font-family':'courier', color:'#000000'},
 			//Text and style for the separator between the top and bottom category labels.
 			orText : 'o', 
@@ -141,73 +140,76 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			//Will appear at the bottom of the screen during trials.
 			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
-			'Se commetti un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
+			'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
 			
-			finalText: 'Hai completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
+			finalText: 'Ha completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
-			//These are templates for the instructions in the task. 
-			//If you want more specific instructions for different blocks, 
-			// use the instHTML variables above. 
-			// The following variables in the instructions text will be replaced: 
-			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
-			// Notice that this is HTML text.
-				instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
-		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
-		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
-		      '<div style="text-align:left;">' +
-		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-		        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle due categorie.</p>' +
-		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-		      '</div>' +
-		    '</div>' +
-		  '</div>' +
-		'</div>',
-		
-		instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
-		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
-		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
-		      '<div style="text-align:left;">' +
-		        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
-		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene a una delle due categorie a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-		        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-		        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
-		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
-		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-		      '</div>' +
-		    '</div>' +
-		  '</div>' +
-		'</div>',
-		
-		instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
-		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
-		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
-		      '<div style="text-align:left;">' +
-		        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
-		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-		        'se lo stimolo appartiene a una delle due categorie a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-		        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
-		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
-		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-		      '</div>' +
-		    '</div>' +
-		  '</div>' +
-		'</div>'
+			// Instruction templates
+			instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
+			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+			    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
+			      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
+			      '<div style="text-align:left;">' +
+			        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
+			        '<p style="margin-bottom:8px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b> della tastiera.</p>' +
+			        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
+			        '<p style="margin-bottom:8px;">Se lo stimolo appartiene a una delle due categorie a <b>SINISTRA</b>, prema il tasto <b>"W"</b>;<br/>' +
+			        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>"P"</b>.</p>' +
+			        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria "<font color="#31b404">thecategory</font>" sono Paolo, Paolo Tosato, P.T.</p>' +
+			        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
+			        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
+			        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
+			        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+			      '</div>' +
+			    '</div>' +
+			  '</div>' +
+			'</div>',
+
+			instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
+			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+			    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
+			      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
+			      '<div style="text-align:left;">' +
+			        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
+			        '<p style="margin-bottom:8px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b> della tastiera.</p>' +
+			        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
+			        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>"W"</b>;<br/>' +
+			        'se lo stimolo appartiene a una delle due categorie a <b>DESTRA</b>, prema il tasto <b>"P"</b>.</p>' +
+			        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria "<font color="#31b404">thecategory</font>" sono Paolo, Paolo Tosato, P.T.</p>' +
+			        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
+			        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
+			        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
+			        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+			      '</div>' +
+			    '</div>' +
+			  '</div>' +
+			'</div>',
+
+			instTemplateTransitionCtoI: '<div style="width:100%; height:100%; font-family:arial;">' +
+			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+			    '<div style="font-size:18px; max-width:800px; line-height:1.35; text-align:center;">' +
+			      '<p style="margin-bottom:16px;">Adesso le categorie Le appariranno in una nuova configurazione.</p>' +
+			      '<p style="margin-bottom:16px;">Dovrà premere il tasto <b>"W"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b></p>' +
+			      '<p style="margin-bottom:16px;">e il tasto <b>"P"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> visualizzate sulla <b>DESTRA</b>.</p>' +
+			      '<p style="margin-bottom:16px;">Le ricordiamo che ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b> presentate sullo schermo.</p>' +
+			      '<p style="margin-bottom:16px;">I colori delle parole l\'aiuteranno nell\'identificazione della categoria.</p>' +
+			      '<p style="margin-top:20px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+			    '</div>' +
+			  '</div>' +
+			'</div>',
+
+			instTemplateTransitionItoC: '<div style="width:100%; height:100%; font-family:arial;">' +
+			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+			    '<div style="font-size:18px; max-width:800px; line-height:1.35; text-align:center;">' +
+			      '<p style="margin-bottom:16px;">Adesso le categorie Le appariranno in una nuova configurazione.</p>' +
+			      '<p style="margin-bottom:16px;">Dovrà premere il tasto <b>"W"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b></p>' +
+			      '<p style="margin-bottom:16px;">e il tasto <b>"P"</b> se lo stimolo appartiene alla categoria visualizzata sulla <b>DESTRA</b>.</p>' +
+			      '<p style="margin-bottom:16px;">Le ricordiamo che ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b> presentate sullo schermo.</p>' +
+			      '<p style="margin-bottom:16px;">I colori delle parole l\'aiuteranno nell\'identificazione della categoria.</p>' +
+			      '<p style="margin-top:20px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+			    '</div>' +
+			  '</div>' +
+			'</div>'
 
 		};
 			
@@ -329,13 +331,6 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			{location:{right:6,top:4+(piCurrent.attribute2.title.height|3)},media:{word:piCurrent.orText}, css:piCurrent.orCss},
 			{location:{right:6,top:11+(piCurrent.attribute2.title.height|3)},media:piCurrent.category.title.media, css:piCurrent.category.title.css}
 		];
-		// layout object for practice blocks (no category)
-		var pracLayout = [
-			{location:{left:6,top:1},media:{word:piCurrent.leftKeyText}, css:piCurrent.keysCss},
-			{location:{right:6,top:1},media:{word:piCurrent.rightKeyText}, css:piCurrent.keysCss},
-			{location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
-			{location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css}
-		];
 		
 		var reminderStimulus = 	{location:{bottom:1}, css: {color:piCurrent.fontColor,'font-size':'1em'}, media : {html: piCurrent.remindErrorText}};
 
@@ -352,7 +347,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				        {handle: 'skip1', on: 'keypressed', key: 27}, // Esc to skip blocks
 				        {handle: 'left', on: 'keypressed', key: 'w', isExclusive:true},
 				        {handle: 'right', on: 'keypressed', key: 'p', isExclusive:true},
-				        {handle: 'timeout', on: 'timeout', duration: 1490, isExclusive: true}
+				        {handle: 'timeout', on: 'timeout', duration: 1500, isExclusive: true}
 				    ],
 				
 				    interactions: [
@@ -575,156 +570,142 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			retText = retText.replace(/nBlocks/g, nBlocks);
 			return (retText);
 		}
-		//helper function for getting the instructions HTML.
-		function getInstHTML(params)
+
+		// Determine starting condition
+		var firstCatSide = 'leftCat';
+		if (piCurrent.blockOrder == 'startRight')
 		{
-			var instHTML = '';
-			if (params.isPractice)
-			{
-				instHTML = getInstFromTemplate(piCurrent.instTemplatePractice, params.blockNum, params.nBlocks);
-			}
-			else if (params.categorySide == 'rightCat')
-			{
-				instHTML = getInstFromTemplate(piCurrent.instTemplateCategoryRight, params.blockNum, params.nBlocks);
-			}
-			else if (params.categorySide == 'leftCat')
-			{
-				instHTML = getInstFromTemplate(piCurrent.instTemplateCategoryLeft, params.blockNum, params.nBlocks);
-			}
-			return (instHTML);
+		    firstCatSide = 'rightCat';
+		}
+		else if (piCurrent.blockOrder == 'random')
+		{
+		    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
 		}
 		
-		//This is the tricky part. We will create the trial sequence with js code, for flexibility.
-		var trialSequence = [];
+		// Store starting condition for instruction logic
+		var startingCondition = firstCatSide;
 		
-		////Set the block order
-	
-			var firstCatSide = 'leftCat';
-			if (piCurrent.blockOrder == 'startRight')
-			{
-			    firstCatSide = 'rightCat';
-			}
-			else if (piCurrent.blockOrder == 'random')
-			{
-			    firstCatSide = (Math.random() < 0.5) ? 'rightCat' : 'leftCat';
-			}
-			
-			// Definizione della condizione iniziale secondo la tua logica
-			// cat + attributo1 = compatibile, cat + attributo2 = incompatibile
-			piCurrent.startCondition = (firstCatSide === 'leftCat')
-			    ? 'compatibile'
-			    : 'incompatibile';
-	
-		// --- Build the full trial sequence ---
-				var trialSequence = [];
-				var catSide = '';
+		// Build the full trial sequence with conditional instructions
+		var trialSequence = [];
+		var catSide = '';
+		
+		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
+		    var currentCondition = '';
+		    var blockLayout;
+		    var singleAttribute, catAttribute;
+		
+		    // Determine block type and category side
+		    if (catSide !== 'rightCat' && catSide !== 'leftCat') {
+		        // First block — initialize side
+		        catSide = firstCatSide;
+		    } else if (piCurrent.switchSideBlock == iBlock) {
+		        // Switch category sides
+		        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
+		    }
+		
+		    // Define layout and conditions
+		    if (catSide == 'leftCat') {
+		        blockLayout = leftLayout;
+		        singleAttribute = 'rightAtt2';
+		        catAttribute = 'leftAtt1';
+		        currentCondition = category + '/' + attribute1 + ',' + attribute2;
+		    } else if (catSide == 'rightCat') {
+		        blockLayout = rightLayout;
+		        singleAttribute = 'leftAtt1';
+		        catAttribute = 'rightAtt2';
+		        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
+		    }
+		
+		    if (iBlock === 2) {
+		        block2Condition = currentCondition; // store condition order
+		    }
+		
+		   	 // === CONDITIONAL INSTRUCTIONS LOGIC ===
+				let addInstruction = false;
+				let instrHTML = '';
 				
-				for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
-				    var isPrac = false;
-				    var currentCondition = '';
-				    var blockLayout;
-				    var singleAttribute, catAttribute;
-				
-				    // --- Determine block type ---
-				    if (piCurrent.trialsByBlock[iBlock - 1].categoryTrials === 0) {
-				        // Practice block
-				        isPrac = true;
-				    } else if (catSide !== 'rightCat' && catSide !== 'leftCat') {
-				        // First main block — initialize side
-				        catSide = firstCatSide;
-				    } else if (piCurrent.switchSideBlock == iBlock || piCurrent.switchSideBlock <= 0) {
-				        // Switch category sides
-				        catSide = (catSide == 'rightCat') ? 'leftCat' : 'rightCat';
+				// Determina le istruzioni in base alla condizione iniziale
+				if (startingCondition === 'leftCat') {  // Condizione compatibile (C)
+				    if (iBlock === 1) {
+				        addInstruction = true;
+				        instrHTML = getInstFromTemplate(piCurrent.instTemplateCategoryLeft, iBlock, piCurrent.trialsByBlock.length); // InstrA
+				    } else if (iBlock === piCurrent.switchSideBlock) {
+				        addInstruction = true;
+				        instrHTML = piCurrent.instTemplateTransitionCtoI; // InstrB
 				    }
-				
-				    // --- Define layout and conditions ---
-				    if (isPrac) {
-				        blockLayout = pracLayout;
-				        currentCondition = attribute1 + ',' + attribute2;
-				    } else if (catSide == 'leftCat') {
-				        blockLayout = leftLayout;
-				        singleAttribute = 'rightAtt2';
-				        catAttribute = 'leftAtt1';
-				        currentCondition = category + '/' + attribute1 + ',' + attribute2;
-				    } else if (catSide == 'rightCat') {
-				        blockLayout = rightLayout;
-				        singleAttribute = 'leftAtt1';
-				        catAttribute = 'rightAtt2';
-				        currentCondition = attribute1 + ',' + attribute2 + '/' + category;
+				} else if (startingCondition === 'rightCat') { // Condizione incompatibile (I)
+				    if (iBlock === 1) {
+				        addInstruction = true;
+				        instrHTML = getInstFromTemplate(piCurrent.instTemplateCategoryRight, iBlock, piCurrent.trialsByBlock.length); // InstrC
+				    } else if (iBlock === piCurrent.switchSideBlock) {
+				        addInstruction = true;
+				        instrHTML = piCurrent.instTemplateTransitionItoC; // InstrD
 				    }
+				}
 				
-				    if (iBlock === 2) {
-				        block2Condition = currentCondition; // store condition order
-				    }
-				
-				    // --- Instructions for this block ---
-				    var instHTML = piCurrent.trialsByBlock[iBlock - 1].instHTML;
-				    if (instHTML === '') {
-				        instHTML = getInstHTML({
-				            blockNum: iBlock,
-				            nBlocks: piCurrent.trialsByBlock.length,
-				            isPractice: isPrac,
-				            categorySide: catSide
-				        });
-				    }
-				
-				    // Add instruction screen
+				// Aggiungi istruzioni solo quando necessario
+				if (addInstruction) {
 				    trialSequence.push({
 				        inherit: 'instructions',
 				        data: { block: iBlock, condition: currentCondition },
 				        stimuli: [
-				            { media: { html: instHTML }, css: { color: 'black', 'font-size': '1em' } }
+				            {
+				                media: {
+				                    html: instrHTML
+				                        .replace('thecategory', piCurrent.category.name)
+				                        .replace('blockNum', 'Blocco ' + iBlock)
+				                },
+				                css: { color: 'black', 'font-size': '1em' }
+				            }
 				        ]
 				    });
-				
-				    // --- Mini-blocks ---
-				    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
-				        var mixer = {
-				            mixer: 'random',
-				            data: [
-				                // Single-attribute trials
-				                {
-				                    mixer: 'repeat',
-				                    times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
-				                    data: [{
-				                        inherit: singleAttribute,
-				                        data: { condition: currentCondition, block: iBlock },
-				                        layout: blockLayout.concat(reminderStimulus)
-				                    }]
-				                },
-				                // Shared-attribute trials
-				                {
-				                    mixer: 'repeat',
-				                    times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
-				                    data: [{
-				                        inherit: catAttribute,
-				                        data: { condition: currentCondition, block: iBlock },
-				                        layout: blockLayout.concat(reminderStimulus)
-				                    }]
-				                }
-				            ]
-				        };
-				
-				        // Add category trials (only for main blocks)
-				        if (!isPrac) {
-				            mixer.data.push({
-				                mixer: 'repeat',
-				                times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
-				                data: [{
-				                    inherit: catSide,
-				                    data: { condition: currentCondition, block: iBlock },
-				                    layout: blockLayout.concat(reminderStimulus)
-				                }]
-				            });
-				        }
-				
-				        trialSequence.push(mixer);
-				    }
 				}
-				
-				// --- Add the completed sequence ---
-				API.addSequence(trialSequence);
-
+		
+		    // --- Mini-blocks ---
+		    for (var iMini = 1; iMini <= piCurrent.trialsByBlock[iBlock - 1].miniBlocks; iMini++) {
+		        var mixer = {
+		            mixer: 'random',
+		            data: [
+		                // Single-attribute trials
+		                {
+		                    mixer: 'repeat',
+		                    times: piCurrent.trialsByBlock[iBlock - 1].singleAttTrials,
+		                    data: [{
+		                        inherit: singleAttribute,
+		                        data: { condition: currentCondition, block: iBlock },
+		                        layout: blockLayout.concat(reminderStimulus)
+		                    }]
+		                },
+		                // Shared-attribute trials
+		                {
+		                    mixer: 'repeat',
+		                    times: piCurrent.trialsByBlock[iBlock - 1].sharedAttTrials,
+		                    data: [{
+		                        inherit: catAttribute,
+		                        data: { condition: currentCondition, block: iBlock },
+		                        layout: blockLayout.concat(reminderStimulus)
+		                    }]
+		                }
+		            ]
+		        };
+		
+		        // Add category trials
+		        mixer.data.push({
+		            mixer: 'repeat',
+		            times: piCurrent.trialsByBlock[iBlock - 1].categoryTrials,
+		            data: [{
+		                inherit: catSide,
+		                data: { condition: currentCondition, block: iBlock },
+		                layout: blockLayout.concat(reminderStimulus)
+		            }]
+		        });
+		
+		        trialSequence.push(mixer);
+		    }
+		}
+		
+		// --- Add the completed sequence ---
+		API.addSequence(trialSequence);
 
 		
 		//Settings for the score computation.
