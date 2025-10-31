@@ -353,17 +353,17 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					  },
 					
 					  // 2. correct response
-					  {
-					    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
-					    actions: [
-					      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
-					      { type: 'hideStim', handle: 'All' },
-					      { type: 'setTrialAttr', setter: { score: 1 } },
-					      { type: 'log' },
-					      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
-					    ]
-					  },
-					
+						{
+						    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
+						    actions: [
+						      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+						      { type: 'showStim', handle: 'correct' },       // <-- Mostra feedback positivo
+						      { type: 'setTrialAttr', setter: { score: 1 } },
+						      { type: 'log' },
+						      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // durata pari all'ITI
+						    ]
+						},
+						
 					  // 3. incorrect response
 					  {
 					    conditions: [
@@ -537,6 +537,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			error : [{
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
+			correct : [{
+        data:{handle:'correct'}, location: {top: 70}, css:{color:'green','font-size':'4em'}, media: {word:'O'}, nolog:true
+    		}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
 				location:{left:99}, media:{word:' '}
