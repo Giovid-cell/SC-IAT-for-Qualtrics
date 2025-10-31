@@ -1,12 +1,10 @@
-// https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/QualtricsStiat.js
-
-define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@1d22bdd3409c9cab9618c37419095890eab69d44/SC_IAT_ita_study3/scripts/scripts_MA/extension_MA_st3.js'], function(APIConstructor, stiatExtension){
+define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@b286c64cffe7257108be9ffe3959fc626ae7ff88/SC_IAT_ita_study3/scripts/scripts_MA/extension_MA_st3.js'], function(APIConstructor, stiatExtension){
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
-      name : 'Nome Paziente',
+      name : 'Paziente',
       title : {
-        media : {word : 'Nome Paziente'},
+        media : {word : 'Paziente'},
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       }, 
