@@ -1,6 +1,6 @@
 // https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics/QualtricsStiat.js
 
-define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@24dfe74df681f630e2e640570e57eb8f1a03fb27/SC_IAT_ita_study3/scripts/scripts_MA/extension_MA_st3.js'], function(APIConstructor, stiatExtension){
+define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@c009af64a2d172f6aeadaf1c9e82e55a03f3045b/SC_IAT_ita_study3/scripts/scripts_MA/extension_MA_st3.js'], function(APIConstructor, stiatExtension){
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
