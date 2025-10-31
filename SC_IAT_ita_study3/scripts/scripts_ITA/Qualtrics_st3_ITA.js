@@ -4,9 +4,9 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
-      name : 'Nome Paziente',
+      name : 'Paziente',
       title : {
-        media : {word : 'Nome Paziente'},
+        media : {word : 'Paziente'},
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       }, 
