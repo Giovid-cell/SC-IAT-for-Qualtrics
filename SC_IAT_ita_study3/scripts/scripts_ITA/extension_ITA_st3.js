@@ -588,6 +588,22 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		// Build the full trial sequence with conditional instructions
 		var trialSequence = [];
 		var catSide = '';
+
+		// Layout per le istruzioni con solo categorie e attributi (senza le key)
+			var leftLayoutInst = [
+			    {location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
+			    {location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css},
+			    {location:{left:6,top:4+(piCurrent.attribute1.title.height|3)}, media:{word:piCurrent.orText}, css:piCurrent.orCss},
+			    {location:{left:6,top:11+(piCurrent.attribute1.title.height|3)},media:piCurrent.category.title.media, css:piCurrent.category.title.css}
+			];
+			
+			var rightLayoutInst = [
+			    {location:{left:6,top:4},media:piCurrent.attribute1.title.media, css:piCurrent.attribute1.title.css},
+			    {location:{right:6,top:4},media:piCurrent.attribute2.title.media, css:piCurrent.attribute2.title.css},
+			    {location:{right:6,top:4+(piCurrent.attribute2.title.height|3)},media:{word:piCurrent.orText}, css:piCurrent.orCss},
+			    {location:{right:6,top:11+(piCurrent.attribute2.title.height|3)},media:piCurrent.category.title.media, css:piCurrent.category.title.css}
+			];
+
 		
 		for (var iBlock = 1; iBlock <= piCurrent.trialsByBlock.length; iBlock++) {
 		    var currentCondition = '';
@@ -648,6 +664,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				    trialSequence.push({
 				        inherit: 'instructions',
 				        data: { block: iBlock, condition: currentCondition },
+				        layout: (catSide === 'leftCat') ? leftLayoutInst : rightLayoutInst, // Layout in alto
 				        stimuli: [
 				            {
 				                media: {
