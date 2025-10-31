@@ -187,31 +187,34 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				  '</div>' +
 				'</div>',
 				
-				instTemplateTransitionCtoI: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
-				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:19px; line-height:1.35em; text-align:left;">' +
-				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
-				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
-				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> a <b>DESTRA</b>.</p>' +
-				      '<p style="margin-bottom:12px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
-				      '<p style="margin-bottom:12px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
-				      '<p style="margin-top:16px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
-				    '</div>' +
-				  '</div>' +
-				'</div>',
-				
-				instTemplateTransitionItoC: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
-				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:19px; line-height:1.35em; text-align:left;">' +
-				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
-				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b>.</p>' +
-				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
-				      '<p style="margin-bottom:12px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
-				      '<p style="margin-bottom:12px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
-				      '<p style="margin-top:16px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
-				    '</div>' +
-				  '</div>' +
-				'</div>'
+					instTemplateTransitionCtoI: 
+					'<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
+					  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
+					    '<div style="width:80%; max-width:700px; font-size:16px; line-height:1.1em; text-align:left;">' +
+					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
+					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> a <b>DESTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
+					      '<p style="margin-bottom:6px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
+					      '<p style="margin-top:12px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+					    '</div>' +
+					  '</div>' +
+					'</div>',
+					
+					instTemplateTransitionItoC: 
+					'<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
+					  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
+					    '<div style="width:80%; max-width:700px; font-size:16px; line-height:1.1em; text-align:left;">' +
+					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
+					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
+					      '<p style="margin-bottom:6px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
+					      '<p style="margin-top:12px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+					    '</div>' +
+					  '</div>' +
+					'</div>'
+
 
 		};
 			
@@ -361,15 +364,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					
 					  // 2. correct response
 						{
-						    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
-						    actions: [
-						      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
-						      { type: 'showStim', handle: 'correct' },       // <-- Mostra feedback positivo
-						      { type: 'setTrialAttr', setter: { score: 1 } },
-						      { type: 'log' },
-						      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // durata pari all'ITI
-						    ]
-						},
+						conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
+						actions: [
+						    { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+						    { type: 'setTrialAttr', setter: { score: 1 } },
+						    { type: 'log' },
+						    { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration }
+						]
+						}
 						
 					  // 3. incorrect response
 					  {
@@ -544,9 +546,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			error : [{
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
-			correct: [{
-    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'font-weight': 'bold', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
-			}],
+			
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
 				location:{left:99}, media:{word:' '}
