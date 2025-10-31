@@ -12,7 +12,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		{
 			//Set the canvas of the task
 				canvas: {
-				    maxWidth: 1500,          // più grande
+				    maxWidth: 1700,          // più grande
 				    proportions: 0.6,       // più orizzontale (più largo, meno alto)
 				    background: '#ffffff',
 				    borderWidth: 5,
@@ -152,15 +152,16 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
 			// Instruction templates
+			// Instruction templates
 				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-					'<div style="font-size:20px; max-width:750px; line-height:1.4; margin:140px auto 0 auto; text-align:left;">'+
+					'<div style="font-size:19px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 				      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a una categoria a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 				      'se appartiene a una categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
-				      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Saif, Saif Khemal, S.K</p>' +
+				      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Saif, Saif Khemal, S.K.</p>' +
 				      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
 				      '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 				      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
@@ -171,7 +172,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-					'<div style="font-size:20px; max-width:750px; line-height:1.4; margin:140px auto 0 auto; text-align:left;">'+
+					'<div style="font-size:19px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
@@ -188,7 +189,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateTransitionCtoI: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:19px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> a <b>DESTRA</b>.</p>' +
@@ -201,7 +202,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateTransitionItoC: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:19px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b>.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
@@ -214,7 +215,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 		};
 			
-	// Estensione piCurrent con opzioni e valori di default
+			// Estensione piCurrent con opzioni e valori di default
 			_.extend(piCurrent, _.defaults(options, stiatObj))
 			
 			// Funzioni helper
@@ -359,17 +360,17 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					  },
 					
 					  // 2. correct response
-					  {
-					    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
-					    actions: [
-					      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
-					      { type: 'hideStim', handle: 'All' },
-					      { type: 'setTrialAttr', setter: { score: 1 } },
-					      { type: 'log' },
-					      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
-					    ]
-					  },
-					
+						{
+						    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
+						    actions: [
+						      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
+						      { type: 'showStim', handle: 'correct' },       // <-- Mostra feedback positivo
+						      { type: 'setTrialAttr', setter: { score: 1 } },
+						      { type: 'log' },
+						      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // durata pari all'ITI
+						    ]
+						},
+						
 					  // 3. incorrect response
 					  {
 					    conditions: [
@@ -543,6 +544,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			error : [{
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
+			correct: [{
+    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'font-weight': 'bold', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
+			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
 				location:{left:99}, media:{word:' '}
