@@ -151,63 +151,63 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// The following variables in the instructions text will be replaced: 
 			// blockNum, nBlocks, attribute1, attribute2, and thecategory.
 			// Notice that this is HTML text.
-			instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
-			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-			    '<div style="font-size:20px; max-width:800px; line-height:1.3;">' +
-			      '<p style="text-align:center; margin-bottom:10px;"><font color="#000000"><u>blockNum</u></font></p>' +
-			      '<div style="text-align:left;">' +
-			        '<p style="margin-bottom:6px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-			        '<p style="margin-bottom:6px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-			        '<p style="margin-bottom:6px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-			        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-			        '<p style="margin-bottom:6px;">Le ricordiamo che gli stimoli appartengono a una sola delle due categorie.</p>' +
-			        '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-			        '<p style="margin-bottom:6px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-			        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-			      '</div>' +
-			    '</div>' +
-			  '</div>' +
-			'</div>',
-			
-			instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
-			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-			    '<div style="font-size:20px; max-width:800px; line-height:1.3;">' +
-			      '<p style="text-align:center; margin-bottom:10px;"><font color="#000000"><u>blockNum</u></font></p>' +
-			      '<div style="text-align:left;">' +
-			        '<p style="margin-bottom:6px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
-			        '<p style="margin-bottom:6px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-			        '<p style="margin-bottom:6px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-			        '<p style="margin-bottom:6px;">Se lo stimolo appartiene a una delle due categorie a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-			        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-			        '<p style="margin-bottom:6px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
-			        '<p style="margin-bottom:6px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
-			        '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-			        '<p style="margin-bottom:6px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-			        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-			      '</div>' +
-			    '</div>' +
-			  '</div>' +
-			'</div>',
-			
-			instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
-			  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
-			    '<div style="font-size:20px; max-width:800px; line-height:1.3;">' +
-			      '<p style="text-align:center; margin-bottom:10px;"><font color="#000000"><u>blockNum</u></font></p>' +
-			      '<div style="text-align:left;">' +
-			        '<p style="margin-bottom:6px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
-			        '<p style="margin-bottom:6px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
-			        '<p style="margin-bottom:6px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
-			        '<p style="margin-bottom:6px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
-			        'se lo stimolo appartiene a una delle due categorie a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
-			        '<p style="margin-bottom:6px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
-			        '<p style="margin-bottom:6px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
-			        '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
-			        '<p style="margin-bottom:6px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
-			        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
-			      '</div>' +
-			    '</div>' +
-			  '</div>' +
-			'</div>'
+				instTemplatePractice: '<div style="width:100%; height:100%; font-family:arial;">' +
+		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
+		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
+		      '<div style="text-align:left;">' +
+		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
+		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi visualizzate in alto, a destra e sinistra, del monitor.</p>' +
+		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
+		        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
+		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle due categorie.</p>' +
+		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
+		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
+		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+		      '</div>' +
+		    '</div>' +
+		  '</div>' +
+		'</div>',
+		
+		instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial;">' +
+		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
+		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
+		      '<div style="text-align:left;">' +
+		        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
+		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
+		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
+		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene a una delle due categorie a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
+		        'se lo stimolo appartiene alla categoria a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
+		        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
+		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
+		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
+		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
+		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+		      '</div>' +
+		    '</div>' +
+		  '</div>' +
+		'</div>',
+		
+		instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial;">' +
+		  '<div style="display:flex; justify-content:center; align-items:center; width:100%; height:100%;">' +
+		    '<div style="font-size:18px; max-width:800px; line-height:1.35;">' +
+		      '<p style="text-align:center; margin-bottom:12px;"><font color="#000000"><u>blockNum</u></font></p>' +
+		      '<div style="text-align:left;">' +
+		        '<p style="margin-bottom:8px;">Le chiediamo gentilmente di partecipare a questo secondo esperimento.</p>' +
+		        '<p style="margin-bottom:8px;">Disponga l’indice o il medio sul tasto <b>“W”</b> e sul tasto <b>“P”</b> della tastiera.</p>' +
+		        '<p style="margin-bottom:8px;">Al centro dello schermo compariranno degli stimoli che appartengono alle classi o categorie visualizzate in alto, a destra e sinistra, del monitor.</p>' +
+		        '<p style="margin-bottom:8px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema il tasto <b>“W”</b>;<br/>' +
+		        'se lo stimolo appartiene a una delle due categorie a <b>DESTRA</b>, prema il tasto <b>“P”</b>.</p>' +
+		        '<p style="margin-bottom:8px;">Esempi di stimoli per la categoria “<font color="#31b404">thecategory</font>” sono Paolo, Paolo Tosato, P.T.</p>' +
+		        '<p style="margin-bottom:8px;">Le ricordiamo che gli stimoli appartengono a una sola delle tre categorie.</p>' +
+		        '<p style="margin-bottom:8px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà sullo schermo.</p>' +
+		        '<p style="margin-bottom:8px;">In questa prova si misurano i tempi di risposta. Le chiediamo di rispondere il <b>PIÙ VELOCEMENTE POSSIBILE</b> cercando di non commettere errori.</p>' +
+		        '<p>Quando si sente pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+		      '</div>' +
+		    '</div>' +
+		  '</div>' +
+		'</div>'
 
 		};
 			
