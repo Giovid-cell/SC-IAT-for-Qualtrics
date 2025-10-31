@@ -357,13 +357,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 						    conditions: [{ type: 'inputEqualsTrial', property: 'corResp' }],
 						    actions: [
 						      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
-						      { type: 'hideStim', handle: 'All' },
+						      { type: 'showStim', handle: 'correct' },       // <-- Mostra feedback positivo
 						      { type: 'setTrialAttr', setter: { score: 1 } },
 						      { type: 'log' },
-						      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // delay before ending
+						      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration } // durata pari all'ITI
 						    ]
 						},
-												
+						
 					  // 3. incorrect response
 					  {
 					    conditions: [
@@ -537,7 +537,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			error : [{
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
-			
+			correct: [{
+    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'font-weight': 'bold', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
+			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
 				location:{left:99}, media:{word:' '}
