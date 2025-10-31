@@ -148,7 +148,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// Instruction templates
 				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-					'<div style="font-size:17px; max-width:750px; line-height:1.25; margin:120px auto 0 auto; text-align:left;">'+
+					'<div style="font-size:17px; max-width:750px; line-height:1.25; margin:100px auto 0 auto; text-align:left;">'+
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
@@ -165,7 +165,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-					'<div style="font-size:17px; max-width:750px; line-height:1.25; margin:120px auto 0 auto; text-align:left;">'+
+					'<div style="font-size:17px; max-width:750px; line-height:1.25; margin:100px auto 0 auto; text-align:left;">'+
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
