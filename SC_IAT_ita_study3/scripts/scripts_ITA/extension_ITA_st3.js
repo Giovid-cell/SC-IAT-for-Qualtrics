@@ -148,7 +148,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			// Instruction templates
 				instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:13px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
@@ -165,7 +165,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:13px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
@@ -182,7 +182,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateTransitionCtoI: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:13px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> a <b>DESTRA</b>.</p>' +
@@ -195,7 +195,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				
 				instTemplateTransitionItoC: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 				  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				    '<div style="width:80%; max-width:700px; font-size:18px; line-height:1.35em; text-align:left;">' +
+				    '<div style="width:80%; max-width:700px; font-size:13px; line-height:1.35em; text-align:left;">' +
 				      '<p style="margin-bottom:12px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"W"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b>.</p>' +
 				      '<p style="margin-bottom:12px;">Premere <b>"P"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
