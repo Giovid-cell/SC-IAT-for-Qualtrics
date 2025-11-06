@@ -140,8 +140,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			orCss : {'font-size':'1.8em', color:'#000000'},
 
 			//Will appear at the bottom of the screen during trials.
-			remindErrorText : '<p align="center" style="font-size:0.6em; font-family:arial">' +
-			'Se commette un errore, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
+			remindErrorText : '<p align="center" style="font-size:1em; font-family:arial">' +
+			'Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> rossa apparirà.<p/>',
 			
 			finalText: 'Ha completato questo compito<br/><br/>Premi la BARRA SPAZIATRICE per continuare.', 
 
@@ -152,13 +152,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
-				      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a una categoria a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
+				      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a UNA delle due categorie a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 				      'se appartiene a una categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Paolo, Paolo Tosato, P.T.</p>' +
 				      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
-				      '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
+				      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 				      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
-				      '<p>Quando è pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>',
@@ -170,12 +170,12 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 				      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a una categoria a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
-				      'se appartiene a una categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
+				      'se appartiene a UNA delle due categorie a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 				      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Paolo, Paolo Tosato, P.T.</p>' +
 				      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
-				      '<p style="margin-bottom:6px;">Se commette un errore, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
+				      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 				      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
-				      '<p>Quando è pronto, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
+				      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
 				    '</div>' +
 				  '</div>' +
 				'</div>',
@@ -187,9 +187,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
 					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> a <b>DESTRA</b>.</p>' +
-					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
-					      '<p style="margin-bottom:6px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
-					      '<p style="margin-top:12px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle TRE categorie</b>.</p>' +
+					      '<p style="margin-top:12px;">Quando è pronto/a, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
 					    '</div>' +
 					  '</div>' +
 					'</div>',
@@ -201,9 +200,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
 					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene ad <b>UNA delle due categorie</b> di <b>SINISTRA</b>.</p>' +
 					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
-					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle 3 categorie</b>.</p>' +
-					      '<p style="margin-bottom:6px;">I colori delle parole aiuteranno nell\'identificazione della categoria.</p>' +
-					      '<p style="margin-top:12px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
+					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle TRE categorie</b>.</p>' +
+					      '<p style="margin-top:12px;">Quando è pronto/a, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
 					    '</div>' +
 					  '</div>' +
 					'</div>'
