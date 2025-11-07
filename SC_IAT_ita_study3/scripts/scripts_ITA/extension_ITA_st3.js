@@ -30,13 +30,13 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					height : 4
 				}, 
 				media : [ 
-					{word: 'Saif'},
-					{word: 'Khemal'},
-					{word: 'Saif Khemal'},
-					{word: 'S.K.'},
-					{word: 'Khemal Saif'}
+					{word: 'Paolo'},
+					{word: 'Tosato'},
+					{word: 'Paolo Tosato'},
+					{word: 'P.T.'},
+					{word: 'Paolo Tosato'}
 				],
-				repeatedStimuli: ['Saif Khemal', 'Khemal Saif'], // Specified repeats
+				repeatedStimuli: ['Paolo Tosato', 'Tosato Paolo'], // Specified repeats
 				css : {color:'#31b404','font-size':'2em'}
 			},	
 			attribute1 : 
