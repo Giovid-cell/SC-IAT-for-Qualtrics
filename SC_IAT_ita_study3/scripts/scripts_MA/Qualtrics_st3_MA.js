@@ -9,12 +9,13 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         height : 7
       }, 
       media : [ 
-				{word: 'Saif'},
-				{word: 'Khemal'},
-				{word: 'Saif Khemal'},
-				{word: 'S.K.'},
-				{word: 'Khemal Saif'}
+        {word: 'Saif'},
+        {word: 'Khemal'},
+        {word: 'Saif Khemal'},
+        {word: 'S.K.'},
+        {word: 'Khemal Saif'}
       ],
+      repeatedStimuli: ['Saif Khemal', 'Khemal Saif'], // Added
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute1 : {
@@ -24,13 +25,14 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       },
-       media : [
-				{word: 'aiutare'},
-				{word: 'assistere'},
-				{word: 'soccorrere'},
-				{word: 'sostenere'},
-				{word: 'appoggiare'}
+      media : [
+        {word: 'aiutare'},
+        {word: 'assistere'},
+        {word: 'soccorrere'},
+        {word: 'sostenere'},
+        {word: 'appoggiare'}
       ],
+      repeatedStimuli: ['aiutare', 'sostenere'], // Added
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute2 : {
@@ -40,14 +42,14 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         css : {color:'#31b404','font-size':'2em'},
         height : 7
       },
-		media : [ 
-				{word: 'ostacolare'},
-				{word: 'trascurare'},
-				{word: 'ignorare'},
-				{word: 'dimenticare'},
-				{word: 'tralasciare'}
+      media : [ 
+        {word: 'ostacolare'},
+        {word: 'trascurare'},
+        {word: 'ignorare'},
+        {word: 'dimenticare'},
+        {word: 'tralasciare'}
       ],
-		
+      repeatedStimuli: ['ostacolare', 'tralasciare'], // Added
       css : {color:'#31b404','font-size':'3em'}
     },
     base_url : {
