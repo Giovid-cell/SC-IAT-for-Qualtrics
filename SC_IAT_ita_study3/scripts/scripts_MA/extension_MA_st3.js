@@ -192,8 +192,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
 					    '<div style="width:80%; max-width:700px; font-size:16px; line-height:1.1em; text-align:left;">' +
 					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
-					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
-					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene ad <b>UNA delle DUE categorie</b> a <b>DESTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Prema <b>\"W\"</b> se lo stimolo appartiene alla categoria di <b>SINISTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Prema <b>\"P\"</b> se lo stimolo appartiene ad <b>UNA delle DUE categorie</b> a <b>DESTRA</b>.</p>' +
 					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle TRE categorie</b>.</p>' +
 					      '<p style="margin-top:12px;">Quando è pronto/a, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
 					    '</div>' +
@@ -205,8 +205,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
 					    '<div style="width:80%; max-width:700px; font-size:16px; line-height:1.1em; text-align:left;">' +
 					      '<p style="margin-bottom:6px;">Adesso le categorie appariranno in una nuova configurazione.</p>' +
-					      '<p style="margin-bottom:6px;">Premere <b>\"W\"</b> se lo stimolo appartiene ad <b>UNA delle DUE categorie</b> di <b>SINISTRA</b>.</p>' +
-					      '<p style="margin-bottom:6px;">Premere <b>\"P\"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Prema <b>\"W\"</b> se lo stimolo appartiene ad <b>UNA delle DUE categorie</b> di <b>SINISTRA</b>.</p>' +
+					      '<p style="margin-bottom:6px;">Prema <b>\"P\"</b> se lo stimolo appartiene alla categoria a <b>DESTRA</b>.</p>' +
 					      '<p style="margin-bottom:6px;">Ogni stimolo appartiene esclusivamente ad <b>UNA delle TRE categorie</b>.</p>' +
 					      '<p style="margin-top:12px;">Quando è pronto, prema la <b>BARRA SPAZIATRICE</b> per continuare.</p>' +
 					    '</div>' +
