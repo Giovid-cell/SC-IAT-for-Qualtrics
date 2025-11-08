@@ -133,14 +133,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 
 			instTemplateCategoryLeft: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 			  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				'<div style="font-size:19px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
+				'<div style="font-size:16px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
 			      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 			      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 			      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a UNA delle DUE categorie a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 			      'se appartiene alla categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Saif, Saif Khemal, S.K.</p>' +
-			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
+			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria. Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
 			      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
@@ -150,14 +150,14 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			
 			instTemplateCategoryRight: '<div style="width:100%; height:100%; font-family:arial; padding:38px 0 0 38px;">' +
 			  '<div style="display:flex; justify-content:flex-start; align-items:flex-start; width:100%; height:100%;">' +
-				'<div style="font-size:19px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
+				'<div style="font-size:16px; max-width:750px; line-height:1.25; margin:90px auto 0 auto; text-align:left;">'+
 			      '<p style="margin-bottom:6px;">Le chiediamo di partecipare ad un esperimento.</p>' +
 			      '<p style="margin-bottom:6px;">Disponga l\'indice o il medio sul tasto <b>"W"</b> e sul tasto <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 			      '<p style="margin-bottom:6px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 			      'se appartiene a UNA delle DUE categorie a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Saif, Saif Khemal, S.K.</p>' +
-			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
+			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria. Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
 			      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
@@ -481,7 +481,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
 			correct: [{
-			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'font-weight': 'bold', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
+			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
 			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
