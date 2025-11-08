@@ -141,6 +141,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      'se appartiene alla categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Paolo, Paolo Tosato, P.T.</p>' +
 			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
+				'<p style="margin-bottom:6px;">Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
 			      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
@@ -158,6 +159,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      'se appartiene a UNA delle DUE categorie a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
 			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Paolo, Paolo Tosato, P.T.</p>' +
 			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria.</p>' +
+				'<p style="margin-bottom:6px;">Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
 			      '<p>Quando è pronto/a, prema la <b>barra spaziatrice</b> per cominciare.</p>' +
