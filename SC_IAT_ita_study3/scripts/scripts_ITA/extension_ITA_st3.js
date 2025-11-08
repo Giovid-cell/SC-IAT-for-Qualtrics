@@ -481,7 +481,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 				data:{handle:'error'}, location: {top: 70}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true
 			}], 			
 			correct: [{
-			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'font-weight': 'bold', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
+			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
 			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
