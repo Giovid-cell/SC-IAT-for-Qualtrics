@@ -34,7 +34,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 					{word: 'Tosato'},
 					{word: 'Anna Tosato'},
 					{word: 'A.T.'},
-					{word: 'Anna Tosato'}
+					{word: 'Tosato Anna'}
 				],
 				repeatedStimuli: ['Anna Tosato', 'Tosato Anna'], // Specified repeats
 				css : {color:'#31b404','font-size':'2em'}
@@ -401,8 +401,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      { type: 'removeInput', handle: ['left', 'right', 'timeout'] },
 			      { type: 'setTrialAttr', setter: { score: 2 } },
 			      { type: 'showStim', handle: 'error' },
+			      { type: 'showStim', handle: 'timeoutMsg' },
 			      { type: 'log' },
-			      { type: 'trigger', handle: 'endTrial', duration: piCurrent.ITIDuration }
+			      { type: 'trigger', handle: 'endTrial', duration: 3000 }
 			    ]
 			  },
 			
@@ -482,6 +483,9 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			}], 			
 			correct: [{
 			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
+			}],
+			timeoutMsg: [{
+			    data: {handle: 'timeoutMsg'}, location: {top: 80}, css: {color: 'red', 'font-size': '1.4em', 'font-family': 'arial'}, media: {word: 'Per favore, risponda più velocemente'}, nolog: true
 			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
@@ -633,7 +637,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: ignorareStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
@@ -660,7 +665,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: sostenereStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
@@ -687,7 +693,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: pazienteStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
@@ -717,7 +724,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: sostenereStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
@@ -744,7 +752,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: ignorareStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
@@ -771,7 +780,8 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 		                            media: pazienteStimuli[i]
 		                        },
 		                        {inherit: {set: 'error'}},
-		                        {inherit: {set: 'correct'}}
+		                        {inherit: {set: 'correct'}},
+		                        {inherit: {set: 'timeoutMsg'}}
 		                    ]
 		                });
 		            }
