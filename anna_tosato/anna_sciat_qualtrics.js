@@ -1,4 +1,4 @@
-define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@41cea50a8d6db278a2e73b5ed0474297673275fd/anna_tosato/anna_sciat_ext.js'], function(APIConstructor, stiatExtension){
+define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@cba2efd46101bf6c57d779f975fb7e84a5279358/anna_tosato/anna_sciat_ext.js'], function(APIConstructor, stiatExtension){
   var API = new APIConstructor();
   return stiatExtension({
     category : { 
@@ -13,9 +13,9 @@ define(['pipAPI', 'https://cdn.jsdelivr.net/gh/Giovid-cell/SC-IAT-for-Qualtrics@
         {word: 'Tosato'},
         {word: 'Anna Tosato'},
         {word: 'A.T.'},
-        {word: 'Tosato Paolo'}
+        {word: 'Tosato Anna'}
       ],
-      repeatedStimuli: ['Paolo Tosato', 'Tosato Paolo'], // Added
+      repeatedStimuli: ['Anna Tosato', 'Tosato Anna'], // Added
       css : {color:'#31b404','font-size':'3em'}
     },
     attribute1 : {
