@@ -139,7 +139,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 			      '<p style="margin-bottom:6px;">Se lo stimolo appartiene a UNA delle DUE categorie a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 			      'se appartiene alla categoria a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
-			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Anna, Anna Tosato, P.T.</p>' +
+			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Anna, Anna Tosato, A.T.</p>' +
 			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria. Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
@@ -156,7 +156,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      '<p style="margin-bottom:6px;">Al centro dello schermo compariranno stimoli appartenenti alle categorie visualizzate in alto, a destra e a sinistra.</p>' +
 			      '<p style="margin-bottom:6px;">Se lo stimolo appartiene alla categoria a <b>SINISTRA</b>, prema <b>"W"</b>;<br>' +
 			      'se appartiene a UNA delle DUE categorie a <b>DESTRA</b>, prema <b>"P"</b>.</p>' +
-			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Anna, Anna Tosato, P.T.</p>' +
+			      '<p style="margin-bottom:6px;">Esempi di stimoli per "<font color="#31b404">thecategory</font>": Anna, Anna Tosato, A.T.</p>' +
 			      '<p style="margin-bottom:6px;">Ogni stimolo appartiene a una sola categoria. Se la risposta è corretta, una <font color="#00b300"><b>O</b></font> verde apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Se commette un errore, o la risposta è troppo lenta, una <font color="#ff0000"><b>X</b></font> apparirà sullo schermo.</p>' +
 			      '<p style="margin-bottom:6px;">Risponda <b>il più velocemente possibile</b> cercando di non commettere errori.</p>' +
