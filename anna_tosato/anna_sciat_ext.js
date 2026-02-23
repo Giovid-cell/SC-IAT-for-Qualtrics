@@ -403,7 +403,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			      { type: 'showStim', handle: 'error' },
 			      { type: 'showStim', handle: 'timeoutMsg' },
 			      { type: 'log' },
-			      { type: 'trigger', handle: 'endTrial', duration: 3000 }
+			      { type: 'trigger', handle: 'endTrial', duration: 1500 }
 			    ]
 			  },
 			
@@ -485,7 +485,7 @@ define(['pipAPI','pipScorer','underscore'], function(APIConstructor, Scorer, _) 
 			    data: {handle: 'correct'}, location: {top: 75}, css: {color: 'green', 'font-size': '4em', 'text-shadow': '0 0 2px #000'}, media: {word: 'O'}, nolog: true                          
 			}],
 			timeoutMsg: [{
-			    data: {handle: 'timeoutMsg'}, location: {top: 80}, css: {color: 'red', 'font-size': '1.4em', 'font-family': 'arial'}, media: {word: 'Per favore, risponda più velocemente'}, nolog: true
+			    data: {handle: 'timeoutMsg'}, location: {top: 88}, css: {color: 'red', 'font-size': '1.4em', 'font-family': 'arial'}, media: {word: 'Per favore, risponda più velocemente'}, nolog: true
 			}],
 			dummyForLog : [{
 				data:{name:'dummyForLog', alias:'dummyForLog'}, 
