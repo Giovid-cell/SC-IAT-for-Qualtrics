@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SC-IAT Builder</title>
+  <style>
+    :root { --bg:#f4f6f8; --card:#fff; --ink:#1d2733; --muted:#5b6b7b; --accent:#2563eb; --green:#31b404; --line:#dce3ea; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.45; }
+    header { background:linear-gradient(135deg,#1e3a8a,#2563eb); color:#fff; padding:22px 28px; }
+    header h1 { margin:0 0 4px; font-size:22px; }
+    header p { margin:0; opacity:.9; font-size:14px; }
+    main { max-width:1080px; margin:0 auto; padding:22px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:18px; }
+    .card h2 { margin:0 0 14px; font-size:16px; display:flex; align-items:center; gap:8px; }
+    .card h2 .tag { font-size:11px; font-weight:600; color:#fff; background:var(--accent); border-radius:20px; padding:2px 9px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+    @media (max-width:820px){ .grid3 { grid-template-columns:1fr; } }
+    label { display:block; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.02em; }
+    input, select, textarea { width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; background:#fff; }
+    textarea { resize:vertical; }
+    .field { margin-bottom:12px; }
+    .hint { font-size:12px; color:var(--muted); margin:2px 0 0; }
+    .subcard { border:1px solid var(--line); border-radius:10px; padding:14px; background:#fafcff; }
+    .subcard h3 { margin:0 0 10px; font-size:14px; }
+    .row { display:flex; gap:10px; }
+    .row > div { flex:1; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin:6px 0 24px; }
+    button { cursor:pointer; border:none; border-radius:8px; padding:11px 18px; font-size:14px; font-weight:600; }
+    .primary { background:var(--accent); color:#fff; }
+    .ghost { background:#eef2f7; color:var(--ink); }
+    .mini { padding:6px 12px; font-size:12px; background:#eef2f7; color:var(--ink); }
+    #output { display:none; }
+    .outhead { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+    .codebox { width:100%; min-height:230px; font-family:ui-monospace,Consolas,Menlo,monospace; font-size:12.5px; background:#0f172a; color:#e2e8f0; border:none; border-radius:10px; padding:14px; }
+    .warn { border:1px solid #f3c969; background:#fff8e6; color:#7a5b00; border-radius:10px; padding:12px 14px; font-size:13px; margin-bottom:16px; }
+    .warn.ok { border-color:#bfe6bf; background:#eefaee; color:#246b24; }
+    .warn ul { margin:8px 0 0; padding-left:18px; }
+    .steps { background:#eef5ff; border:1px solid #cfe0ff; border-radius:10px; padding:6px 16px; font-size:13.5px; }
+    code { background:#eef2f7; padding:1px 5px; border-radius:5px; font-size:12.5px; }
+    .checkrow { display:flex; align-items:center; gap:8px; }
+    .checkrow input { width:auto; }
+    .checkrow label { margin:0; text-transform:none; letter-spacing:0; }
+    .modal { display:none; position:fixed; inset:0; background:rgba(15,23,42,.6); z-index:50; align-items:flex-start; justify-content:center; padding:24px; overflow:auto; }
+    .modal-box { background:#fff; border-radius:14px; width:100%; max-width:960px; padding:18px 20px; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .prev-status { font-size:13px; color:var(--muted); background:#f1f5f9; border-radius:8px; padding:8px 12px; margin-bottom:10px; }
+    .prev-canvas { min-height:560px; border:1px solid var(--line); border-radius:10px; background:#fff; overflow:hidden; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>SC-IAT Builder</h1>
+  <p>Genera il modulo di configurazione MinnoJS per Qualtrics — pattern bootstrap loader (incolli in Qualtrics una volta sola).</p>
+</header>
+
+<main>
+  <!-- Repository / hosting -->
+  <div class="card">
+    <h2><span class="tag">1</span> Repository &amp; hosting</h2>
+    <div class="grid">
+      <div class="field"><label>Repository GitHub</label><input id="repo" placeholder="utente/repo"><p class="hint">Formato <code>utente/repo</code>. Da qui si costruiscono gli URL jsDelivr.</p></div>
+      <div class="field"><label>Percorso file config</label><input id="configPath"><p class="hint">Dove committerai il modulo generato.</p></div>
+      <div class="field"><label>Percorso motore (extension)</label><input id="enginePath"></div>
+      <div class="field"><label>Commit del motore (pin)</label><input id="engineCommit"><p class="hint">Consigliato un commit specifico (immutabile), non <code>main</code>.</p></div>
+      <div class="field"><label>Base URL immagini</label><input id="imagesBaseUrl"></div>
+    </div>
+  </div>
+
+  <!-- Categoria & attributi -->
+  <div class="card">
+    <h2><span class="tag">2</span> Categoria &amp; attributi</h2>
+    <div class="grid3">
+      <div class="subcard" id="sub-category"><h3>Categoria</h3>
+        <div class="field"><label>Nome</label><input id="category_name"></div>
+        <div class="field"><label>Tipo stimoli</label><select id="category_mediaType"><option value="word">Parole</option><option value="image">Immagini (file)</option></select></div>
+        <div class="field"><label>Stimoli (uno per riga)</label><textarea id="category_stimuli" rows="5"></textarea></div>
+        <div class="field"><label>Stimoli ripetuti (2)</label><textarea id="category_repeated" rows="2"></textarea></div>
+        <div class="row"><div class="field"><label>Colore</label><input id="category_color"></div><div class="field"><label>Font stimoli</label><input id="category_fontSize"></div></div>
+        <div class="row"><div class="field"><label>Font titolo</label><input id="category_titleFontSize"></div><div class="field"><label>Altezza titolo</label><input id="category_titleHeight" type="number"></div></div>
+      </div>
+      <div class="subcard" id="sub-attribute1"><h3>Attributo 1 (sinistra)</h3>
+        <div class="field"><label>Nome</label><input id="attribute1_name"></div>
+        <div class="field"><label>Tipo stimoli</label><select id="attribute1_mediaType"><option value="word">Parole</option><option value="image">Immagini (file)</option></select></div>
+        <div class="field"><label>Stimoli (uno per riga)</label><textarea id="attribute1_stimuli" rows="5"></textarea></div>
+        <div class="field"><label>Stimoli ripetuti (2)</label><textarea id="attribute1_repeated" rows="2"></textarea></div>
+        <div class="row"><div class="field"><label>Colore</label><input id="attribute1_color"></div><div class="field"><label>Font stimoli</label><input id="attribute1_fontSize"></div></div>
+        <div class="row"><div class="field"><label>Font titolo</label><input id="attribute1_titleFontSize"></div><div class="field"><label>Altezza titolo</label><input id="attribute1_titleHeight" type="number"></div></div>
+      </div>
+      <div class="subcard" id="sub-attribute2"><h3>Attributo 2 (destra)</h3>
+        <div class="field"><label>Nome</label><input id="attribute2_name"></div>
+        <div class="field"><label>Tipo stimoli</label><select id="attribute2_mediaType"><option value="word">Parole</option><option value="image">Immagini (file)</option></select></div>
+        <div class="field"><label>Stimoli (uno per riga)</label><textarea id="attribute2_stimuli" rows="5"></textarea></div>
+        <div class="field"><label>Stimoli ripetuti (2)</label><textarea id="attribute2_repeated" rows="2"></textarea></div>
+        <div class="row"><div class="field"><label>Colore</label><input id="attribute2_color"></div><div class="field"><label>Font stimoli</label><input id="attribute2_fontSize"></div></div>
+        <div class="row"><div class="field"><label>Font titolo</label><input id="attribute2_titleFontSize"></div><div class="field"><label>Altezza titolo</label><input id="attribute2_titleHeight" type="number"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blocchi & tempi -->
+  <div class="card">
+    <h2><span class="tag">3</span> Blocchi &amp; tempi</h2>
+    <div class="grid">
+      <div class="field"><label>Numero di blocchi</label><input id="numBlocks" type="number"></div>
+      <div class="field"><label>Trial attributo singolo</label><input id="singleAttTrials" type="number"><p class="hint">Motore: solo 10.</p></div>
+      <div class="field"><label>Trial attributo condiviso</label><input id="sharedAttTrials" type="number"><p class="hint">Motore: solo 7.</p></div>
+      <div class="field"><label>Trial categoria</label><input id="categoryTrials" type="number"><p class="hint">Motore: solo 7.</p></div>
+      <div class="field"><label>Mini-blocchi</label><input id="miniBlocks" type="number"></div>
+      <div class="field"><label>Ordine blocchi</label><select id="blockOrder"><option value="random">random</option><option value="startLeft">startLeft</option><option value="startRight">startRight</option></select></div>
+      <div class="field"><label>Blocco di switch lato</label><input id="switchSideBlock" type="number"></div>
+      <div class="field"><label>ITI (ms)</label><input id="ITIDuration" type="number"></div>
+    </div>
+  </div>
+
+  <!-- Tasti & testi -->
+  <div class="card">
+    <h2><span class="tag">4</span> Tasti &amp; testi</h2>
+    <div class="grid">
+      <div class="field"><label>Tasto sinistro</label><input id="leftKey" maxlength="1"><p class="hint">Carattere singolo (es. w).</p></div>
+      <div class="field"><label>Tasto destro</label><input id="rightKey" maxlength="1"><p class="hint">Carattere singolo (es. p).</p></div>
+      <div class="field"><label>Timeout risposta (ms)</label><input id="responseTimeout" type="number"></div>
+      <div class="field"><label>Testo tasto sinistro</label><input id="leftKeyText"></div>
+      <div class="field"><label>Testo tasto destro</label><input id="rightKeyText"></div>
+      <div class="field"><label>Testo "o"</label><input id="orText"></div>
+    </div>
+    <div class="field"><label>Testo finale</label><input id="finalText"></div>
+    <p class="hint">Con il motore generalizzato (<code>sciat_engine.js</code>) tasti e timeout sono ora configurabili. I testi dei tasti non si aggiornano da soli: aggiornali a mano se cambi i tasti fisici.</p>
+    <div class="checkrow" style="margin-top:12px"><input type="checkbox" id="customizeInstructions"><label for="customizeInstructions">Personalizza i testi delle istruzioni (HTML)</label></div>
+    <div id="instructionsBox" style="margin-top:12px">
+      <div class="field"><label>Istruzioni — categoria a sinistra</label><textarea id="instCategoryLeft" rows="4"></textarea></div>
+      <div class="field"><label>Istruzioni — categoria a destra</label><textarea id="instCategoryRight" rows="4"></textarea></div>
+      <div class="field"><label>Transizione C→I</label><textarea id="instTransitionCtoI" rows="3"></textarea></div>
+      <div class="field"><label>Transizione I→C</label><textarea id="instTransitionItoC" rows="3"></textarea></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="btnGenerate">Genera codice</button>
+    <button class="ghost" id="btnPreview">▶ Anteprima live</button>
+    <button class="ghost" id="btnReset">Ripristina default</button>
+  </div>
+
+  <!-- Output -->
+  <div class="card" id="output">
+    <h2>Risultato</h2>
+    <div id="warnings"></div>
+
+    <div class="outhead">
+      <label style="margin:0">Modulo config — da committare nel repo</label>
+      <div><button class="mini" id="copyConfig">Copia</button> <button class="mini" id="dlConfig">Scarica config</button></div>
+    </div>
+    <textarea class="codebox" id="configOut" readonly></textarea>
+
+    <div class="outhead" style="margin-top:18px">
+      <label style="margin:0">Wrapper Qualtrics — incolla UNA volta nell'editor JS della domanda</label>
+      <div><button class="mini" id="copyWrapper">Copia</button> <button class="mini" id="dlWrapper">Scarica wrapper</button></div>
+    </div>
+    <textarea class="codebox" id="wrapperOut" readonly></textarea>
+
+    <h2 style="margin-top:20px">Cosa fare adesso</h2>
+    <div class="steps" id="steps"></div>
+  </div>
+
+  <!-- Pubblicazione GitHub -->
+  <div class="card">
+    <h2><span class="tag">⇧</span> Pubblica su GitHub (opzionale)</h2>
+    <p class="hint" style="margin-top:0">Committa il modulo config direttamente nel repo tramite GitHub API, senza usare git a mano. Il token resta solo in questa pagina (non viene salvato).</p>
+    <div class="grid">
+      <div class="field"><label>Token GitHub</label><input id="ghToken" type="password" placeholder="ghp_… (Contents: write)"><p class="hint">Fine-grained token con permesso <code>Contents: Read and write</code> sul repo.</p></div>
+      <div class="field"><label>Branch</label><input id="ghBranch" value="main"></div>
+      <div class="field"><label>Messaggio di commit</label><input id="ghMessage" value="update sciat config"></div>
+    </div>
+    <div class="actions" style="margin:6px 0 0">
+      <button class="primary" id="btnPublish">Pubblica config</button>
+      <button class="ghost" id="btnPublishEngine">Pubblica motore</button>
+    </div>
+    <div class="warn" id="ghStatus" style="display:none; margin-top:14px"></div>
+    <p class="hint"><b>Config</b>: lo pubblichi a ogni modifica. <b>Motore</b>: lo pubblichi una volta sola (e quando lo aggiorni) — dopo la pubblicazione il campo "Commit del motore" viene pinnato in automatico al nuovo commit.</p>
+  </div>
+</main>
+
+<!-- Modal anteprima -->
+<div id="previewModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <b>Anteprima SC-IAT</b>
+      <button class="mini" id="previewClose">✕ Chiudi</button>
+    </div>
+    <div id="previewStatus" class="prev-status"></div>
+    <div id="previewCanvas" class="prev-canvas"></div>
+    <label style="margin-top:12px">Dati raccolti (output del logger, formato CSV)</label>
+    <textarea id="previewLog" class="codebox" style="min-height:120px" readonly></textarea>
+  </div>
+</div>
+
+<script src="js/defaults.js"></script>
+<script src="js/engine-source.js"></script>
+<script src="js/builder.js"></script>
+</body>
+</html>
